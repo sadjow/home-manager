@@ -2,7 +2,7 @@
   description = "Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Home manager
     home-manager = {
@@ -15,9 +15,15 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Fast, Declarative, Reproducible, and Composable Developer Environments
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, ... }:
     let
       # System types to support
       supportedSystems = [ "x86_64-darwin" "aarch64-darwin" ];
@@ -32,6 +38,10 @@
         config = {
           allowUnfree = true;
         };
+        # Add devenv overlay
+        overlays = [
+          devenv.overlays.default
+        ];
       });
     in
     {
@@ -43,6 +53,8 @@
         # Specify home configuration modules
         modules = [
           ./home.nix
+          # Make devenv available to home.nix
+          { _module.args.devenv = devenv; }
         ];
       };
 
