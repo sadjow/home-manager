@@ -26,6 +26,7 @@
     devenv.packages.${pkgs.system}.default
 
     pkgs.tmux
+    pkgs.aws-vault
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
