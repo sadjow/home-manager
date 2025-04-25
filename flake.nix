@@ -18,7 +18,7 @@
 
     # Fast, Declarative, Reproducible, and Composable Developer Environments
     devenv = {
-      url = "github:cachix/devenv";
+      url = "github:cachix/devenv/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
