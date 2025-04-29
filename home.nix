@@ -31,6 +31,7 @@
     pkgs.direnv
     pkgs.nmap
     pkgs.ripgrep
+    pkgs.gh  # GitHub CLI
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
