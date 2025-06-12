@@ -25,6 +25,7 @@
     # devenv - Fast, Declarative, Reproducible, and Composable Developer Environments
     devenv.packages.${pkgs.system}.default
 
+    pkgs.git
     pkgs.tmux
     pkgs.aws-vault
     pkgs.bat
@@ -32,10 +33,12 @@
     pkgs.nmap
     pkgs.ripgrep
     pkgs.gh  # GitHub CLI
-
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+    pkgs.asdf-vm
+    pkgs.neovim
+    pkgs.ruby
+    pkgs.cocoapods
+    pkgs.dart
+    pkgs.ffmpeg
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -50,6 +53,8 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
+
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -88,4 +93,5 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.gpg.enable = true;
 }
