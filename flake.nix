@@ -35,6 +35,7 @@
         };
         overlays = [
           devenv.overlays.default
+          (import ./overlays/claude-code.nix)
         ];
       });
     in
