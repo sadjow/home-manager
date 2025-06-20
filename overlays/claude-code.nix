@@ -47,14 +47,16 @@ self: super: {
       rm -f $out/bin/claude
       
       # Create a wrapper script that:
-      # 1. Changes to the module directory (required for yoga.wasm)
-      # 2. Runs Node.js with the correct flags
+      # 1. Uses NODE_PATH to find modules without changing directory
+      # 2. Runs claude from the user's current directory
       # 3. Passes all arguments through
       mkdir -p $out/bin
       cat > $out/bin/claude << 'EOF'
       #!${super.bash}/bin/bash
-      cd $out/lib/node_modules/@anthropic-ai/claude-code
-      exec ${super.nodejs_20}/bin/node --no-warnings --enable-source-maps ./cli.js "$@"
+      # Set NODE_PATH to find the claude-code modules
+      export NODE_PATH="$out/lib/node_modules"
+      # Run claude from current directory
+      exec ${super.nodejs_20}/bin/node --no-warnings --enable-source-maps "$out/lib/node_modules/@anthropic-ai/claude-code/cli.js" "$@"
       EOF
       chmod +x $out/bin/claude
       
