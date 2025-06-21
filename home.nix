@@ -39,6 +39,7 @@
     pkgs.cocoapods
     pkgs.dart
     pkgs.ffmpeg
+    pkgs.cachix
     # Use our custom claude-code overlay
     pkgs.claude-code
 
