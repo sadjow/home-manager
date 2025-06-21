@@ -42,7 +42,7 @@ nix-collect-garbage -d
 
 The codebase follows a modular flake-based structure:
 
-- **`flake.nix`**: Entry point defining inputs (nixpkgs, home-manager, darwin, devenv) and outputs for aarch64-darwin
+- **`flake.nix`**: Entry point defining inputs (nixpkgs, home-manager, darwin, devenv, claude-code) and outputs for aarch64-darwin
 - **`home.nix`**: Main home-manager configuration importing modular configs and defining packages
 - **`home/nix/default.nix`**: Nix-specific settings including binary caches and authentication
 
@@ -57,5 +57,5 @@ Key architectural decisions:
 
 - The repository is a git repo with the main branch as default
 - User-specific configuration is for user "sadjow" with home directory `/Users/sadjow`
-- Binary caches configured: nixos.org, devenv.cachix.org, nix-community.cachix.org
+- Binary caches configured: nixos.org, devenv.cachix.org, nix-community.cachix.org, claude-code.cachix.org
 - Home-manager manages its own version (self-managed)
