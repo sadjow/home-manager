@@ -20,9 +20,14 @@
       url = "github:cachix/devenv/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -35,7 +40,7 @@
         };
         overlays = [
           devenv.overlays.default
-          (import ./overlays/claude-code.nix)
+          claude-code.overlays.default
         ];
       });
     in
