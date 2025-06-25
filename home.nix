@@ -32,6 +32,7 @@
     pkgs.direnv
     pkgs.nmap
     pkgs.ripgrep
+    pkgs.pstree
     pkgs.gh  # GitHub CLI
     pkgs.asdf-vm
     pkgs.neovim
