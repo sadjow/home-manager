@@ -59,3 +59,16 @@ Key architectural decisions:
 - User-specific configuration is for user "sadjow" with home directory `/Users/sadjow`
 - Binary caches configured: nixos.org, devenv.cachix.org, nix-community.cachix.org, claude-code.cachix.org
 - Home-manager manages its own version (self-managed)
+
+## Claude Code Integration
+
+This repository includes a special module (`home/claude-code.nix`) that:
+
+1. Creates a stable symlink at `~/.local/bin/claude` to prevent permission resets
+2. Preserves `.claude.json` and `.claude/` directory during home-manager switches
+3. Ensures claude settings persist across nix updates
+
+### Known Issues Fixed
+
+- **Permission Reset Issue**: Claude was asking for directory permissions after every `home-manager switch` because the nix store path changed. This is now fixed by using a stable symlink.
+- **Settings Loss**: Login state and trusted directories are now preserved.

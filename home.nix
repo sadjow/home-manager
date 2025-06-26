@@ -17,6 +17,7 @@
 
   imports = [
     ./home/nix
+    ./home/claude-code.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
