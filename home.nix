@@ -28,6 +28,7 @@
 
     pkgs.git
     pkgs.tmux
+    pkgs.awscli2
     pkgs.aws-vault
     pkgs.bat
     pkgs.direnv
