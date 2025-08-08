@@ -17,6 +17,8 @@
     in
     {
       netrc-file = "${config.home.homeDirectory}/.config/nix/netrc";
+      accept-flake-config = true;
+      experimental-features = [ "nix-command" "flakes" ];
       substituters = builtins.map (domain: "https://${domain}") (builtins.attrNames caches);
       trusted-public-keys = builtins.attrValues (builtins.mapAttrs (domain: key: "${domain}-1:${key}") caches);
     };

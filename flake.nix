@@ -1,6 +1,21 @@
 {
   description = "Home Manager configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://cachix.cachix.org"
+      "https://devenv.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://claude-code.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "cachix.cachix.org-1:KzcwKqacT4A3+Jn1fEL4GezqHSO3LKC79VpRj4QsdB8="
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "claude-code.cachix.org-1:m0kqRMQrW+sjthbPBDu0YvPRlEISbmmMk4dJRc1xf5E="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
