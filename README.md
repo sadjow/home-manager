@@ -16,11 +16,13 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 ### Prerequisites
 
 1. **Install Nix** (if not already installed):
+
    ```bash
    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
    ```
 
 2. **Install Home Manager**:
+
    ```bash
    nix run home-manager/master -- init --switch
    ```
@@ -28,19 +30,21 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 ### Installation
 
 1. **Clone this repository**:
+
    ```bash
    git clone https://github.com/sadjow/home-manager ~/.config/home-manager
    cd ~/.config/home-manager
    ```
 
 2. **Apply the configuration**:
+
    ```bash
    home-manager switch --flake .
    ```
 
 ## Configuration Structure
 
-```
+```text
 ├── flake.nix              # Flake definition with inputs and outputs
 ├── flake.lock             # Locked dependency versions
 ├── home.nix               # Main home-manager configuration
@@ -56,6 +60,7 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 ## Included Packages
 
 ### Development Tools
+
 - **Languages**: Ruby, Dart, Node.js (via asdf)
 - **Editors**: Neovim
 - **Version Control**: Git, GitHub CLI
@@ -63,12 +68,14 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 - **Shell**: tmux, direnv, ripgrep, bat
 
 ### Utilities
+
 - **Security**: AWS Vault, GPG
 - **Network**: nmap
 - **AI Tools**: Claude Code (via external flake)
 - **Package Management**: Cachix, asdf-vm
 
 ### External Flakes
+
 - **devenv**: Fast, declarative development environments
 - **claude-code**: AI coding assistant with dedicated Node.js runtime
 
@@ -81,9 +88,39 @@ This configuration uses several binary caches for faster package installation:
 - **nix-community.cachix.org**: Community packages
 - **claude-code.cachix.org**: Custom Claude Code builds
 
+### Flake-level cache configuration (for fast devenv updates)
+
+To ensure flake operations (including `devenv` updates) use the right caches without rebuilding locally, caches are declared at the flake level and accepted non-interactively:
+
+- Flake-level caches are set in `flake.nix` via `nixConfig.extra-substituters` and `nixConfig.extra-trusted-public-keys`.
+- Non-interactive acceptance is enabled in `home/nix/default.nix` via:
+  - `nix.settings.experimental-features = [ "nix-command" "flakes" ];`
+  - `nix.settings.accept-flake-config = true;`
+
+Verification:
+
+```bash
+# Show effective daemon config (should list cachix and devenv caches)
+nix config show | grep -E 'substituters|trusted.*keys'
+
+# Run flake commands without prompts
+nix --accept-flake-config flake check
+```
+
+Troubleshooting:
+
+- If prompts still appear, pass `--accept-flake-config` on the command, or ensure Home Manager has applied the config:
+
+```bash
+home-manager switch --flake .
+```
+
+- If packages still rebuild, the exact inputs may not be present in caches for your platform; otherwise, caching is correctly configured.
+
 ## Common Commands
 
 ### Configuration Management
+
 ```bash
 # Apply configuration changes
 home-manager switch --flake .
@@ -102,6 +139,7 @@ nix flake check
 ```
 
 ### Development Commands
+
 ```bash
 # Show flake outputs
 nix flake show
@@ -167,16 +205,19 @@ caches = {
 ### Common Issues
 
 1. **Flake evaluation errors**:
+
    ```bash
    nix flake check --show-trace
    ```
 
 2. **Binary cache issues**:
+
    ```bash
    nix store ping --store https://cache-url.org
    ```
 
 3. **Home Manager conflicts**:
+
    ```bash
    home-manager switch --flake . --show-trace
    ```
