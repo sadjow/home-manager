@@ -49,8 +49,12 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 ├── flake.lock             # Locked dependency versions
 ├── home.nix               # Main home-manager configuration
 ├── home/
-│   └── nix/
-│       └── default.nix    # Nix-specific settings and binary caches
+│   ├── nix/
+│   │   └── default.nix    # Nix-specific settings and binary caches
+│   ├── claude-code.nix    # Claude Code integration
+│   └── shell.nix          # Shell configuration (zsh with asdf-vm)
+├── docs/
+│   └── CHANNEL_STRATEGY.md # Nixpkgs channel strategy and alternatives
 ├── overlays/
 │   └── README.md          # Information about custom overlays
 ├── CLAUDE.md              # AI assistant guidance
@@ -193,6 +197,7 @@ caches = {
 - **macOS Optimized**: Specifically configured for Apple Silicon (aarch64-darwin)
 - **External Dependencies**: Important tools like Claude Code managed as separate flakes
 - **Binary Caching**: Multiple cache sources for fast package installation
+- **Channel Strategy**: Uses nixpkgs-unstable for latest packages (see [Channel Strategy Documentation](docs/CHANNEL_STRATEGY.md))
 
 ### System Compatibility
 

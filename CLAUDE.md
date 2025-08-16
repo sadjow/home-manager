@@ -45,6 +45,7 @@ The codebase follows a modular flake-based structure:
 - **`flake.nix`**: Entry point defining inputs (nixpkgs, home-manager, darwin, devenv, claude-code) and outputs for aarch64-darwin
 - **`home.nix`**: Main home-manager configuration importing modular configs and defining packages
 - **`home/nix/default.nix`**: Nix-specific settings including binary caches and authentication
+- **`home/shell.nix`**: Shell configuration (zsh with asdf-vm integration)
 
 Key architectural decisions:
 - Uses Nix flakes for reproducibility
@@ -52,6 +53,7 @@ Key architectural decisions:
 - Allows unfree packages for proprietary software
 - Prepared for nix-darwin integration (currently inactive)
 - Modular configuration structure via imports
+- **Channel Strategy**: Uses nixpkgs-unstable with home-manager/master for latest packages on development machine (see `docs/CHANNEL_STRATEGY.md` for alternatives)
 
 ## Important Notes
 
