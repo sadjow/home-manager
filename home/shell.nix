@@ -4,7 +4,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    initExtra = ''
+    initContent = ''
       . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
     '';
   };

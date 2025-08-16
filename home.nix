@@ -14,9 +14,6 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
-  
-  # Disable version mismatch warning between Home Manager and Nixpkgs
-  home.enableNixpkgsReleaseCheck = false;
 
   imports = [
     ./home/nix
