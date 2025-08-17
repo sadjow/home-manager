@@ -44,6 +44,7 @@
     pkgs.dart
     pkgs.ffmpeg
     pkgs.cachix
+    pkgs.git-lfs
     # Use our custom claude-code overlay
     pkgs.claude-code
 
