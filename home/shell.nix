@@ -7,6 +7,13 @@
     initContent = ''
       . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
     '';
+    shellAliases = {
+      # Flutter development aliases
+      flutter = "fvm flutter";
+      dart = "fvm dart";
+      f = "fvm flutter";
+      d = "fvm dart";
+    };
   };
 
   programs.direnv = {
