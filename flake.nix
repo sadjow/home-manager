@@ -7,12 +7,14 @@
       "https://devenv.cachix.org"
       "https://nix-community.cachix.org"
       "https://claude-code.cachix.org"
+      "https://codex-cli.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cachix.cachix.org-1:KzcwKqacT4A3+Jn1fEL4GezqHSO3LKC79VpRj4QsdB8="
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "claude-code.cachix.org-1:m0kqRMQrW+sjthbPBDu0YvPRlEISbmmMk4dJRc1xf5E="
+      "codex-cli.cachix.org-1:BH31Jb2xSzV+9BFgVfR9j7TDW3L8CSMziFdfLrKEKIk="
     ];
   };
 
@@ -40,9 +42,14 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    codex-nix = {
+      url = "github:sadjow/codex-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-nix, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -56,6 +63,7 @@
         overlays = [
           devenv.overlays.default
           claude-code.overlays.default
+          codex-nix.overlays.default
         ];
       });
     in

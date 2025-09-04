@@ -47,6 +47,8 @@
     pkgs.git-lfs
     # Use our custom claude-code overlay
     pkgs.claude-code
+    # OpenAI Codex CLI
+    pkgs.codex
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
