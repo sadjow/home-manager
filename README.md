@@ -10,6 +10,7 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 - 🚀 **Flake-based**: Modern Nix flakes for better reproducibility
 - 🍎 **macOS Optimized**: Specifically configured for Apple Silicon Macs
 - 💾 **Binary Caches**: Fast package installation with pre-built binaries
+- ⚙️ **Global Direnv**: Universal direnv integration across all terminals and editors
 
 ## Quick Start
 
@@ -52,7 +53,8 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   ├── nix/
 │   │   └── default.nix    # Nix-specific settings and binary caches
 │   ├── claude-code.nix    # Claude Code integration
-│   └── shell.nix          # Shell configuration (zsh with asdf-vm)
+│   ├── mcp-servers.nix    # MCP servers with 1Password integration
+│   └── shell.nix          # Shell configuration (zsh/bash with global direnv)
 ├── docs/
 │   └── CHANNEL_STRATEGY.md # Nixpkgs channel strategy and alternatives
 ├── overlays/
@@ -121,6 +123,36 @@ home-manager switch --flake .
 
 - If packages still rebuild, the exact inputs may not be present in caches for your platform; otherwise, caching is correctly configured.
 
+## Development Environment Integration
+
+### Global Direnv Support
+
+This configuration provides comprehensive direnv integration that works seamlessly across all terminals and editors:
+
+#### Features
+- **Universal Support**: Works in VSCode, Cursor, and any terminal application
+- **Multi-shell**: Supports both zsh and bash shells
+- **Login Shell Compatibility**: Properly configured for login shells spawned by editors
+- **Auto-loading**: Direnv hooks are loaded automatically without manual setup
+
+#### How it Works
+The global direnv integration is implemented through:
+
+1. **Profile-level hooks**: Added to `.zprofile` and `.bash_profile` for login shells
+2. **Interactive shell integration**: Built-in home-manager direnv support
+3. **Global PATH configuration**: Ensures direnv is available system-wide
+4. **Redundant loading protection**: Prevents duplicate initialization
+
+#### Verification
+```bash
+# Test direnv in different shell contexts
+zsh -l -c 'command -v _direnv_hook && echo "✓ direnv loaded in zsh"'
+bash -l -c 'command -v _direnv_hook && echo "✓ direnv loaded in bash"'
+direnv --version  # Should show installed version
+```
+
+This means when you open a project with a `.envrc` file in any editor, the environment will be automatically activated in all terminal sessions without additional configuration.
+
 ## Common Commands
 
 ### Configuration Management
@@ -174,6 +206,7 @@ The configuration is modular. Key files to modify:
 
 - **`home.nix`**: Main package list and basic settings
 - **`home/nix/default.nix`**: Nix daemon settings and binary caches
+- **`home/shell.nix`**: Shell configuration and direnv integration
 - **`flake.nix`**: Add new input flakes or change system configurations
 
 ### Adding Binary Caches
