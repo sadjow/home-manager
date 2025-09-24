@@ -20,6 +20,7 @@
     ./home/claude-code.nix
     ./home/shell.nix
     ./home/git.nix
+    ./home/mcp-servers.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
