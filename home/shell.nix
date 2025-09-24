@@ -4,6 +4,12 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    profileExtra = ''
+      # Ensure direnv is available in login shells (like VSCode/Cursor terminals)
+      if command -v direnv >/dev/null 2>&1; then
+        eval "$(direnv hook zsh)"
+      fi
+    '';
     initContent = ''
       . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
     '';
@@ -23,6 +29,15 @@
   };
 
   programs.bash = {
-    enable = false;
+    enable = true;
+    profileExtra = ''
+      # Ensure direnv works for editors that might use bash
+      if command -v direnv >/dev/null 2>&1; then
+        eval "$(direnv hook bash)"
+      fi
+    '';
   };
+
+  # Enable direnv bash integration
+  programs.direnv.enableBashIntegration = true;
 }

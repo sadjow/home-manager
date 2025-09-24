@@ -101,7 +101,14 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    # Ensure direnv is always available in PATH for all applications
+    PATH = "$PATH:${pkgs.direnv}/bin";
   };
+
+  # Add direnv initialization to session startup for all shell types
+  home.sessionPath = [
+    "${pkgs.direnv}/bin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
