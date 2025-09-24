@@ -108,6 +108,7 @@
   # Add direnv initialization to session startup for all shell types
   home.sessionPath = [
     "${pkgs.direnv}/bin"
+    "$HOME/.pub-cache/bin"  # Dart pub global packages (fvm, etc.)
   ];
 
   # Let Home Manager install and manage itself.

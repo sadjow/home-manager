@@ -5,6 +5,9 @@
     enable = true;
     enableCompletion = true;
     profileExtra = ''
+      # Add Dart pub global packages to PATH
+      export PATH="$HOME/.pub-cache/bin:$PATH"
+
       # Ensure direnv is available in login shells (like VSCode/Cursor terminals)
       if command -v direnv >/dev/null 2>&1; then
         eval "$(direnv hook zsh)"
@@ -31,6 +34,9 @@
   programs.bash = {
     enable = true;
     profileExtra = ''
+      # Add Dart pub global packages to PATH
+      export PATH="$HOME/.pub-cache/bin:$PATH"
+
       # Ensure direnv works for editors that might use bash
       if command -v direnv >/dev/null 2>&1; then
         eval "$(direnv hook bash)"
