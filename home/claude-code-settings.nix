@@ -77,5 +77,15 @@
     EOF
 
     echo "✓ Claude Code settings.json configured with all MCP servers"
+
+    # Clean up old MCP configurations from ~/.claude.json if present
+    if [ -f "$HOME/.claude.json" ]; then
+      if ${pkgs.jq}/bin/jq -e 'has("userMcpServers")' "$HOME/.claude.json" > /dev/null 2>&1; then
+        echo "Cleaning up old MCP configuration from ~/.claude.json..."
+        ${pkgs.jq}/bin/jq 'del(.userMcpServers)' "$HOME/.claude.json" > "$HOME/.claude.json.tmp" && \
+        mv "$HOME/.claude.json.tmp" "$HOME/.claude.json"
+        echo "✓ Removed obsolete userMcpServers from ~/.claude.json"
+      fi
+    fi
   '';
 }

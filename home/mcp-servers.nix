@@ -129,50 +129,5 @@
     EOF
 
     echo "✓ Cursor MCP configuration updated"
-
-    # Configure Claude Code user MCP servers
-    echo "Configuring Claude Code MCP servers..."
-
-    # Read existing Claude Code config
-    CLAUDE_CODE_CONFIG="$HOME/.claude.json"
-
-    if [ -f "$CLAUDE_CODE_CONFIG" ]; then
-      # Backup existing config
-      cp "$CLAUDE_CODE_CONFIG" "$CLAUDE_CODE_CONFIG.backup.$(date +%Y%m%d-%H%M%S)"
-
-      # Use jq to update the userMcpServers field while preserving the rest of the config
-      ${pkgs.jq}/bin/jq --argjson servers '{
-        "playwright": {
-          "command": "${pkgs.nodejs}/bin/npx",
-          "args": ["@playwright/mcp@latest"],
-          "env": {
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
-          }
-        },
-        "circleci-mcp-server": {
-          "command": "${pkgs.nodejs}/bin/npx",
-          "args": ["-y", "@circleci/mcp-server-circleci@latest"],
-          "env": {
-            "CIRCLECI_TOKEN": "'"$CIRCLECI_TOKEN"'",
-            "CIRCLECI_BASE_URL": "https://circleci.com",
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
-          }
-        },
-        "datadog": {
-          "command": "${pkgs.nodejs}/bin/node",
-          "args": ["${config.home.homeDirectory}/opensource/datadog-mcp/build/index.js"],
-          "env": {
-            "DD_API_KEY": "'"$DD_API_KEY"'",
-            "DD_APP_KEY": "'"$DD_APP_KEY"'",
-            "DD_SITE": "datadoghq.com"
-          }
-        }
-      }' '. + {userMcpServers: $servers}' "$CLAUDE_CODE_CONFIG.backup.$(date +%Y%m%d-%H%M%S)" > "$CLAUDE_CODE_CONFIG.tmp" && mv "$CLAUDE_CODE_CONFIG.tmp" "$CLAUDE_CODE_CONFIG"
-
-      echo "✓ Claude Code MCP configuration updated"
-    else
-      echo "Warning: Claude Code config file not found at $CLAUDE_CODE_CONFIG"
-      echo "Please run Claude Code at least once to generate the config file"
-    fi
   '';
 }
