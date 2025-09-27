@@ -18,6 +18,7 @@
   imports = [
     ./home/nix
     ./home/claude-code.nix
+    ./home/claude-code-settings.nix
     ./home/shell.nix
     ./home/git.nix
     ./home/mcp-servers.nix
