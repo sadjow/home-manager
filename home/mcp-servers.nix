@@ -44,6 +44,13 @@
     cat > "$CLAUDE_CONFIG_FILE" << EOF
     {
       "mcpServers": {
+        "playwright": {
+          "command": "${pkgs.nodejs}/bin/npx",
+          "args": ["@playwright/mcp@latest"],
+          "env": {
+            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+          }
+        },
         "circleci-mcp-server": {
           "command": "${pkgs.nodejs}/bin/npx",
           "args": ["-y", "@circleci/mcp-server-circleci@latest"],
@@ -90,6 +97,13 @@
       "mcpServers": {
         "Figma": {
           "url": "http://127.0.0.1:3845/sse"
+        },
+        "playwright": {
+          "command": "${pkgs.nodejs}/bin/npx",
+          "args": ["@playwright/mcp@latest"],
+          "env": {
+            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+          }
         },
         "circleci-mcp-server": {
           "command": "${pkgs.nodejs}/bin/npx",
