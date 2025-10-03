@@ -43,6 +43,7 @@
     pkgs.asdf-vm
     pkgs.neovim
     pkgs.ruby
+    pkgs.nodejs_22  # Node.js 22.x LTS
     pkgs.cocoapods
     pkgs.dart
     pkgs.ffmpeg
