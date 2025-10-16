@@ -38,6 +38,7 @@
     pkgs.bat
     pkgs.direnv
     pkgs.nmap
+    pkgs.mqttui
     pkgs.ripgrep
     pkgs.pstree
     pkgs.gh  # GitHub CLI
