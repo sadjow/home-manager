@@ -53,7 +53,7 @@
         "type": "github"
       }
     },
-    "codex-nix": {
+    "codex-cli": {
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
@@ -61,11 +61,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759977213,
-        "narHash": "sha256-hGMCmNXT7/f1CYbEa5OCW5LVDE4VKtRo5TS4ATTRLsQ=",
+        "lastModified": 1760724476,
+        "narHash": "sha256-6L/1xtX2EfJw3MZVPhPhaBKNRZWPoXmOOS046noBPSw=",
         "owner": "sadjow",
         "repo": "codex-nix",
-        "rev": "420627a031c090ab22f9366db1c1251845f636c8",
+        "rev": "ec1cb221091db7f0db7da680bf87d305c9c92d75",
         "type": "github"
       },
       "original": {
@@ -321,7 +321,7 @@
     "root": {
       "inputs": {
         "claude-code": "claude-code",
-        "codex-nix": "codex-nix",
+        "codex-cli": "codex-cli",
         "darwin": "darwin",
         "devenv": "devenv",
         "home-manager": "home-manager",

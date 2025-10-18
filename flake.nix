@@ -43,13 +43,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    codex-nix = {
+    codex-cli = {
       url = "github:sadjow/codex-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-nix, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -63,7 +63,7 @@
         overlays = [
           devenv.overlays.default
           claude-code.overlays.default
-          codex-nix.overlays.default
+          codex-cli.overlays.default
         ];
       });
     in
