@@ -307,6 +307,22 @@
     nix-direnv.enable = true;
   };
 
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    settings = {
+      search_mode = "fuzzy";
+      filter_mode_shell_up_key_binding = "session";
+      inline_height = 15;
+      show_preview = true;
+      exit_mode = "return-original";
+      sync_address = "";  # Disable sync
+      sync_frequency = "0";
+      update_check = false;
+    };
+  };
+
   programs.bash = {
     enable = true;
     profileExtra = ''

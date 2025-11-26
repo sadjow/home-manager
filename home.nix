@@ -51,6 +51,7 @@
     pkgs.ffmpeg
     pkgs.cachix
     pkgs.git-lfs
+    pkgs.atuin
     # Use our custom claude-code overlay
     pkgs.claude-code
     # OpenAI Codex CLI
