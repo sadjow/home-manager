@@ -45,6 +45,13 @@
     cat > "$CLAUDE_CONFIG_FILE" << EOF
     {
       "mcpServers": {
+        "monday-mcp": {
+          "command": "${pkgs.nodejs}/bin/npx",
+          "args": ["-y", "mcp-remote", "https://mcp.monday.com/sse"],
+          "env": {
+            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+          }
+        },
         "playwright": {
           "command": "${pkgs.nodejs}/bin/npx",
           "args": ["@playwright/mcp@latest"],
@@ -96,6 +103,9 @@
     cat > "$CURSOR_CONFIG_FILE" << EOF
     {
       "mcpServers": {
+        "monday-mcp": {
+          "url": "https://mcp.monday.com/mcp"
+        },
         "Figma": {
           "url": "http://127.0.0.1:3845/sse"
         },
