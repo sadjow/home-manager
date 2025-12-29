@@ -10,8 +10,11 @@ This is a Nix home-manager configuration repository for macOS (Apple Silicon) th
 
 ### Configuration Management
 ```bash
-# Apply configuration changes
+# Apply home-manager configuration
 home-manager switch --flake .
+
+# Apply nix-darwin system configuration
+sudo darwin-rebuild switch --flake .#codecraft
 
 # Build configuration without switching
 home-manager build --flake .
@@ -43,6 +46,7 @@ nix-collect-garbage -d
 The codebase follows a modular flake-based structure:
 
 - **`flake.nix`**: Entry point defining inputs (nixpkgs, home-manager, darwin, devenv, claude-code) and outputs for aarch64-darwin
+- **`darwin-configuration.nix`**: nix-darwin system configuration (hostname, system-level settings)
 - **`home.nix`**: Main home-manager configuration importing modular configs and defining packages
 - **`home/nix/default.nix`**: Nix-specific settings including binary caches and authentication
 - **`home/shell.nix`**: Shell configuration (zsh with asdf-vm integration) and global direnv setup
@@ -52,7 +56,7 @@ Key architectural decisions:
 - Uses Nix flakes for reproducibility
 - Configured for macOS on Apple Silicon (aarch64-darwin)
 - Allows unfree packages for proprietary software
-- Prepared for nix-darwin integration (currently inactive)
+- Uses nix-darwin for system-level configuration (hostname, etc.)
 - Modular configuration structure via imports
 - **Channel Strategy**: Uses nixpkgs-unstable with home-manager/master for latest packages on development machine (see `docs/CHANNEL_STRATEGY.md` for alternatives)
 

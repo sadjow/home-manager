@@ -48,6 +48,7 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 ```text
 ├── flake.nix              # Flake definition with inputs and outputs
 ├── flake.lock             # Locked dependency versions
+├── darwin-configuration.nix # nix-darwin system config (hostname, etc.)
 ├── home.nix               # Main home-manager configuration
 ├── home/
 │   ├── nix/
@@ -158,8 +159,11 @@ This means when you open a project with a `.envrc` file in any editor, the envir
 ### Configuration Management
 
 ```bash
-# Apply configuration changes
+# Apply home-manager configuration
 home-manager switch --flake .
+
+# Apply nix-darwin system configuration
+sudo darwin-rebuild switch --flake .#codecraft
 
 # Build configuration without switching
 home-manager build --flake .
