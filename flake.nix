@@ -78,12 +78,10 @@
         ];
       };
 
-      # Optional: darwin configuration if you want to use nix-darwin too
-      darwinConfigurations."sadjow-mac" = darwin.lib.darwinSystem {
+      darwinConfigurations."codecraft" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
-          # Your darwin configuration
-          # Example: ./darwin-configuration.nix
+          ./darwin-configuration.nix
         ];
       };
     };
