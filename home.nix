@@ -52,8 +52,9 @@
     pkgs.cachix
     pkgs.git-lfs
     pkgs.atuin
-    # Use our custom claude-code overlay
+    # Use our custom claude-code overlay (both runtimes for comparison)
     pkgs.claude-code
+    pkgs.claude-code-bun
     # OpenAI Codex CLI
     pkgs.codex
 

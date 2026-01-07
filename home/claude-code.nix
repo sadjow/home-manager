@@ -1,22 +1,24 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Create a stable claude binary path to prevent permission resets
+  # Create stable claude binary paths to prevent permission resets
   home.activation.claudeStableLink = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Create .local/bin directory if it doesn't exist
     mkdir -p $HOME/.local/bin
-    
-    # Remove old symlink if it exists
+
+    # Remove old symlinks if they exist
     rm -f $HOME/.local/bin/claude
-    
-    # Create stable symlink to current claude binary
+    rm -f $HOME/.local/bin/claude-bun
+
+    # Create stable symlinks to current claude binaries
     ln -s ${pkgs.claude-code}/bin/claude $HOME/.local/bin/claude
-    
+    ln -s ${pkgs.claude-code-bun}/bin/claude-bun $HOME/.local/bin/claude-bun
+
     # Ensure .claude directory permissions are preserved
     if [ -d "$HOME/.claude" ]; then
       chmod -R 700 "$HOME/.claude"
     fi
-    
+
     # Create .claude directory if it doesn't exist
     mkdir -p $HOME/.claude
   '';
