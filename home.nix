@@ -115,7 +115,7 @@
   #  /etc/profiles/per-user/sadjow/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
     # Ensure direnv is always available in PATH for all applications
     PATH = "$PATH:${pkgs.direnv}/bin";
   };
