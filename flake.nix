@@ -8,6 +8,7 @@
       "https://nix-community.cachix.org"
       "https://claude-code.cachix.org"
       "https://codex-cli.cachix.org"
+      "https://gemini-cli-nix.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cachix.cachix.org-1:KzcwKqacT4A3+Jn1fEL4GezqHSO3LKC79VpRj4QsdB8="
@@ -15,6 +16,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "claude-code.cachix.org-1:m0kqRMQrW+sjthbPBDu0YvPRlEISbmmMk4dJRc1xf5E="
       "codex-cli.cachix.org-1:BH31Jb2xSzV+9BFgVfR9j7TDW3L8CSMziFdfLrKEKIk="
+      "gemini-cli-nix.cachix.org-1:DzAIhrYktyRtR1OO0KjyYEKR5hjwsdZU2NwHlEBCcvI="
     ];
   };
 
@@ -47,9 +49,14 @@
       url = "github:sadjow/codex-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    gemini-cli = {
+      url = "github:sadjow/gemini-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, gemini-cli, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -64,6 +71,7 @@
           devenv.overlays.default
           claude-code.overlays.default
           codex-cli.overlays.default
+          gemini-cli.overlays.default
         ];
       });
     in

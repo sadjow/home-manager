@@ -57,6 +57,8 @@
     pkgs.claude-code-bun
     # OpenAI Codex CLI
     pkgs.codex
+    # Google Gemini CLI
+    pkgs.gemini-cli
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
