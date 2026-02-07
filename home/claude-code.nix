@@ -10,8 +10,10 @@
     rm -f $HOME/.local/bin/claude
     rm -f $HOME/.local/bin/claude-bun
 
-    # Create stable symlinks to current claude binaries
-    ln -s ${pkgs.claude-code}/bin/claude $HOME/.local/bin/claude
+    # Create wrapper script that enables skip-permissions as a selectable mode
+    printf '#!/usr/bin/env bash\nexec %s --allow-dangerously-skip-permissions "$@"\n' \
+      "${pkgs.claude-code}/bin/claude" > $HOME/.local/bin/claude
+    chmod +x $HOME/.local/bin/claude
     ln -s ${pkgs.claude-code-bun}/bin/claude-bun $HOME/.local/bin/claude-bun
 
     # Ensure .claude directory permissions are preserved
