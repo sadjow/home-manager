@@ -47,9 +47,14 @@
       url = "github:sadjow/codex-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    gemini-cli = {
+      url = "github:sadjow/gemini-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, gemini-cli, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -64,6 +69,7 @@
           devenv.overlays.default
           claude-code.overlays.default
           codex-cli.overlays.default
+          gemini-cli.overlays.default
         ];
       });
     in
