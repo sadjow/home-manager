@@ -106,8 +106,8 @@
         "monday-mcp": {
           "url": "https://mcp.monday.com/mcp"
         },
-        "Figma": {
-          "url": "http://127.0.0.1:3845/sse"
+        "figma": {
+          "url": "https://mcp.figma.com/mcp"
         },
         "playwright": {
           "command": "${pkgs.nodejs}/bin/npx",
@@ -139,5 +139,14 @@
     EOF
 
     echo "✓ Cursor MCP configuration updated"
+
+    # Add Figma MCP to Claude Code user-scope config (~/.claude.json)
+    CLAUDE_JSON="$HOME/.claude.json"
+    if [ ! -f "$CLAUDE_JSON" ]; then
+      echo '{}' > "$CLAUDE_JSON"
+    fi
+    UPDATED=$(${pkgs.jq}/bin/jq '.mcpServers.figma = {"type": "http", "url": "https://mcp.figma.com/mcp"}' "$CLAUDE_JSON")
+    echo "$UPDATED" > "$CLAUDE_JSON"
+    echo "✓ Figma MCP added to Claude Code config"
   '';
 }
