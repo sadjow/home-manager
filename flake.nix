@@ -52,9 +52,13 @@
       url = "github:sadjow/gemini-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-openclaw = {
+      url = "github:openclaw/nix-openclaw";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, gemini-cli, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, gemini-cli, nix-openclaw, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -70,6 +74,28 @@
           claude-code.overlays.default
           codex-cli.overlays.default
           gemini-cli.overlays.default
+          (final: prev:
+            let
+              openclawPkgs = import nix-openclaw.inputs.nixpkgs {
+                inherit system;
+              };
+              openclawPackageSet = import "${nix-openclaw}/nix/packages" {
+                pkgs = openclawPkgs;
+                excludeToolNames = [ "bird" ];
+              };
+            in {
+              inherit (openclawPackageSet) openclaw openclaw-gateway openclaw-tools;
+              openclawPackages = openclawPackageSet // {
+                withTools = args: import "${nix-openclaw}/nix/packages" {
+                  pkgs = openclawPkgs;
+                  excludeToolNames = (args.excludeToolNames or []) ++ [ "bird" ];
+                  toolNamesOverride = args.toolNamesOverride or null;
+                };
+                toolNames = [];
+              };
+            } // (if openclawPkgs.stdenv.hostPlatform.isDarwin
+                   then { openclaw-app = openclawPackageSet.openclaw-app or null; }
+                   else {}))
         ];
       });
     in
@@ -79,7 +105,7 @@
 
         modules = [
           ./home.nix
-          # Make devenv available to home.nix
+          nix-openclaw.homeManagerModules.openclaw
           { _module.args.devenv = devenv; }
         ];
       };
