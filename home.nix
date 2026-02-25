@@ -23,7 +23,6 @@
     ./home/git.nix
     ./home/mcp-servers.nix
     ./home/cursor.nix
-    ./home/openclaw
   ];
 
   # The home.packages option allows you to install Nix packages into your
