@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     _1password-cli
-    nodejs  # Node.js LTS for running MCP servers
+    nodejs_22
     jq      # JSON processor for updating Claude Code config
   ];
 
@@ -46,30 +46,30 @@
     {
       "mcpServers": {
         "monday-mcp": {
-          "command": "${pkgs.nodejs}/bin/npx",
+          "command": "${pkgs.nodejs_22}/bin/npx",
           "args": ["-y", "mcp-remote", "https://mcp.monday.com/sse"],
           "env": {
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
           }
         },
         "playwright": {
-          "command": "${pkgs.nodejs}/bin/npx",
+          "command": "${pkgs.nodejs_22}/bin/npx",
           "args": ["@playwright/mcp@latest"],
           "env": {
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
           }
         },
         "circleci-mcp-server": {
-          "command": "${pkgs.nodejs}/bin/npx",
+          "command": "${pkgs.nodejs_22}/bin/npx",
           "args": ["-y", "@circleci/mcp-server-circleci@latest"],
           "env": {
             "CIRCLECI_TOKEN": "$CIRCLECI_TOKEN",
             "CIRCLECI_BASE_URL": "https://circleci.com",
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
           }
         },
         "datadog": {
-          "command": "${pkgs.nodejs}/bin/node",
+          "command": "${pkgs.nodejs_22}/bin/node",
           "args": ["${config.home.homeDirectory}/opensource/datadog-mcp/build/index.js"],
           "env": {
             "DD_API_KEY": "$DD_API_KEY",
@@ -110,23 +110,23 @@
           "url": "https://mcp.figma.com/mcp"
         },
         "playwright": {
-          "command": "${pkgs.nodejs}/bin/npx",
+          "command": "${pkgs.nodejs_22}/bin/npx",
           "args": ["@playwright/mcp@latest"],
           "env": {
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
           }
         },
         "circleci-mcp-server": {
-          "command": "${pkgs.nodejs}/bin/npx",
+          "command": "${pkgs.nodejs_22}/bin/npx",
           "args": ["-y", "@circleci/mcp-server-circleci@latest"],
           "env": {
             "CIRCLECI_TOKEN": "$CIRCLECI_TOKEN",
             "CIRCLECI_BASE_URL": "https://circleci.com",
-            "PATH": "${pkgs.nodejs}/bin:/usr/bin:/bin"
+            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
           }
         },
         "datadog": {
-          "command": "${pkgs.nodejs}/bin/node",
+          "command": "${pkgs.nodejs_22}/bin/node",
           "args": ["${config.home.homeDirectory}/opensource/datadog-mcp/build/index.js"],
           "env": {
             "DD_API_KEY": "$DD_API_KEY",

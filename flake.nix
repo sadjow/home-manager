@@ -35,7 +35,6 @@
 
     devenv = {
       url = "github:cachix/devenv/latest";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     claude-code = {
@@ -67,7 +66,6 @@
           allowUnfree = true;
         };
         overlays = [
-          devenv.overlays.default
           claude-code.overlays.default
           codex-cli.overlays.default
           gemini-cli.overlays.default
