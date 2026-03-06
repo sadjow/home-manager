@@ -14,7 +14,19 @@
       fi
     '';
     initContent = ''
-      . ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
+      if [ -f "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh" ]; then
+        . "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh"
+      fi
+
+      if [ -f "$HOME/cursor-profiles/cursor-aliases.sh" ]; then
+        export CURSOR_PROFILES_REPO_ROOT="$HOME/cursor-profiles"
+        . "$HOME/cursor-profiles/cursor-aliases.sh"
+        unset CURSOR_PROFILES_REPO_ROOT
+      elif [ -f "$HOME/opensource/cursor-profiles/cursor-aliases.sh" ]; then
+        export CURSOR_PROFILES_REPO_ROOT="$HOME/opensource/cursor-profiles"
+        . "$HOME/opensource/cursor-profiles/cursor-aliases.sh"
+        unset CURSOR_PROFILES_REPO_ROOT
+      fi
 
       # GitHub PR Review Functions
 
@@ -332,6 +344,17 @@
       # Ensure direnv works for editors that might use bash
       if command -v direnv >/dev/null 2>&1; then
         eval "$(direnv hook bash)"
+      fi
+    '';
+    bashrcExtra = ''
+      if [ -f "$HOME/cursor-profiles/cursor-aliases.sh" ]; then
+        export CURSOR_PROFILES_REPO_ROOT="$HOME/cursor-profiles"
+        . "$HOME/cursor-profiles/cursor-aliases.sh"
+        unset CURSOR_PROFILES_REPO_ROOT
+      elif [ -f "$HOME/opensource/cursor-profiles/cursor-aliases.sh" ]; then
+        export CURSOR_PROFILES_REPO_ROOT="$HOME/opensource/cursor-profiles"
+        . "$HOME/opensource/cursor-profiles/cursor-aliases.sh"
+        unset CURSOR_PROFILES_REPO_ROOT
       fi
     '';
   };

@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ./cursor-profiles.nix
+  ];
+
   # Manage Cursor commands directory with declarative command files
   home.file = {
     # Clean Code Principles documentation
