@@ -34,7 +34,7 @@
     };
 
     devenv = {
-      url = "github:cachix/devenv/latest";
+      url = "github:cachix/devenv/v2.0.4";
     };
 
     claude-code = {
