@@ -15,12 +15,17 @@
     # Enable biometric unlock for this session
     export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
+    op_read() {
+      ${pkgs.coreutils}/bin/timeout 20s \
+        ${pkgs._1password-cli}/bin/op read "$1" --account my.1password.com 2>/dev/null || true
+    }
+
     # Retrieve CircleCI token
-    CIRCLECI_TOKEN=$(${pkgs._1password-cli}/bin/op read "op://MCPs/circleci-mcp/api-token" --account my.1password.com 2>/dev/null || echo "")
+    CIRCLECI_TOKEN=$(op_read "op://MCPs/circleci-mcp/api-token")
 
     # Retrieve Datadog credentials
-    DD_API_KEY=$(${pkgs._1password-cli}/bin/op read "op://MCPs/datadog-mcp/api-key" --account my.1password.com 2>/dev/null || echo "")
-    DD_APP_KEY=$(${pkgs._1password-cli}/bin/op read "op://MCPs/datadog-mcp/app-key" --account my.1password.com 2>/dev/null || echo "")
+    DD_API_KEY=$(op_read "op://MCPs/datadog-mcp/api-key")
+    DD_APP_KEY=$(op_read "op://MCPs/datadog-mcp/app-key")
 
     # Check if we got all credentials
     if [ -z "$CIRCLECI_TOKEN" ] || [ -z "$DD_API_KEY" ] || [ -z "$DD_APP_KEY" ]; then

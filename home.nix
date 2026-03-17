@@ -98,6 +98,9 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # Ensure Gemini CLI has a writable config directory on first run.
+    ".gemini/.keep".text = "";
   };
 
   # Home Manager can also manage your environment variables through

@@ -13,6 +13,8 @@
         "devenv.cachix.org" = "w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
         "nix-community.cachix.org" = "mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
         "claude-code.cachix.org" = "YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk=";
+        "codex-cli.cachix.org" = "1Br3H1hHoRYG22n//cGKJOk3cQXgYobUel6O8DgSing=";
+        "gemini-cli-nix.cachix.org" = "DzAIhrYktyRtR1OO0KjyYEKR5hjwsdZU2NwHlEBCcvI=";
       };
     in
     {
