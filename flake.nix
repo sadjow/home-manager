@@ -36,7 +36,7 @@
     };
 
     devenv = {
-      url = "github:cachix/devenv/main";
+      url = "github:spireworks/devenv/devenv-shutdown-ports";
     };
 
     claude-code = {
