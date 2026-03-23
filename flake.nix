@@ -36,7 +36,7 @@
     };
 
     devenv = {
-      url = "github:spireworks/devenv/devenv-shutdown-ports";
+      url = "github:spireworks/devenv/fix/await-port-release-on-shutdown";
     };
 
     claude-code = {
