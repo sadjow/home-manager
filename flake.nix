@@ -36,7 +36,7 @@
     };
 
     devenv = {
-      url = "github:spireworks/devenv/fix/await-port-release-on-shutdown";
+      url = "github:cachix/devenv/v2.0.6";
     };
 
     claude-code = {
