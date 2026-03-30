@@ -50,7 +50,7 @@
     };
 
     gemini-cli = {
-      url = "github:sadjow/gemini-cli-nix";
+      url = "path:/Users/sadjow/opensource/gemini-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

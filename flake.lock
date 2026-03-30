@@ -99,11 +99,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774419577,
-        "narHash": "sha256-1dmCZWYAhJ1Z65Bl11wgXCHcCu1CTTD0j+PBGFfjanM=",
+        "lastModified": 1774566314,
+        "narHash": "sha256-l54rvxjeMUBgEVbbwvV6pY+9m1kFuUxgF9THr8d/4YY=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "8117d36a65200c7a2870620427296b381acb4c35",
+        "rev": "a55736b1b9d30357ba0aeb32ffe710dc929a235e",
         "type": "github"
       },
       "original": {
@@ -120,11 +120,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773944613,
-        "narHash": "sha256-YPgI5DAfcwcWOjHGERsTha/SuuRt7l+oOTGT94G643s=",
+        "lastModified": 1774566674,
+        "narHash": "sha256-UVHUY9jHiFj9jqY3KH28OThDEX4JUeEEWIUE+3VFJVI=",
         "owner": "sadjow",
         "repo": "codex-nix",
-        "rev": "7937d799ae69e7ded828b8aef5d26e89fbbc817f",
+        "rev": "d43a70bd123e49cb862ee36d0e3ab2ed550308df",
         "type": "github"
       },
       "original": {
@@ -454,17 +454,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1774383546,
-        "narHash": "sha256-gMacuhdj7v29t6mQr6L5sct0rNBQRjoiTdmq0grA7yY=",
-        "owner": "sadjow",
-        "repo": "gemini-cli-nix",
-        "rev": "ad8e92c7cebca4ac88b8ca6fa26a6e86a1e90006",
-        "type": "github"
+        "lastModified": 1774611586,
+        "narHash": "sha256-qN2noO6IMInJFknoVMiLHshNf9XC5OwrEYIoEV61Ybs=",
+        "path": "/Users/sadjow/opensource/gemini-cli-nix",
+        "type": "path"
       },
       "original": {
-        "owner": "sadjow",
-        "repo": "gemini-cli-nix",
-        "type": "github"
+        "path": "/Users/sadjow/opensource/gemini-cli-nix",
+        "type": "path"
       }
     },
     "git-hooks": {
