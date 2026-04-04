@@ -148,16 +148,17 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1773440526,
-        "narHash": "sha256-OcX1MYqUdoalY3/vU67PEx8m6RvqGxX0LwKonjzXn7I=",
-        "owner": "nix-community",
+        "lastModified": 1772186516,
+        "narHash": "sha256-8s28pzmQ6TOIUzznwFibtW1CMieMUl1rYJIxoQYor58=",
+        "owner": "rossng",
         "repo": "crate2nix",
-        "rev": "e697d3049c909580128caa856ab8eb709556a97b",
+        "rev": "ba5dd398e31ee422fbe021767eb83b0650303a6e",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "rossng",
         "repo": "crate2nix",
+        "rev": "ba5dd398e31ee422fbe021767eb83b0650303a6e",
         "type": "github"
       }
     },
@@ -224,15 +225,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1774428097,
-        "narHash": "sha256-yQAutPgbsVHsN/SygZDyzMRxQn6Im53PJkrI377N8Sg=",
-        "owner": "cachix",
+        "lastModified": 1775260680,
+        "narHash": "sha256-qNUPb+KTr/OFIxGls1utYwYtRUGSzL5X/g78ZaC5OYY=",
+        "owner": "sadjow",
         "repo": "devenv",
-        "rev": "957d63f663f230dc8ac3b85f950690e56fe8b1e0",
+        "rev": "0993130391d9d3a8dff3907475eaefd63ceba781",
         "type": "github"
       },
       "original": {
-        "owner": "cachix",
+        "owner": "sadjow",
+        "ref": "fix/git-hooks-submodule-hookspath",
         "repo": "devenv",
         "type": "github"
       }
@@ -454,8 +456,6 @@
         ]
       },
       "locked": {
-        "lastModified": 1774611586,
-        "narHash": "sha256-qN2noO6IMInJFknoVMiLHshNf9XC5OwrEYIoEV61Ybs=",
         "path": "/Users/sadjow/opensource/gemini-cli-nix",
         "type": "path"
       },
