@@ -14,7 +14,6 @@
     printf '#!/usr/bin/env bash\nexec %s --allow-dangerously-skip-permissions "$@"\n' \
       "${pkgs.claude-code}/bin/claude" > $HOME/.local/bin/claude
     chmod +x $HOME/.local/bin/claude
-    ln -s ${pkgs.claude-code-bun}/bin/claude-bun $HOME/.local/bin/claude-bun
 
     # Ensure .claude directory permissions are preserved
     if [ -d "$HOME/.claude" ]; then
