@@ -111,32 +111,11 @@
         "monday-mcp": {
           "url": "https://mcp.monday.com/mcp"
         },
-        "figma": {
-          "url": "https://mcp.figma.com/mcp"
-        },
         "playwright": {
           "command": "${pkgs.nodejs_22}/bin/npx",
           "args": ["@playwright/mcp@latest"],
           "env": {
             "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
-          }
-        },
-        "circleci-mcp-server": {
-          "command": "${pkgs.nodejs_22}/bin/npx",
-          "args": ["-y", "@circleci/mcp-server-circleci@latest"],
-          "env": {
-            "CIRCLECI_TOKEN": "$CIRCLECI_TOKEN",
-            "CIRCLECI_BASE_URL": "https://circleci.com",
-            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
-          }
-        },
-        "datadog": {
-          "command": "${pkgs.nodejs_22}/bin/node",
-          "args": ["${config.home.homeDirectory}/opensource/datadog-mcp/build/index.js"],
-          "env": {
-            "DD_API_KEY": "$DD_API_KEY",
-            "DD_APP_KEY": "$DD_APP_KEY",
-            "DD_SITE": "datadoghq.com"
           }
         }
       }
