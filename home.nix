@@ -53,6 +53,7 @@
     pkgs.git-lfs
     pkgs.atuin
     pkgs.claude-code
+    pkgs.github-copilot-cli
     # OpenAI Codex CLI
     pkgs.codex
 
