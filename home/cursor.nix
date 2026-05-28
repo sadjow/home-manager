@@ -39,18 +39,11 @@
 
     # Ensure proper permissions for Cursor directory
     if [ -d "$HOME/.cursor" ]; then
-      # Set restrictive permissions for sensitive files
-      [ -f "$HOME/.cursor/mcp.json" ] && chmod 600 "$HOME/.cursor/mcp.json"
       [ -f "$HOME/.cursor/cli-config.json" ] && chmod 600 "$HOME/.cursor/cli-config.json"
 
       # Ensure commands directory has proper permissions
       [ -d "$HOME/.cursor/commands" ] && chmod 755 "$HOME/.cursor/commands"
       [ -d "$HOME/.cursor/commands" ] && chmod 644 "$HOME/.cursor/commands"/*.md 2>/dev/null || true
-    fi
-
-    # Clean up old MCP backups (keep only last 5)
-    if [ -d "$HOME/.cursor" ]; then
-      ls -t "$HOME/.cursor"/mcp.json.backup.* 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true
     fi
   '';
 }

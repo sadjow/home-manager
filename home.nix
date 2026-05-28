@@ -1,4 +1,4 @@
-{ config, pkgs, devenv, ... }:
+{ config, pkgs, devenv, aith, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -30,6 +30,7 @@
   home.packages = [
     # devenv - Fast, Declarative, Reproducible, and Composable Developer Environments
     devenv.packages.${pkgs.system}.default
+    aith.packages.${pkgs.system}.default
 
     pkgs.git
     pkgs.tmux

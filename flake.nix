@@ -49,9 +49,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    aith = {
+      url = "github:sadjow/aith";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, devenv, claude-code, codex-cli, aith, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -76,6 +81,7 @@
         modules = [
           ./home.nix
           { _module.args.devenv = devenv; }
+          { _module.args.aith = aith; }
         ];
       };
 

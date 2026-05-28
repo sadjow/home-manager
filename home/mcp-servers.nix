@@ -7,7 +7,7 @@
     jq      # JSON processor for updating Claude Code config
   ];
 
-  # Generate MCP configuration for all applications with secrets from 1Password
+  # Generate MCP configuration for Claude apps with secrets from 1Password
   # This runs during home-manager activation with biometric authentication
   home.activation.generateMcpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
     echo "Retrieving MCP credentials from 1Password (biometric auth required)..."
@@ -87,42 +87,6 @@
     EOF
 
     echo "✓ Claude Desktop MCP configuration updated"
-
-    # Create the Cursor config directory if it doesn't exist
-    CURSOR_CONFIG_DIR="$HOME/.cursor"
-    mkdir -p "$CURSOR_CONFIG_DIR"
-
-    # Backup existing Cursor MCP config if it exists and isn't managed by us
-    CURSOR_CONFIG_FILE="$CURSOR_CONFIG_DIR/mcp.json"
-    if [ -f "$CURSOR_CONFIG_FILE" ] && [ ! -L "$CURSOR_CONFIG_FILE" ]; then
-      cp "$CURSOR_CONFIG_FILE" "$CURSOR_CONFIG_FILE.backup.$(date +%Y%m%d-%H%M%S)"
-      echo "✓ Backed up existing Cursor MCP config"
-    fi
-
-    # Remove any existing symlink
-    if [ -L "$CURSOR_CONFIG_FILE" ]; then
-      rm -f "$CURSOR_CONFIG_FILE"
-    fi
-
-    # Generate the Cursor config file with actual credentials
-    cat > "$CURSOR_CONFIG_FILE" << EOF
-    {
-      "mcpServers": {
-        "monday-mcp": {
-          "url": "https://mcp.monday.com/mcp"
-        },
-        "playwright": {
-          "command": "${pkgs.nodejs_22}/bin/npx",
-          "args": ["@playwright/mcp@latest"],
-          "env": {
-            "PATH": "${pkgs.nodejs_22}/bin:/usr/bin:/bin"
-          }
-        }
-      }
-    }
-    EOF
-
-    echo "✓ Cursor MCP configuration updated"
 
     # Add Figma MCP to Claude Code user-scope config (~/.claude.json)
     CLAUDE_JSON="$HOME/.claude.json"
