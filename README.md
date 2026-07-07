@@ -54,7 +54,6 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   ├── nix/
 │   │   └── default.nix    # Nix-specific settings and binary caches
 │   ├── claude-code.nix    # Claude Code integration
-│   ├── mcp-servers.nix    # MCP servers with 1Password integration
 │   └── shell.nix          # Shell configuration (zsh/bash with global direnv)
 ├── docs/
 │   └── CHANNEL_STRATEGY.md # Nixpkgs channel strategy and alternatives

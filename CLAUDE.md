@@ -50,7 +50,6 @@ The codebase follows a modular flake-based structure:
 - **`home.nix`**: Main home-manager configuration importing modular configs and defining packages
 - **`home/nix/default.nix`**: Nix-specific settings including binary caches and authentication
 - **`home/shell.nix`**: Shell configuration (zsh with asdf-vm integration) and global direnv setup
-- **`home/mcp-servers.nix`**: MCP servers configuration with 1Password integration
 
 Key architectural decisions:
 - Uses Nix flakes for reproducibility

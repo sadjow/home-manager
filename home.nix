@@ -21,7 +21,6 @@
     # ./home/claude-code-settings.nix  # Disabled - Claude Code manages its own MCP servers
     ./home/shell.nix
     ./home/git.nix
-    ./home/mcp-servers.nix
     ./home/cursor.nix
   ];
 
@@ -53,6 +52,8 @@
     pkgs.cachix
     pkgs.git-lfs
     pkgs.atuin
+    pkgs.jq
+    pkgs._1password-cli
     pkgs.claude-code
     pkgs.github-copilot-cli
     # OpenAI Codex CLI
