@@ -36,7 +36,7 @@
     };
 
     devenv = {
-      url = "github:sadjow/devenv/fix/git-hooks-submodule-hookspath";
+      url = "github:cachix/devenv/latest";
     };
 
     claude-code = {
