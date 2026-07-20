@@ -18,6 +18,8 @@
   imports = [
     ./home/nix
     ./home/claude-code.nix
+    ./home/ollama.nix
+    ./home/opencode.nix
     # ./home/claude-code-settings.nix  # Disabled - Claude Code manages its own MCP servers
     ./home/shell.nix
     ./home/git.nix
