@@ -15,9 +15,10 @@
       "${pkgs.claude-code}/bin/claude" > $HOME/.local/bin/claude
     chmod +x $HOME/.local/bin/claude
 
-    # Ensure .claude directory permissions are preserved
+    # Avoid following managed skill symlinks into their source directories
     if [ -d "$HOME/.claude" ]; then
-      chmod -R 700 "$HOME/.claude"
+      find "$HOME/.claude" -type d -exec chmod 700 {} +
+      find "$HOME/.claude" -type f -exec chmod 600 {} +
     fi
 
     # Create .claude directory if it doesn't exist

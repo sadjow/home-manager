@@ -1,6 +1,18 @@
-{ config, pkgs, devenv, aith, ... }:
+{ config, pkgs, lib, devenv, aith, ... }:
 
-{
+let
+  skillDirectories = [
+    ".agents/skills"
+    ".claude/skills"
+    ".codex/skills"
+    ".cursor/skills"
+  ];
+  explainClearlySource = config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/.config/home-manager/skills/explain-clearly";
+  explainClearlyTargets = map
+    (directory: "${directory}/explain-clearly")
+    skillDirectories;
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "sadjow";
@@ -99,7 +111,20 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  };
+  } // lib.genAttrs explainClearlyTargets (_: {
+    source = explainClearlySource;
+    force = true;
+  });
+
+  # Home Manager cannot replace legacy real directories with managed links
+  home.activation.removeLegacyExplainClearlySkills =
+    lib.hm.dag.entryBefore ["linkGeneration"]
+      (lib.concatMapStringsSep "\n" (target: ''
+        explainClearlyTarget="$HOME/${target}"
+        if [ -e "$explainClearlyTarget" ] && [ ! -L "$explainClearlyTarget" ]; then
+          rm -rf "$explainClearlyTarget"
+        fi
+      '') explainClearlyTargets);
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

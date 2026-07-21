@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain Clearly"
+  short_description: "Build accurate mental models that stick"
+  default_prompt: "Use $explain-clearly to explain this topic at the right depth and check understanding when useful."
