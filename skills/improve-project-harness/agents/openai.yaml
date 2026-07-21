@@ -1,0 +1,4 @@
+interface:
+  display_name: "Improve Project Harness"
+  short_description: "Improve repository harnesses from evidence"
+  default_prompt: "Use $improve-project-harness to determine whether this recurring coding-agent failure is a project-harness gap and, only if evidence supports it, make the smallest verified improvement."
