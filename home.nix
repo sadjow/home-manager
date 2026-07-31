@@ -10,6 +10,7 @@ let
   managedSkills = [
     "explain-clearly"
     "improve-project-harness"
+    "review-pr-collaboratively"
   ];
   managedSkillFiles = builtins.listToAttrs (lib.concatMap
     (skill: map

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Collaborative PR Review"
+  short_description: "Review PRs clearly with approval gates"
+  default_prompt: "Use $review-pr-collaboratively with $explain-clearly to check out this pull request, understand it, and propose clear inline comments one at a time for my approval."
