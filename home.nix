@@ -8,6 +8,7 @@ let
     ".cursor/skills"
   ];
   managedSkills = [
+    "asd-ste100"
     "explain-clearly"
     "improve-project-harness"
     "review-pr-collaboratively"
