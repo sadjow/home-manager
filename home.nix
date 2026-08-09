@@ -24,6 +24,17 @@ let
       })
       skillDirectories)
     managedSkills);
+  codexSpireworks = pkgs.writeShellScriptBin "codex-spireworks" ''
+    spireworks_codex_home="$HOME/.codex-spireworks"
+    ${pkgs.coreutils}/bin/install -d -m 700 "$spireworks_codex_home"
+
+    export CODEX_HOME="$spireworks_codex_home"
+
+    exec ${lib.getExe pkgs.codex} \
+      -c 'cli_auth_credentials_store="file"' \
+      -c 'mcp_oauth_credentials_store="file"' \
+      "$@"
+  '';
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -85,6 +96,8 @@ in {
     pkgs.github-copilot-cli
     # OpenAI Codex CLI
     pkgs.codex
+    # Isolated Spireworks Codex CLI profile
+    codexSpireworks
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
