@@ -1,6 +1,90 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  claudeOwnedSkills = builtins.attrNames (builtins.readDir ./claude/skills);
+  sharedAgentSkills = [
+    "find-skills"
+    "flutter-adding-home-screen-widgets"
+    "flutter-animating-apps"
+    "flutter-architecting-apps"
+    "flutter-building-forms"
+    "flutter-building-layouts"
+    "flutter-building-plugins"
+    "flutter-caching-data"
+    "flutter-embedding-native-views"
+    "flutter-handling-concurrency"
+    "flutter-handling-http-and-json"
+    "flutter-implementing-navigation-and-routing"
+    "flutter-improving-accessibility"
+    "flutter-interoperating-with-native-apis"
+    "flutter-localizing-apps"
+    "flutter-managing-state"
+    "flutter-reducing-app-size"
+    "flutter-setting-up-on-linux"
+    "flutter-setting-up-on-macos"
+    "flutter-setting-up-on-windows"
+    "flutter-testing-apps"
+    "flutter-theming-apps"
+    "flutter-working-with-databases"
+    "graphql-schema"
+    "playwright-best-practices"
+    "postgresql-table-design"
+    "rails-expert"
+    "redis-development"
+    "skill-creator"
+    "vue"
+  ];
+  claudeOwnedSkillFiles = builtins.listToAttrs (map
+    (skill: {
+      name = ".claude/skills/${skill}";
+      value = {
+        source = ./claude/skills/${skill};
+        force = true;
+      };
+    })
+    claudeOwnedSkills);
+  sharedAgentSkillFiles = builtins.listToAttrs (map
+    (skill: {
+      name = ".claude/skills/${skill}";
+      value = {
+        source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/.agents/skills/${skill}";
+        force = true;
+      };
+    })
+    sharedAgentSkills);
+in {
+  # Home Manager owns authored Claude inputs. Claude keeps mutable runtime state.
+  home.file = {
+    ".claude/CLAUDE.md" = {
+      source = ./claude/CLAUDE.md;
+      force = true;
+    };
+    ".claude/settings.json" = {
+      source = ./claude/settings.json;
+      force = true;
+    };
+    ".claude/settings.local.json" = {
+      source = ./claude/settings.local.json;
+      force = true;
+    };
+    ".claude/agents" = {
+      source = ./claude/agents;
+      recursive = true;
+      force = true;
+    };
+    ".claude/commands" = {
+      source = ./claude/commands;
+      recursive = true;
+      force = true;
+    };
+    ".claude/hooks" = {
+      source = ./claude/hooks;
+      recursive = true;
+      force = true;
+    };
+  } // claudeOwnedSkillFiles // sharedAgentSkillFiles;
+
   # Create stable claude binary paths to prevent permission resets
   home.activation.claudeStableLink = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Create .local/bin directory if it doesn't exist
@@ -27,7 +111,7 @@
 
   # Add .local/bin to PATH if not already there
   home.sessionPath = [ "$HOME/.local/bin" ];
-  
+
   # Preserve claude configuration during switches
   home.activation.preserveClaudeConfig = lib.hm.dag.entryBefore ["writeBoundary"] ''
     # Backup claude config if it exists
@@ -35,7 +119,7 @@
       cp -p "$HOME/.claude.json" "$HOME/.claude.json.backup" 2>/dev/null || true
     fi
   '';
-  
+
   home.activation.restoreClaudeConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Restore claude config if backup exists and original is missing
     if [ -f "$HOME/.claude.json.backup" ] && [ ! -f "$HOME/.claude.json" ]; then

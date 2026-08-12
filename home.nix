@@ -24,6 +24,8 @@ let
       })
       skillDirectories)
     managedSkills);
+  globalAgentInstructions = config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/.config/home-manager/home/AGENTS.md";
   codexSpireworks = pkgs.writeShellScriptBin "codex-spireworks" ''
     spireworks_codex_home="$HOME/.codex-spireworks"
     ${pkgs.coreutils}/bin/install -d -m 700 "$spireworks_codex_home"
@@ -118,6 +120,16 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    # Keep shared agent guidance in one versioned source of truth.
+    "AGENTS.md" = {
+      source = globalAgentInstructions;
+      force = true;
+    };
+    ".codex/AGENTS.md" = {
+      source = globalAgentInstructions;
+      force = true;
+    };
+
     # Global asdf tool versions
     ".tool-versions".text = ''
       ruby 3.2.9

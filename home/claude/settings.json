@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "skillListingBudgetFraction": 0.02,
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1"
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:hexdocs.pm)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:ruby-doc.org)",
+      "WebFetch(domain:rubygems.org)",
+      "WebFetch(domain:typescriptlang.org)",
+      "WebFetch(domain:vuejs.org)",
+      "WebFetch(domain:nixos.wiki)",
+      "WebFetch(domain:clojuredocs.org)",
+      "WebFetch(domain:clojure.org)",
+      "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:rspec.rubystyle.guide)",
+      "WebFetch(domain:lostisland.github.io)",
+      "WebFetch(domain:mattbrictson.com)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(CLAUDE_PROJECT_DIR=/Users/sadjow npx tsx:*)",
+      "Bash(git -C /Users/sadjow/.claude status:*)",
+      "Bash(pgrep:*)",
+      "Bash(mdfind:*)"
+    ],
+    "defaultMode": "default"
+  },
+  "model": "opus",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/sadjow/.claude/hooks/auto-format.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "enableWorkflows": true,
+  "enabledPlugins": {
+    "ruby-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {},
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "voiceEnabled": true
+}

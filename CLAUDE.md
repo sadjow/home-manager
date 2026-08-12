@@ -71,13 +71,18 @@ Key architectural decisions:
 This repository includes a special module (`home/claude-code.nix`) that:
 
 1. Creates a stable symlink at `~/.local/bin/claude` to prevent permission resets
-2. Preserves `.claude.json` and `.claude/` directory during home-manager switches
-3. Ensures claude settings persist across nix updates
+2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, hooks, and locally maintained skills
+3. Links shared skills from their canonical agent-skill sources
+4. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
+5. Preserves the mutable `~/.claude.json` file during Home Manager switches
+
+See `home/claude/README.md` for the managed and runtime ownership boundary.
 
 ### Known Issues Fixed
 
 - **Permission Reset Issue**: Claude was asking for directory permissions after every `home-manager switch` because the nix store path changed. This is now fixed by using a stable symlink.
 - **Settings Loss**: Login state and trusted directories are now preserved.
+- **Configuration Drift**: Author-controlled Claude configuration now has one versioned Home Manager source of truth.
 
 ## Global Direnv Integration
 

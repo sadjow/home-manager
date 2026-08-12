@@ -51,6 +51,8 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 ├── darwin-configuration.nix # nix-darwin system config (hostname, etc.)
 ├── home.nix               # Main home-manager configuration
 ├── home/
+│   ├── AGENTS.md          # Shared global agent instructions
+│   ├── claude/            # Authored Claude Code configuration
 │   ├── nix/
 │   │   └── default.nix    # Nix-specific settings and binary caches
 │   ├── claude-code.nix    # Claude Code integration
@@ -208,6 +210,9 @@ home.packages = [
 The configuration is modular. Key files to modify:
 
 - **`home.nix`**: Main package list and basic settings
+- **`home/AGENTS.md`**: Shared global instructions for supported coding agents
+- **`home/claude/`**: Authored Claude Code settings, agents, commands, hooks, and local skills
+- **`home/claude-code.nix`**: Claude Code file ownership and runtime-state boundary
 - **`home/nix/default.nix`**: Nix daemon settings and binary caches
 - **`home/shell.nix`**: Shell configuration and direnv integration
 - **`flake.nix`**: Add new input flakes or change system configurations
