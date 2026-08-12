@@ -12,7 +12,9 @@ Use `~/.config/home-manager` as the source of truth for agent tooling and enviro
 - before committing, test that what we are committing works
 - when you read a file, read it all so you do not miss context
 - for AI tooling and declarative environment changes, update `~/.config/home-manager` instead of editing generated files in `$HOME`
+- keep shared instructions and skills agent-agnostic; confine product-specific discovery, metadata, hooks, permissions, and tool configuration to thin adapters
 - check the available skills before starting and use the relevant ones
+- proactively use `evolve-agent-harness` when corrections, review findings, repeated failures, or workflow friction reveal a possible reusable learning; promote only evidence-backed changes at the right scope and control layer
 - ultrathink
 
 ## Constraint Calibration

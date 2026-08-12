@@ -9,6 +9,7 @@ let
   ];
   managedSkills = [
     "asd-ste100"
+    "evolve-agent-harness"
     "explain-clearly"
     "improve-project-harness"
     "review-pr-collaboratively"
