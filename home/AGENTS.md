@@ -1,7 +1,7 @@
 # AGENTS.md
 
 This file is managed from `~/.config/home-manager/home/AGENTS.md` through Home Manager.
-Use `~/.config/home-manager` as the source of truth for agent tooling and environment changes on this machine.
+Treat `~/.config/home-manager` as the canonical source for personal, cross-project agent instructions, skills, AI tooling, and environment changes on this machine. Treat each project repository as canonical for its project-specific harness.
 
 ## Workflow
 
@@ -11,10 +11,13 @@ Use `~/.config/home-manager` as the source of truth for agent tooling and enviro
 - avoid using `--` when writing text so it keeps a natural tone
 - before committing, test that what we are committing works
 - when you read a file, read it all so you do not miss context
-- for AI tooling and declarative environment changes, update `~/.config/home-manager` instead of editing generated files in `$HOME`
+- for personal agent-harness and declarative environment changes, update `~/.config/home-manager` instead of generated files in `$HOME`
 - keep shared instructions and skills agent-agnostic; confine product-specific discovery, metadata, hooks, permissions, and tool configuration to thin adapters
 - check the available skills before starting and use the relevant ones
-- proactively use `evolve-agent-harness` when corrections, review findings, repeated failures, or workflow friction reveal a possible reusable learning; promote only evidence-backed changes at the right scope and control layer
+- treat agent skills as maintainable code; improve existing personal or project-specific skills at their canonical source when evidence supports it instead of accumulating chat-only workarounds
+- treat validated project-harness improvements and their abstract, project-neutral Home Manager counterparts as standing-authorized working-tree edits; retain full-fidelity learning in the project, never retain project-specific content personally, and keep committing, pushing, or publishing as separate actions
+- when a portable personal skill can help a project, derive a self-contained project-owned adaptation without removing the personal source; retain subsequent learning in the project and feed its abstract principle back into the personal skill
+- proactively use `evolve-agent-harness` when corrections, review findings, repeated failures, or workflow friction reveal a possible reusable learning; decide whether it belongs in personal Home Manager, the project, or both, and keep shared projects independent from personal home-directory paths
 - ultrathink
 
 ## Constraint Calibration
@@ -55,12 +58,13 @@ Use `~/.config/home-manager` as the source of truth for agent tooling and enviro
 
 ## DRY And SSOT
 
-Apply DRY and SSOT principles:
+Apply DRY and SSOT principles within each ownership boundary:
 
 - Define each default value, configuration value, and domain rule in one authoritative place
 - Reference the source of truth instead of duplicating values
-- If the same knowledge appears in more than one place, stop and refactor
-- When one logical change requires editing many unrelated copies of the same value, the design needs improvement
+- Across independent personal and project ownership boundaries, allow a self-contained snapshot when retention or autonomy requires it; record its source, revision or provenance, downstream owner, and sync direction
+- If the same knowledge appears in more than one place without a deliberate ownership boundary and provenance, stop and refactor
+- When one logical change requires editing many unrelated copies without a clear upstream, the design needs improvement
 
 ```js
 // Avoid duplicated knowledge

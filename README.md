@@ -58,7 +58,8 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   ├── claude-code.nix    # Claude Code integration
 │   └── shell.nix          # Shell configuration (zsh/bash with global direnv)
 ├── docs/
-│   └── CHANNEL_STRATEGY.md # Nixpkgs channel strategy and alternatives
+│   ├── AGENT_HARNESS_SKILL_LINEAGE.md # Personal and project skill feedback loop
+│   └── CHANNEL_STRATEGY.md             # Nixpkgs channel strategy and alternatives
 ├── overlays/
 │   └── README.md          # Information about custom overlays
 ├── CLAUDE.md              # AI assistant guidance
@@ -238,6 +239,7 @@ caches = {
 - **macOS Optimized**: Specifically configured for Apple Silicon (aarch64-darwin)
 - **External Dependencies**: Important tools like Claude Code managed as separate flakes
 - **Binary Caching**: Multiple cache sources for fast package installation
+- **Agent Harness Skill Lineage**: Keeps portable personal capabilities while deriving independent project-owned copies or adaptations (see [Agent Harness Skill Lineage](docs/AGENT_HARNESS_SKILL_LINEAGE.md))
 - **Channel Strategy**: Uses nixpkgs-unstable for latest packages (see [Channel Strategy Documentation](docs/CHANNEL_STRATEGY.md))
 
 ### System Compatibility
