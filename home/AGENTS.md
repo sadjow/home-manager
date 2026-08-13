@@ -27,6 +27,7 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - Prefer the least restrictive mechanism that satisfies the stated goal. Permit best-effort use outside the tested matrix when it is not known to be unsafe or broken.
 - Match precision to the contract: use major versions to track a release line, exact versions for reproducibility, and minimum versions only when a concrete capability or fix establishes the floor.
 - Before adding a constraint that excludes existing users or configurations, surface the impact and confirm that exclusion is intended.
+- Base third-party compatibility claims on a replay of the complete runtime-observed request or handshake. A hand-built subset proves only the fields and branches it includes.
 
 ## Coding Style
 
@@ -53,6 +54,7 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 ## Tooling Preferences
 
 - for most JavaScript projects, use yarn
+- when a repository declares a direnv or devenv environment, run project commands through it instead of using system language runtimes
 - I have `aws-vault` and AWS credentials configured when AWS access is needed
 - we are in 2026
 

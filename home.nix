@@ -62,7 +62,6 @@ in {
     ./home/shell.nix
     ./home/git.nix
     ./home/cursor.nix
-    ./home/mcp.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
