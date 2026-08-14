@@ -41,6 +41,17 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - only modernize code that is part of the current change
 - maintain consistency with existing codebase patterns
 
+## Semantic Inputs
+
+- When deterministic syntax can be checked in the browser, provide local,
+  latency-independent feedback while the person types. Distinguish an
+  incomplete draft from an impossible value and do not require a network or
+  server event for per-keystroke syntax feedback.
+- Derive formatting from explicit field context, keep server-side domain
+  validation authoritative, and preserve caret, selection, paste, autofill,
+  IME composition, reconnect, and no-JavaScript submission. Normalize at a
+  stable boundary such as blur when rewriting during typing would harm editing.
+
 ## Git And Reviews
 
 - use one-line conventional commit messages
