@@ -51,6 +51,13 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   validation authoritative, and preserve caret, selection, paste, autofill,
   IME composition, reconnect, and no-JavaScript submission. Normalize at a
   stable boundary such as blur when rewriting during typing would harm editing.
+  When progressive formatting is expected, prove intermediate keystrokes,
+  mid-string insertion, deletion beside separators, and logical cursor
+  stability rather than testing only the value after blur. Keep format guidance
+  persistently visible and associated with the field; a disappearing
+  placeholder is not sufficient instruction. Exercise the supported desktop
+  and mobile browser profiles when keyboard or `beforeinput` event ordering can
+  differ.
 - Treat browser and device regional values as optional suggestions, not
   authority. They may fill only a blank, unreviewed value once and must never
   overwrite an explicit user or domain context, mutate a non-empty hidden or
