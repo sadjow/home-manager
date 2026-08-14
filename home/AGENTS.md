@@ -51,6 +51,11 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   validation authoritative, and preserve caret, selection, paste, autofill,
   IME composition, reconnect, and no-JavaScript submission. Normalize at a
   stable boundary such as blur when rewriting during typing would harm editing.
+- Treat browser and device regional values as optional suggestions, not
+  authority. They may fill only a blank, unreviewed value once and must never
+  overwrite an explicit user or domain context, mutate a non-empty hidden or
+  submitted field, or reapply after a reactive render. Test with the browser
+  locale deliberately different from the explicit authoring locale.
 
 ## Git And Reviews
 
