@@ -66,6 +66,27 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 
 ## Responsive Interaction QA
 
+- Do not commit an action on pointerdown when the same surface can scroll,
+  pan, drag, or otherwise cancel the gesture. Preserve any browser draft or
+  focus needed to survive a reactive render, but finalize only after an
+  intentional pointerup; cancel on meaningful movement, `pointercancel`,
+  release outside, disconnect, or destruction. Keep keyboard activation
+  native. Prove a held first press plus a real touch pan that begins on an
+  unselected target under latency; a synthetic click does not cover pointer
+  cancellation.
+- In reactive forms, a focused or debounced field must not make the first
+  pointer or keyboard action disappear. If a render can replace the target
+  between pointerdown and click, or consume Enter while applying a pending
+  field update, submit the current browser draft before that boundary. Keep
+  browser constraint validation, submitter intent, single-flight behavior,
+  native semantics, and no-JavaScript submission intact. Prove a deliberately
+  held first press plus Enter and Space under latency instead of testing only
+  an already-unfocused form.
+- A primary task-entry link present in server-rendered HTML must work before a
+  reactive client has joined or reconnected. Prefer a real canonical `href`
+  when a full navigation is acceptable; do not make the first meaningful
+  action depend only on an active socket. Test the cold-entry click with a
+  deliberately delayed connection.
 - When a focused form navigates to a new task, make the intended landing
   explicit. Focus with `preventScroll`, account for bounded mobile
   visual-viewport changes after keyboard dismissal, and verify scroll and
