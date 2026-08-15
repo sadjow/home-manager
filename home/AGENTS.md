@@ -64,6 +64,41 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   submitted field, or reapply after a reactive render. Test with the browser
   locale deliberately different from the explicit authoring locale.
 
+## Responsive Interaction QA
+
+- When a focused form navigates to a new task, make the intended landing
+  explicit. Focus with `preventScroll`, account for bounded mobile
+  visual-viewport changes after keyboard dismissal, and verify scroll and
+  viewport-relative destination geometry after the real submit.
+- Do not assume adjacent translated labels have equal height. Stack their
+  fields before wrapping makes the row ambiguous, or align the complete field
+  boxes by their controls. Test the longest supported label at the breakpoint
+  where the layout changes.
+
+## Accessibility
+
+- Treat accessibility as required behavior from design through validation, not
+  as final visual polish. Use WCAG 2.2 AA as the default baseline when the
+  project has not defined a stricter contract.
+- Prefer native elements and semantics before ARIA. Every supported task must
+  work with keyboard, pointer, and touch; focus must remain visible,
+  unobscured, intentionally placed, and restored after overlays.
+- Give dynamic success, failure, and progress a concise programmatic
+  announcement. Do not encode meaning only through color, shape, position,
+  sound, motion, placeholder text, or an icon.
+- Verify reflow, large text and zoom, contrast, reduced motion, translated
+  labels, and practical target sizes. Automated audits, screenshots, and
+  accessibility-tree inspection are supporting evidence, not proof; exercise
+  the real keyboard journey and a screen reader for high-risk flows.
+- Distinguish an accessibility defect from an aesthetic preference. Block a
+  release when a required task cannot be perceived, understood, or completed
+  in a supported mode; describe non-blocking visual refinements separately.
+- Acquisition pages may use persuasive composition and full-width visual
+  bands, while internal task pages remain compact and operational. In either
+  case, assign horizontal padding to one owner, keep readable line lengths,
+  avoid competing navigation, and preserve semantic, keyboard, reflow, and
+  reduced-motion behavior.
+
 ## Git And Reviews
 
 - use one-line conventional commit messages
