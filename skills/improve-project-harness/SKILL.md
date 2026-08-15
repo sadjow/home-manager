@@ -52,6 +52,19 @@ Choose the control surface by responsibility:
 
 Do not spawn agents for mechanical checks, tightly sequential work, or tasks that require copying the same large context. Give agents a bounded question and the minimum raw evidence needed. Keep deterministic enforcement outside the model whenever practical.
 
+Represent conditional expertise through a capability route instead of adding its full procedure to an always-loaded entrypoint. A useful route records:
+
+- a stable capability ID and short purpose
+- observable activation conditions and explicit boundaries
+- the default mode: current-agent skill, specialist, deterministic check, or human checkpoint
+- the minimum expected input and output
+- the canonical documentation, references, and validation cases
+- supported product adapters and provenance across ownership boundaries
+
+Keep one primary specialist capability per task by default. The current agent owns integration and final verification. Add an independent reviewer only when material security, architecture, cross-boundary state, or irreversible-impact risk justifies it. Specialists do not recursively delegate unless the coordinator explicitly assigns that responsibility.
+
+Before pruning an existing instruction, prove that its route is discoverable and protects the original case, a transfer case, and a boundary case. Measure total verified effort, including retries and interventions, rather than treating a smaller prompt as sufficient evidence.
+
 ## Follow the improvement loop
 
 ### 1. Establish scope and authority
@@ -114,6 +127,8 @@ For audits or changes involving instruction files, skills, agents, hooks, or acc
 Replay the original case and run proportional nearby checks. Prefer fail-before and pass-after evidence when the change addresses a reproducible failure. Verify final environment behavior rather than accepting an agent's completion claim.
 
 Start with focused checks, then broaden according to risk. Compare task success, regressions, retries, intervention count, context loaded, tokens, latency, tool calls, and policy violations when those measurements are available. Optimize total effort rather than prompt size alone.
+
+When validating a Git-backed Nix flake that introduces untracked source files, use an explicit path flake such as `--flake path:.` or otherwise prove the new files entered the evaluated source. A plain Git flake reference can omit untracked files; do not stage them solely to make validation see them.
 
 Read [validation strategy](references/validation-strategy.md) before validating a material, risky, nondeterministic, or token-efficiency change.
 

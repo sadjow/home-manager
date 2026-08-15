@@ -163,6 +163,8 @@ Choose the lowest reliable layer:
 
 Prefer improving an existing control over creating another one. Keep one canonical source and use imports, links, or generated adapters when multiple agent products need the same learning.
 
+Promotion does not imply always-loaded placement. Keep global and project entrypoints for authority, safety, stable invariants, and concise routing triggers. Put conditional expertise behind an on-demand skill or scoped document; use a specialist only when independent judgment or context isolation adds value; use executable checks for deterministic behavior.
+
 Keep portable guidance agent-agnostic. Refer to roles, capabilities, and observable behavior rather than a vendor or model unless the finding is genuinely product-specific. Confine product-specific discovery syntax, UI metadata, hooks, permissions, and tool declarations to thin adapters around the shared guidance.
 
 ### 8. Draft the harness change
@@ -178,6 +180,8 @@ Prefer:
 - replacement or consolidation over append-only growth
 
 Do not encode an unresolved product, architecture, or business decision as an agent rule.
+
+When the proposed change spans several control layers, would materially reshape always-loaded context, or needs an independent harness review, read [specialist contract](references/specialist-contract.md). Keep ordinary feedback-to-promotion work in the current agent so the globally discoverable skill remains useful without delegation.
 
 When a skill is the selected control, use the available skill-creation workflow to create or revise it. Use the broader project-harness workflow for deliberate audits, pruning, or changes spanning several control layers. Preserve this event-driven skill as the owner of the feedback-to-promotion decision.
 

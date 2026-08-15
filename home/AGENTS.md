@@ -12,12 +12,12 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - before committing, test that what we are committing works
 - when you read a file, read it all so you do not miss context
 - for personal agent-harness and declarative environment changes, update `~/.config/home-manager` instead of generated files in `$HOME`
-- keep shared instructions and skills agent-agnostic; confine product-specific discovery, metadata, hooks, permissions, and tool configuration to thin adapters
-- check the available skills before starting and use the relevant ones
+- keep shared guidance agent-agnostic and always-loaded context limited to authority, safety, stable cross-project invariants, and concise capability routes; place conditional procedures in on-demand skills, bounded specialist contracts, scoped project documentation, or deterministic checks, and confine product-specific discovery, metadata, hooks, permissions, and tooling to thin adapters
+- check the available skills before starting and apply relevant skills in the current agent by default; delegate only when independent judgment, context isolation, or parallel ownership materially helps, and pass the smallest sufficient evidence packet
 - treat agent skills as maintainable code; improve existing personal or project-specific skills at their canonical source when evidence supports it instead of accumulating chat-only workarounds
 - treat validated project-harness improvements and their abstract, project-neutral Home Manager counterparts as standing-authorized working-tree edits; retain full-fidelity learning in the project, never retain project-specific content personally, and keep committing, pushing, or publishing as separate actions
 - when a portable personal skill can help a project, derive a self-contained project-owned adaptation without removing the personal source; retain subsequent learning in the project and feed its abstract principle back into the personal skill
-- proactively use `evolve-agent-harness` when corrections, review findings, repeated failures, or workflow friction reveal a possible reusable learning; decide whether it belongs in personal Home Manager, the project, or both, and keep shared projects independent from personal home-directory paths
+- proactively use the globally discoverable `evolve-agent-harness` when corrections, review findings, repeated failures, or workflow friction reveal reusable learning; decide whether it belongs in personal Home Manager, the project, or both, keep shared projects independent from personal paths, and reserve a harness-evolution specialist for broad multi-layer work or independent review
 - ultrathink
 
 ## Constraint Calibration

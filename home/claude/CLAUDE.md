@@ -12,8 +12,9 @@
 - State material assumptions and uncertainty explicitly.
 - Keep responses concise and focused on the technical outcome.
 - Work through recoverable blockers before asking the user to intervene.
+- Keep `evolve-agent-harness` available for direct learning from ordinary feedback. Use the `harness-evolution-specialist` only for broad multi-layer harness audits, refactors, or independent review, and give it a bounded evidence packet.
 
 ## Pull Requests
 
 - Keep pull request descriptions natural, concise, and outcome-focused. Follow the repository template when one exists.
-- When reviewing a branch or pull request, include the `flow-integrity-reviewer` agent. It traces operations across boundaries and checks return-value and asynchronous-flow contracts.
+- When a branch or pull request changes a multi-step operation, asynchronous flow, partial-failure boundary, or cross-service state contract, include the `flow-integrity-reviewer` agent. Do not invoke it for documentation-only or mechanical changes.
