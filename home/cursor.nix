@@ -3,6 +3,11 @@
 {
   # Manage Cursor commands directory with declarative command files
   home.file = {
+    ".cursor/commands/branch-context.md" = {
+      source = ./cursor/commands/branch-context.md;
+      force = true;
+    };
+
     # Clean Code Principles documentation
     ".cursor/commands/clean-code.md" = {
       source = ./cursor/commands/clean-code.md;

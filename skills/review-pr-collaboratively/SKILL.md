@@ -1,6 +1,6 @@
 ---
 name: review-pr-collaboratively
-description: Review GitHub pull requests locally with evidence-backed findings, end-to-end use of the explain-clearly skill, and guarded inline-comment posting. Use when asked to check out or review a PR, validate a specification against existing code, understand or explain a change, discuss findings before commenting, draft clear professional review comments, propose comments one at a time for approval, post only approved comments, visualize complex behavior, or prepare a concise team handoff.
+description: Review GitHub pull requests locally in the current agent by default, with evidence-backed findings, end-to-end use of the explain-clearly skill, and guarded inline-comment posting. When the user explicitly asks for multi-agent review, select diff-based roles within a three-agent focused or five-agent broad review budget. Use when asked to check out or review a PR, validate a specification against existing code, understand or explain a change, discuss findings before commenting, draft clear professional review comments, propose comments one at a time for approval, post only approved comments, visualize complex behavior, or prepare a concise team handoff.
 ---
 
 # Review PR Collaboratively
@@ -34,6 +34,7 @@ Apply the companion skill's current workflow: establish ground truth, orient, bu
 - Clarify ambiguous external-action phrases such as “leave it” when they could mean either post or skip.
 - Preserve tracked and untracked local work. Inspect status before checkout and avoid overwriting unrelated changes.
 - Do not modify the PR branch while reviewing unless the user separately asks for implementation.
+- Do not create subagents unless the user explicitly asks for delegation, subagents, multiple agents, or specialist agents. A general review request does not grant delegation authority.
 
 ## Track comment state explicitly
 
@@ -63,7 +64,30 @@ Never describe an approved comment as posted. If a posting command is interrupte
 - Inspect the complete diff plus existing code that the change depends on. For documentation-only or specification PRs, verify claims against runtime code rather than reviewing prose in isolation.
 - Run focused validation proportional to risk. Report CI state separately from local checks.
 
-### 3. Build evidence-backed findings
+### 3. Select review agents from the diff when authorized
+
+Handle the review in the current agent unless the user explicitly authorizes
+delegation. Do not ask for delegation only because agents are available.
+
+When the user authorizes review agents:
+
+- Inspect the complete diff and worktree before selecting any role.
+- Derive each role from changed behavior, affected boundaries, and material risks in
+  the diff. Do not create generic or overlapping reviewers to reach a count.
+- Use at most three review agents for a focused or single-domain change. Use at
+  most five for a broad, cross-cutting, or high-risk change. Treat these as total
+  review budgets, including final reviewer or verifier agents.
+- Use fewer agents when the diff supports fewer independent questions. Respect a
+  lower platform concurrency limit.
+- Keep deterministic checks, evidence collection, result integration, and final
+  finding verification in the current agent.
+- Give each agent a bounded, non-overlapping question and the smallest sufficient
+  packet of raw diff, contract, rules, and evidence.
+
+If delegation is not authorized, apply the relevant review lenses directly and
+record that no agents ran.
+
+### 4. Build evidence-backed findings
 
 - Reproduce a concrete failure path or inconsistency before labeling it a defect.
 - Start each candidate from a realistic example or timeline, then name the general problem.
@@ -75,7 +99,7 @@ Never describe an approved comment as posted. If a posting command is interrupte
 - Reassess findings when the user supplies product context. Downgrade, rewrite, or remove a finding that a clear product decision resolves.
 - Apply only the relevant **Review lenses** below and convert them into concrete evidence, not slogans.
 
-### 4. Explain every finding before drafting
+### 5. Explain every finding before drafting
 
 Use `$explain-clearly` for every candidate finding in this order:
 
@@ -87,7 +111,7 @@ Use `$explain-clearly` for every candidate finding in this order:
 
 Use a small Mermaid diagram when timing, state transitions, ownership, or multiple actors are materially clearer visually. Keep diagrams compact enough for a PR comment.
 
-### 5. Draft a professional inline comment
+### 6. Draft a professional inline comment
 
 Anchor the comment to the narrowest relevant changed line. Use this shape:
 
@@ -105,7 +129,7 @@ Optional test or acceptance rule.
 - Show the file and line, the exact proposed text, and `post / revise / skip` choices.
 - Do not present the next comment until the current one is posted or skipped when working one at a time.
 
-### 6. Post only the approved draft
+### 7. Post only the approved draft
 
 - Re-fetch the PR head immediately before posting.
 - Confirm the target path and line still belong to the current diff. Re-anchor or ask before posting if the PR changed.
@@ -113,7 +137,7 @@ Optional test or acceptance rule.
 - Treat a returned comment ID or URL as confirmation, share the link, then present the next draft.
 - Never submit an overall approval or change-request review unless the user explicitly asks for that separate action.
 
-### 7. Close the review
+### 8. Close the review
 
 Summarize:
 
