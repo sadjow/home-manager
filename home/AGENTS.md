@@ -10,6 +10,12 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - no need to use `git -C` if you are already in the project directory
 - avoid using `--` when writing text so it keeps a natural tone
 - before committing, test that what we are committing works
+- when a reported bug is safely and deterministically reproducible, first add
+  the smallest focused regression and run it against the unfixed behavior;
+  confirm it fails for the intended reason, then implement the fix and prove
+  that same regression passes. If red-first reproduction is unsafe or
+  impractical, state why and add the focused coverage immediately after the
+  fix; never manufacture an unrelated failure merely to claim red evidence
 - when you read a file, read it all so you do not miss context
 - for personal agent-harness and declarative environment changes, update `~/.config/home-manager` instead of generated files in `$HOME`
 - keep shared guidance agent-agnostic and always-loaded context limited to authority, safety, stable cross-project invariants, and concise capability routes; place conditional procedures in on-demand skills, bounded specialist contracts, scoped project documentation, or deterministic checks, and confine product-specific discovery, metadata, hooks, permissions, and tooling to thin adapters
@@ -111,6 +117,11 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   labels, and practical target sizes. Automated audits, screenshots, and
   accessibility-tree inspection are supporting evidence, not proof; exercise
   the real keyboard journey and a screen reader for high-risk flows.
+- Treat numeric text-scale values in test harnesses as approximations unless
+  they replay the platform's actual scaler. Verify platform category mappings
+  against current official sources, keep automated coverage distinct from
+  declared support, and test the maximum OS setting on a real supported device
+  when scaling is nonlinear or style-dependent.
 - Distinguish an accessibility defect from an aesthetic preference. Block a
   release when a required task cannot be perceived, understood, or completed
   in a supported mode; describe non-blocking visual refinements separately.
