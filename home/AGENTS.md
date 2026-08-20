@@ -118,11 +118,6 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   labels, and practical target sizes. Automated audits, screenshots, and
   accessibility-tree inspection are supporting evidence, not proof; exercise
   the real keyboard journey and a screen reader for high-risk flows.
-- Treat numeric text-scale values in test harnesses as approximations unless
-  they replay the platform's actual scaler. Verify platform category mappings
-  against current official sources, keep automated coverage distinct from
-  declared support, and test the maximum OS setting on a real supported device
-  when scaling is nonlinear or style-dependent.
 - Distinguish an accessibility defect from an aesthetic preference. Block a
   release when a required task cannot be perceived, understood, or completed
   in a supported mode; describe non-blocking visual refinements separately.

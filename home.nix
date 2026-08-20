@@ -11,6 +11,7 @@ let
     "asd-ste100"
     "evolve-agent-harness"
     "explain-clearly"
+    "flutter-text-scaling-accessibility"
     "guided-review"
     "improve-project-harness"
     "leave-code-review-comments-collaboratively"
