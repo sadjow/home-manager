@@ -1,4 +1,4 @@
-# Clear PR Review Comment Examples
+# Collaborative Code Review Comment Examples
 
 Use these examples as patterns, not fixed templates. Preserve the evidence, uncertainty, and repository conventions of the current review.
 

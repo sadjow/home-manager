@@ -11,8 +11,9 @@ let
     "asd-ste100"
     "evolve-agent-harness"
     "explain-clearly"
+    "guided-review"
     "improve-project-harness"
-    "review-pr-collaboratively"
+    "leave-code-review-comments-collaboratively"
   ];
   managedSkillFiles = builtins.listToAttrs (lib.concatMap
     (skill: map

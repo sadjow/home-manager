@@ -17,4 +17,4 @@
 ## Pull Requests
 
 - Keep pull request descriptions natural, concise, and outcome-focused. Follow the repository template when one exists.
-- When a branch or pull request changes a multi-step operation, asynchronous flow, partial-failure boundary, or cross-service state contract, include the `flow-integrity-reviewer` agent. Do not invoke it for documentation-only or mechanical changes.
+- After the user explicitly authorizes review agents, consider `flow-integrity-reviewer` when a branch or pull request changes a multi-step operation, asynchronous flow, partial-failure boundary, or cross-service state contract. Do not invoke it for documentation-only or mechanical changes, and do not treat a general review request as delegation authority.

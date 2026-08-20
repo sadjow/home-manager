@@ -1,4 +1,4 @@
-# Research Basis
+# Collaborative Review Comment Research Basis
 
 This reference records the rationale for the skill. It is not required for routine comment drafting.
 
@@ -20,6 +20,10 @@ Google recommends courteous, code-focused comments, an explanation of the reason
 - [The standard of code review](https://google.github.io/eng-practices/review/reviewer/standard.html)
 
 Apply this by keeping requiredness visible while preserving author choice over valid implementations.
+
+GitHub's documentation distinguishes pending inline comments from a submitted review and exposes exact file and line anchors. Apply this by keeping draft, approved, and posted states separate and by revalidating the current diff before an external write.
+
+- [GitHub: Reviewing proposed changes in a pull request](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/reviewing-proposed-changes-in-a-pull-request)
 
 ## Use precise code vocabulary
 
@@ -48,3 +52,7 @@ Review usefulness depends on more than comment count. Repeated, vague, or low-va
 - [Turzo and Bosu, 2023](https://arxiv.org/abs/2302.11686)
 
 Apply this by suppressing duplicates, consolidating repeated root causes, and ranking strong findings before optional feedback.
+
+## Preserve the human decision boundary
+
+The sources above study comment usefulness and communication. They do not establish that an AI system should independently decide which findings to publish. Keep finding selection, requiredness, exact wording, and every external write under human control.

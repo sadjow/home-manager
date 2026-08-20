@@ -11,7 +11,7 @@ Analyze code review feedback from the GitHub pull request for the current branch
 1. **Identify PR**: Get the PR number for the current branch (or use provided: $ARGUMENTS)
 2. **Fetch Comments**: Retrieve all review comments, inline code comments, and general feedback
 3. **Analyze & Categorize**: Organize feedback by type and priority
-4. **Route to Agents**: Engage appropriate agents for addressing complex feedback
+4. **Select a Capability Route**: Keep work in the current agent unless the user explicitly authorizes delegation
 5. **Provide Action Plan**: Create actionable next steps
 
 ## Step 1: Get PR Information
@@ -81,9 +81,11 @@ Organize comments into categories:
 - LGTM comments
 - Approved reviews
 
-## Step 4: Route to Appropriate Agents
+## Step 4: Select a Capability Route
 
-Based on feedback type, suggest engaging agents:
+Analyze and plan straightforward follow-up in the current agent. Do not invoke a specialist merely because this command names one.
+
+If the user explicitly asks for delegation, select the smallest specialist set from the actual feedback:
 
 **For DRY/SSOT violations or duplication**:
 → Use `clean-code-specialist` agent
@@ -100,7 +102,7 @@ Based on feedback type, suggest engaging agents:
 Example:
 ```
 Reviewer feedback: "This function has duplicate timeout values"
-→ I'll engage the clean-code-specialist agent to refactor and establish SSOT
+→ The current agent can handle this. If you explicitly want delegation, the clean-code-specialist is the relevant specialist.
 ```
 
 ## Step 5: Generate Action Plan
@@ -112,7 +114,7 @@ For each comment thread, provide:
 3. **Category**: Critical/Suggestion/Question/Nitpick
 4. **Analysis**: Your interpretation and context
 5. **Proposed Action**: What to do about it
-6. **Agent Recommendation**: Which agent/command to use (if applicable)
+6. **Capability Route**: Current agent, deterministic command, or an explicitly authorized specialist
 7. **Response Draft**: Suggested reply to reviewer (if needed)
 
 ## Output Format
@@ -150,7 +152,7 @@ For each comment thread, provide:
 2. Update .env.example
 3. Add to .gitignore if not already there
 
-**Agent**: Not needed, straightforward fix
+**Capability Route**: Current agent; no specialist needed
 
 **Response Draft**:
 "Good catch! Moving to environment variable in next commit."
@@ -168,7 +170,7 @@ For each comment thread, provide:
 1. Extract timeout constant to config/constants.js
 2. Break function into smaller, focused functions
 
-**Agent**: I'll use the clean-code-specialist agent to refactor this properly
+**Capability Route**: Current agent by default; clean-code-specialist only after explicit delegation authorization
 
 **Response Draft**:
 "Agreed on both points. Refactoring to extract constants and split the function."
@@ -193,8 +195,8 @@ For each comment thread, provide:
    - [ ] Fix security issue in payment.js:42
    - [ ] Address blocking review comments
 
-2. **Use Agents** (Refactoring):
-   - [ ] `/analyze-pr-feedback` → Clean code specialist for user.js refactoring
+2. **Optional Delegation** (only when explicitly requested):
+   - [ ] Clean code specialist for the bounded user.js refactoring
    - [ ] Run `/extract-constants` on payment module
 
 3. **Reply to Reviewers**:
@@ -208,13 +210,9 @@ For each comment thread, provide:
 
 ---
 
-## Engage Agents Now?
+## Delegation Boundary
 
-Would you like me to:
-1. Invoke clean-code-specialist for the refactoring issues?
-2. Use elixir-specialist for Elixir-specific feedback?
-3. Generate responses to reviewer questions?
-4. Create a commit plan to address all feedback?
+Continue in the current agent unless the user explicitly requests delegation. Drafting a response is not permission to send it, and preparing a commit plan is not permission to stage, commit, or push.
 ```
 
 ## Special Cases
@@ -254,26 +252,9 @@ Action: Review failures and fix root causes
 1. **Acknowledge all feedback**: Even if you disagree, thank reviewers
 2. **Explain decisions**: If not implementing a suggestion, explain why
 3. **Ask for clarification**: If feedback is unclear
-4. **Update the PR**: After addressing feedback, leave a summary comment
-5. **Re-request review**: Use `gh pr review --request @reviewer`
+4. **Update the PR**: When explicitly authorized, leave the exact approved summary comment
+5. **Re-request review**: When explicitly authorized, request the named reviewer through the supported GitHub workflow
 
 ## After Addressing Feedback
 
-```bash
-# Commit fixes (using your conventional commit preference)
-git add .
-/conventional-commit
-
-# Push changes
-git push
-
-# Add summary comment to PR
-gh pr comment $pr_number --body "Addressed all review feedback:
-- Fixed security issue (payment.js)
-- Refactored user service to extract constants
-- Added requested tests
-Ready for re-review @reviewer1 @reviewer2"
-
-# Re-request review
-gh pr review --request @reviewer1
-```
+Stop after analysis unless the user separately asks for implementation. Do not stage, commit, push, reply, post a summary, or re-request review without authorization for that distinct action. Before an authorized commit, test the completed change; before any authorized GitHub write, show the exact target and wording.

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Clear PR Review Comments"
-  short_description: "Draft and safely post clear PR feedback"
-  default_prompt: "Use $clear-pr-review-comments to verify, draft, prioritize, and safely post pull request comments."
