@@ -1,0 +1,4 @@
+interface:
+  display_name: "Accessible Web Interactions"
+  short_description: "Build and verify WCAG 2.2 AA interactions"
+  default_prompt: "Use $accessible-web-interactions to review and improve this web journey."

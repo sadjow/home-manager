@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI and UX Design"
+  short_description: "Design clear, responsive, accessible interfaces"
+  default_prompt: "Use $ui-ux-design to analyze and improve this interface."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adapt Business UX"
+  short_description: "Turn business complexity into intuitive UX"
+  default_prompt: "Use $adapt-business-ux to simplify this business workflow without hard-coding the domain."

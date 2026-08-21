@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+portable_skills=(
+  accessible-web-interactions
+  adapt-business-ux
+  elixir-otp-engineering
+  phoenix-liveview-resilient-ux
+  phoenix-ui-architect
+  playwright-reactive-ux-testing
+  semantic-web-inputs
+  ui-ux-design
+)
+
+retired_claude_skills=(
+  playwright-testing
+  ui-craft
+)
+
+fail() {
+  echo "agent skill check failed: $*" >&2
+  exit 1
+}
+
+for skill in "${portable_skills[@]}"; do
+  package="skills/$skill"
+  skill_file="$package/SKILL.md"
+
+  [[ -f "$skill_file" ]] || fail "missing $skill_file"
+  grep -Fxq "name: $skill" "$skill_file" || fail "$skill frontmatter name does not match its directory"
+  grep -Eq '^description: .+' "$skill_file" || fail "$skill has no frontmatter description"
+  grep -Fq "\"$skill\"" home.nix || fail "$skill is not listed in managedSkills"
+  [[ ! -e "home/claude/skills/$skill" ]] || fail "$skill has a competing Claude-owned package"
+
+  while IFS= read -r reference; do
+    [[ -f "$package/$reference" ]] || fail "$skill links missing reference $reference"
+  done < <(sed -nE 's/.*\]\((references\/[^)#]+).*/\1/p' "$skill_file")
+done
+
+if grep -RIniE '/Users/|/home/|~/|\.config/home-manager' \
+  "${portable_skills[@]/#/skills/}" >/dev/null; then
+  grep -RIniE '/Users/|/home/|~/|\.config/home-manager' \
+    "${portable_skills[@]/#/skills/}" >&2 || true
+  fail "portable skills contain project or machine-specific content"
+fi
+
+for skill in "${retired_claude_skills[@]}"; do
+  [[ ! -e "home/claude/skills/$skill" ]] || fail "retired Claude skill remains: $skill"
+done
+
+entrypoint_words=$(wc -w < home/AGENTS.md | tr -d ' ')
+(( entrypoint_words <= 1300 )) || fail "home/AGENTS.md has $entrypoint_words words; budget is 1300"
+
+grep -Fq 'force = true;' home.nix || fail "managed skills cannot replace legacy unmanaged targets"
+
+echo "Agent skill harness checks passed."

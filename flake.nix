@@ -81,6 +81,28 @@
       });
     in
     {
+      checks = forAllSystems (system:
+        let
+          pkgs = nixpkgsFor.${system};
+        in
+        {
+          agent-skills = pkgs.runCommand "agent-skills-check" {
+            nativeBuildInputs = [
+              pkgs.bash
+              pkgs.coreutils
+              pkgs.findutils
+              pkgs.gnugrep
+              pkgs.gnused
+            ];
+          } ''
+            cp -R ${self} source
+            chmod -R u+w source
+            cd source
+            bash scripts/check-agent-skills
+            touch "$out"
+          '';
+        });
+
       homeConfigurations."sadjow" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgsFor."aarch64-darwin";
 

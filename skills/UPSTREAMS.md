@@ -44,3 +44,17 @@ local skill package easy to compare with its upstream source.
 4. Apply only the reviewed changes to `skills/asd-ste100/`. Then update the
    imported commit and date above.
 5. Run `home-manager build --flake .` to verify the updated copy and its links.
+
+## `playwright-best-practices`
+
+| Field | Value |
+|---|---|
+| Installed name | `playwright-best-practices` |
+| Upstream | <https://github.com/currents-dev/playwright-best-practices-skill> |
+| Imported commit | [`ef329e7e65149918e1ff0eed2cf7d2e6e6f9eb5b`](https://github.com/currents-dev/playwright-best-practices-skill/commit/ef329e7e65149918e1ff0eed2cf7d2e6e6f9eb5b) |
+| Installed on | 2026-04-25 |
+| Ownership | External general-purpose dependency managed by `home/claude-code.nix` |
+
+Keep this package intact. `playwright-reactive-ux-testing` is an authored,
+narrow specialization for temporal and recovery boundaries in reactive UIs;
+it does not replace or vendor the upstream package.

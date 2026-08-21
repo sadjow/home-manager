@@ -8,19 +8,28 @@ let
     ".cursor/skills"
   ];
   managedSkills = [
+    "accessible-web-interactions"
+    "adapt-business-ux"
     "asd-ste100"
+    "elixir-otp-engineering"
     "evolve-agent-harness"
     "explain-clearly"
     "flutter-text-scaling-accessibility"
     "guided-review"
     "improve-project-harness"
     "leave-code-review-comments-collaboratively"
+    "phoenix-liveview-resilient-ux"
+    "phoenix-ui-architect"
+    "playwright-reactive-ux-testing"
+    "semantic-web-inputs"
+    "ui-ux-design"
   ];
   managedSkillFiles = builtins.listToAttrs (lib.concatMap
     (skill: map
       (directory: {
         name = "${directory}/${skill}";
         value = {
+          force = true;
           source = config.lib.file.mkOutOfStoreSymlink
             "${config.home.homeDirectory}/.config/home-manager/skills/${skill}";
         };
