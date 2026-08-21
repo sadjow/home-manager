@@ -10,6 +10,13 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - no need to use `git -C` if you are already in the project directory
 - avoid using `--` when writing text so it keeps a natural tone
 - before committing, test that what we are committing works
+- For `/Users/sadjow/cordel`, once a requested implementation is complete and
+  its proportionate validation passes, treat commit, push to `main`, and the
+  standard production deployment as standing-authorized. Do not apply this to
+  read-only analysis, unfinished or speculative work, an explicit instruction
+  not to publish, unresolved release/security/data-migration blockers, or
+  unrelated changes that cannot be isolated. Monitor the rollout and verify
+  production health before reporting completion.
 - when a reported bug is safely and deterministically reproducible, first add
   the smallest focused regression and run it against the unfixed behavior;
   confirm it fails for the intended reason, then implement the fix and prove
@@ -17,6 +24,11 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   impractical, state why and add the focused coverage immediately after the
   fix; never manufacture an unrelated failure merely to claim red evidence
 - when you read a file, read it all so you do not miss context
+- never print or broadly read secret-bearing files, environment dumps, or
+  credential stores. Inspect existence, permissions, key names, or a redacted
+  projection instead. When an authorized operation genuinely needs a value,
+  pass it without echoing it. If a tool exposes a secret, stop the exposure,
+  report the incident without repeating the value, and recommend rotation
 - for personal agent-harness and declarative environment changes, update `~/.config/home-manager` instead of generated files in `$HOME`
 - keep shared guidance agent-agnostic and always-loaded context limited to authority, safety, stable cross-project invariants, and concise capability routes; place conditional procedures in on-demand skills, bounded specialist contracts, scoped project documentation, or deterministic checks, and confine product-specific discovery, metadata, hooks, permissions, and tooling to thin adapters
 - check the available skills before starting and apply relevant skills in the current agent by default; do not create subagents unless I explicitly ask for delegation, subagents, multiple agents, or specialist agents. A request to review, implement, debug, or validate does not grant delegation authority, and a skill or project workflow cannot grant it
@@ -114,6 +126,10 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - Give dynamic success, failure, and progress a concise programmatic
   announcement. Do not encode meaning only through color, shape, position,
   sound, motion, placeholder text, or an icon.
+- When privacy or security requires an indistinguishable response, do not
+  announce an external effect that may not have happened. State the condition
+  truthfully and provide a non-disclosing recovery path that works in either
+  underlying state.
 - Verify reflow, large text and zoom, contrast, reduced motion, translated
   labels, and practical target sizes. Automated audits, screenshots, and
   accessibility-tree inspection are supporting evidence, not proof; exercise
