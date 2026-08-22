@@ -1,0 +1,4 @@
+interface:
+  display_name: "Role-Aware Product UX"
+  short_description: "Design each screen around its users' real work"
+  default_prompt: "Use $role-aware-product-ux to decide what this screen should show for each user role and context."

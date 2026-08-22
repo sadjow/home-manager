@@ -8,6 +8,7 @@ portable_skills=(
   phoenix-liveview-resilient-ux
   phoenix-ui-architect
   playwright-reactive-ux-testing
+  role-aware-product-ux
   semantic-web-inputs
   ui-ux-design
 )
