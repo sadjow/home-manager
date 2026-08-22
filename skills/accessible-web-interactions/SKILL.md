@@ -17,6 +17,10 @@ guidance, not a substitute for testing the actual product.
   dragging or path-based gestures.
 - Keep focus visible, unobscured, predictable, intentionally placed, and
   restored after overlays or task transitions.
+- Treat `:focus-visible` as the keyboard baseline and make pointer-focus policy
+  explicit. Keep a visible `:focus` state when the control still owns attention
+  after a click, when a product deliberately favors modality-independent
+  orientation, or when focus was placed by script.
 - Announce meaningful progress, success, failure, validation, and result-count
   changes without flooding the live region.
 - Never encode meaning only through color, icon, shape, position, sound,

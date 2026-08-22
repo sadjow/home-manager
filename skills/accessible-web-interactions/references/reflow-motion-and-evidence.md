@@ -8,8 +8,10 @@ without two-dimensional scrolling except where the content inherently requires
 it. Test long translated labels and large platform text, not only default copy.
 
 Use measured contrast for text, meaningful graphics, component boundaries, and
-focus indicators. Test each supported theme and state. Do not infer contrast
-from token names.
+focus indicators. Test each supported theme and state, including operating
+system forced-colors or high-contrast settings where supported. Do not infer
+contrast from token names. An indicator implemented only with `box-shadow` is
+not sufficient evidence because forced-colors can suppress the shadow.
 
 WCAG 2.2 target size minimum is 24 by 24 CSS px with documented exceptions.
 Prefer roughly 44 px for primary touch actions and crowded mobile workflows
@@ -29,7 +31,8 @@ because callbacks must not depend on a transition that no longer runs.
 2. Keyboard-only task completion and visible focus inspection.
 3. Touch/pointer journey, including gesture cancellation.
 4. Reflow, zoom, large text, translated labels, contrast, and reduced motion.
-5. Screen-reader journey for the relevant platform/browser pair.
+5. Forced-colors or high-contrast mode for focus, boundaries, and status.
+6. Screen-reader journey for the relevant platform/browser pair.
 
 Automation cannot reliably judge useful alt text, logical focus, announcement
 quality, error recovery, gesture alternatives, or cognitive clarity.
