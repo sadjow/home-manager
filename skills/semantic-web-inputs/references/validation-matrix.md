@@ -27,6 +27,18 @@ selection, composition, or virtual-keyboard ordering can differ.
 - Currency/unit with a non-default exponent or precision.
 - Phone/address modes that legitimately have different lengths or no postal
   code/number.
+- Same-semantic precedence across an explicit selection, reload, coarse edge
+  hint, time-zone/locale fallback, and an explicit international `+` value.
+
+## Layout cases
+
+- At the narrowest supported viewport and 200% text, compare each critical
+  field and task panel with its nearest clipping ancestor.
+- Check document-level horizontal overflow separately. A passing `scrollWidth`
+  assertion does not reveal content clipped inside an `overflow-hidden`
+  component.
+- Exercise the longest localized country name, calling code, guidance, and
+  validation message without using the flag as the only recognizable label.
 
 ## Server cases
 

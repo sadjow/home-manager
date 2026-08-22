@@ -53,6 +53,33 @@ state can confirm a just-finished action, then become visually quiet or absent.
 When nothing needs attention, a compact entity and its primary route can be the
 complete design.
 
+## Treat alerts as interruption recovery
+
+An alert center helps a person notice a consequential change and recover the
+canonical task after an interruption. It is not a duplicate worklist, message
+archive, or permanent floating layer.
+
+- Persist an in-product source of truth before depending on an external push,
+  email, SMS, or chat transport.
+- Deduplicate one logical event across roles, devices, memberships, and
+  transports; reading the alert must not silently resolve the underlying work.
+- Show the minimum authorized context needed to judge urgency and one direct
+  route to the canonical object or filtered worklist. Keep private detail in
+  that authorized destination.
+- Prefer an existing global navigation badge plus contextual, non-focus-
+  stealing status over a second permanent control. Add a floating affordance
+  only when it owns a distinct, frequent, time-critical action and its viewport
+  and interruption cost are justified.
+- Group bursts, label stale state, and demote or remove obsolete alerts so the
+  center does not compete with current work.
+- Keep notification-channel configuration secondary to actionable alerts on
+  compact screens.
+
+Test duplicate delivery, inactive tabs, reconnect, role or scope changes,
+resolved work, failed external transports, narrow viewports, 200% text,
+keyboard use, and assistive technology. Measure first relevant action and
+recovery, not notification taps alone.
+
 ## Require a metric contract
 
 A visible metric or KPI needs:

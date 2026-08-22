@@ -29,6 +29,20 @@ choice.
 Keep the suggestion visible and editable. Request precise geolocation only
 when the actual task needs it, not to choose a formatting default.
 
+When several hints exist, prefer an explicit value for the same semantic fact,
+then a previously reviewed same-semantic preference when the task can safely
+reuse it, then coarse edge, time-zone, and locale-region hints. End with an
+editable product fallback. Never carry a preference across semantic
+dimensions: a reviewed phone-number country is not a residence, business
+country, currency, channel, or interface locale.
+
+For international phone authoring, use one composite native country selector
+and national-number input. Show the calling code and optional flag, but keep a
+localized accessible country label because a flag is not a name. A pasted `+`
+number may update the visible selector when the number itself identifies a
+country. Keep progressive formatting local and server normalization
+independent.
+
 ## Keep canonical values stable
 
 Store domain values in a representation independent of decoration: minor

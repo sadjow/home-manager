@@ -26,12 +26,48 @@ and current state rather than expecting memory.
 Do not stack acquisition chrome and operational action bars in one focused
 journey.
 
+Treat authentication as an operational task once a person chooses a method or
+a challenge is issued. Remove acquisition and trust storytelling from those
+follow-up screens; keep only destination or status, credential, primary action,
+and compact recovery. On small screens, use the page surface directly instead
+of nesting the flow in a bordered or elevated card. Wide screens may add subtle
+containment without changing the hierarchy.
+
+When one account task supports several authentication methods, choose one
+contextual primary method only when it is actually available. Keep the next
+viable method immediately recognizable and reveal legacy or specialist
+credentials progressively. Reauthentication may show only methods already
+verified for that account. Do not make several equal-looking submit buttons
+compete or use a regional hint as proof of the preferred identity method.
+
 ## Use space and width intentionally
 
 Assign horizontal padding to one owner. Use a full-width background band with
 an inner content container when a landing page needs breadth. Keep prose to a
 readable measure while allowing grids, media, maps, and comparisons to use more
 horizontal space.
+
+On compact task pages, audit effective width as a stack: viewport gutter,
+container border, container padding, and child padding. Keep one content gutter
+instead of nesting independently padded cards. A background, divider, or list
+surface can bleed through that gutter while its text and controls stay aligned
+to the safe content edge. Keep an inset card only when it communicates a real
+object, selection, or independent action boundary.
+
+When peer filters do not fit, prefer one labelled, natively scrollable
+horizontal rail. Leave a partial next item or another truthful continuation cue
+visible, reserve space for focus and selected states, and prevent document-level
+overflow. Prove the geometry at a compact boundary and again at a wide
+viewport; do not encode the acceptance test as a particular CSS class.
+
+Treat a repeated-entity management page as an index unless its primary job is
+explicitly analytical. Each item needs identity, the most important actionable
+state, one primary destination, and compact secondary access. Render parent
+context and parent-scoped actions once per group. Move metrics, setup detail,
+and advanced configuration into focused destinations instead of repeating
+them in every item. A completed item can use a calm textual state; it does not
+need another competing call to action. Single-object detail pages and urgent
+states may expose more when that information directly changes the next task.
 
 The parent owns external spacing and relationships; components own internal
 padding. Use density variants only when the task context truly differs.

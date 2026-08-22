@@ -7,6 +7,23 @@ contract. Content and controls must remain readable, reachable, and operable
 without two-dimensional scrolling except where the content inherently requires
 it. Test long translated labels and large platform text, not only default copy.
 
+Include shared headers and bottom navigation in document-level overflow
+measurement. Text scaling can enlarge `rem`-sized layout gutters and touch
+targets even when route content reflows correctly. Keep controls at least 44
+CSS px without allowing persistent chrome to force horizontal scrolling, and
+exercise both mobile and desktop browser engines at the narrow boundary.
+
+Inspect the ancestor chain before using persistent `position: sticky` chrome.
+`overflow: hidden`, `auto`, or `scroll` can change the sticky scroll container;
+use `overflow: clip` when the intent is paint clipping only, or keep the action
+in normal flow. Verify both mid-scroll and the end of the container because the
+failure can differ at each point.
+
+At large text, allow action rows and labels to wrap and assert that every
+visible action remains inside its action region and above other persistent
+navigation. A zero document `scrollWidth` delta is insufficient evidence:
+descendants can be clipped inside a card without making the document overflow.
+
 Use measured contrast for text, meaningful graphics, component boundaries, and
 focus indicators. Test each supported theme and state, including operating
 system forced-colors or high-contrast settings where supported. Do not infer
