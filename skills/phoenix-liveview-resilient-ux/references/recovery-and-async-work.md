@@ -21,6 +21,23 @@ the boundary on mount/reconnect.
 Do not confuse latency simulation with reconnect, or reconnect with reload.
 Test each mechanism directly.
 
+When a security or privacy boundary requires a full-document navigation, a
+late acknowledgement must not interrupt an open composer or another valuable
+browser-owned draft. Persist only the bounded recovery bootstrap, defer the
+document handoff until the person explicitly exits the task, and cancel it on
+terminal submission. Backgrounding or suspending the document is not an exit
+and must not discard the draft on resume. Do not weaken the boundary by placing
+a bearer secret into the current analytics-enabled URL. Prove both the
+uninterrupted draft and the later protected destination in a browser test.
+
+Assign private root metadata, cache and referrer policy, and analytics
+exclusion before resolving a bearer capability or selecting an authentication
+redirect. Invalid, expired, and unauthenticated first responses need the same
+protection as a successful render. When login is required, seal the sensitive
+return path in an opaque, bounded continuation instead of copying the raw
+capability into an authentication query, analytics surface, notification, log,
+or failing test output.
+
 Persist drafts proportionally. Scope them to actor and resource, whitelist
 fields, restore visibly, and clear only after terminal success or explicit
 discard. Avoid generic browser storage for passwords, payment data, private

@@ -88,6 +88,31 @@ subtree.
 LiveView's current client/server state guidance:
 <https://hexdocs.pm/phoenix_live_view/syncing-changes.html>.
 
+## Return through proven history
+
+A focused detail may expose a Back affordance, but a fixed contextual route is
+not equivalent to the previous browser entry. Prefer a provable same-origin
+history entry and keep a real anchor with a safe closed fallback for direct
+entry, copied links, unsupported APIs, and no-JavaScript use.
+
+In an installed or standalone web app, browser chrome may not expose Back at
+all. Treat the in-product affordance as app-shell navigation: it preserves the
+real journey stack and does not guess a destination from the detail's domain
+context.
+
+When the browser cannot inspect history entries, record the exact internal
+source and expected destination at plain activation. Keep that pending record
+short-lived, bind it into the destination entry's merged `history.state`, and
+consume it. Only the bound entry or an exact matching same-origin referrer may
+authorize `history.back()` after excluding authentication interstitials and
+other non-returnable transitions; do not trust `history.length`, a reusable
+global record, or an arbitrary return URL. A direct-entry JavaScript fallback
+should replace the current entry so system Back cannot loop into the detail
+again.
+Keep Previous-step, Cancel, Close, authentication return, and destructive
+escape controls tied to their explicit workflow semantics rather than browser
+history.
+
 ## Contain global LiveView messages
 
 A layout-level `:handle_info` hook that subscribes every connected LiveView to
