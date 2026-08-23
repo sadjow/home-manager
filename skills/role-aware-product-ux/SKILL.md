@@ -59,6 +59,11 @@ Remove, demote, or move the item when the decision, action, horizon, scope,
 authority, freshness, or evidence cannot be named. White space is preferable
 to decorative metrics or permanent reassurance.
 
+Treat each visible control as a promise of an implemented path. Map every
+button, link, filter, or menu item to a real route or event and exercise the
+outcome before release. Remove capability-shaped placeholders instead of
+leaving controls that no-op, reset state, or imply unsupported work.
+
 Rank information in this order unless evidence supports another order:
 
 1. blocking, risky, overdue, or otherwise actionable exceptions;
