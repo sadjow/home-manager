@@ -42,3 +42,14 @@ baselines for stable visual contracts.
 
 Read [evidence and flake diagnostics](references/evidence-and-flake-diagnostics.md)
 before adding waits, retries, screenshots, or traces.
+
+## Choose execution scope and data ownership
+
+Do not make a broad browser matrix an automatic gate merely because Playwright
+coverage exists. Keep fast domain and component tests broad, then select local,
+manual-CI, scheduled, or release browser evidence according to the user-visible
+risk and measured signal-to-cost ratio.
+
+Read [execution topology and data isolation](references/execution-topology-and-data-isolation.md)
+before resetting a database, increasing workers, sharding a suite, or adding a
+Playwright workflow to CI.
