@@ -77,6 +77,14 @@ A completion message can be important at the moment work completes. On a
 recurring operational surface, let completed or healthy states recede or
 disappear so they do not compete forever with real work.
 
+Progressive disclosure must remain discoverable. When an index or worklist can
+grow without a fixed bound, do not place the only route to secondary settings
+after its content. Keep a compact, state-aware entry in a stable header or
+before the list, and move detailed controls to a focused route. This preserves
+access without promoting administration above the primary work or inserting a
+full settings panel before the first actionable item. A bounded detail or form
+that already exposes its settings does not need a duplicate shortcut.
+
 Read [operational information and metrics](references/operational-information-and-metrics.md)
 before adding KPIs, charts, status summaries, repeated-entity content, or a
 dashboard.

@@ -26,6 +26,16 @@ shared map purpose, limit operator data by active scope, and recommend
 contextual or focused operator paths instead of exposing all controls to
 everyone.
 
+## Worklist discoverability case
+
+An operational inbox can grow without a fixed bound, while its only route to
+delivery preferences appears after the final item.
+
+Expected boundary: keep the inbox primary, expose one compact state-aware entry
+in a stable header or before the list, and put detailed preferences on a
+focused route. Reject both the buried sole entry and a full settings panel that
+displaces the first actionable item.
+
 ## Boundary case
 
 An acquisition landing page needs persuasion, proof, and orientation rather
