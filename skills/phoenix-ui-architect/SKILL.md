@@ -12,12 +12,31 @@ recipes.
 
 ## Structure by ownership
 
-- Use function components for reusable presentation and semantic invariants.
+- Keep the LiveView and page template readable as an outline assembled from
+  meaningfully named function components. Small design-system primitives,
+  controls, rows, panels, sections, and complete task areas are all valid
+  boundaries when each names one recognizable UI responsibility; reuse and a
+  minimum line count are not prerequisites.
+- Group closely related function components in one colocated module. Split a
+  module/file when a distinct task, domain section, or interaction contract
+  becomes easier to understand independently; do not default to one module per
+  render function.
+- Favor a component hierarchy over a monolithic template. The smell is not
+  "many components" or "small components"; it is an opaque API that needs most
+  of the parent's assigns, hides behavior, or makes readers chase wrappers
+  with no useful contract. Keep attrs explicit, and keep queries and domain
+  rules outside presentation components.
+- Function components do not introduce a process or browser round trip.
+  Preserve granular LiveView change tracking by passing the explicit attrs and
+  slots each child needs instead of forwarding `{assigns}` wholesale through
+  HEEx or mutating assigns with generic map operations.
 - Use a LiveComponent only when it owns a meaningful state/event boundary or
   isolated update lifecycle. It shares the parent LiveView process; it is not a
   supervision or PubSub boundary.
 - Keep business rules in contexts or domain modules. LiveViews coordinate
-  presentation, URL state, and user events.
+  authorization, presentation, URL state, subscriptions, and user events.
+  Plain modules may own cohesive form serialization or view-data
+  transformation when that keeps the LiveView focused.
 - Use hooks only for browser capabilities or state that Phoenix commands cannot
   express clearly. Give every client-mutated attribute one explicit owner.
 
