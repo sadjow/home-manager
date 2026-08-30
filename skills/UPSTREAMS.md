@@ -3,6 +3,39 @@
 Keep vendor and update notes here, outside each skill directory. This keeps the
 local skill package easy to compare with its upstream source.
 
+## `browser-harness`
+
+| Field | Value |
+|---|---|
+| Local path | `skills/browser-harness/` |
+| Upstream | <https://github.com/browser-use/browser-harness> |
+| Release | [`v0.1.9`](https://github.com/browser-use/browser-harness/releases/tag/v0.1.9) |
+| Imported commit | [`41108b8676d4bdb58b26ab3b079c0b7b0f8f3926`](https://github.com/browser-use/browser-harness/commit/41108b8676d4bdb58b26ab3b079c0b7b0f8f3926) |
+| Imported on | 2026-08-25 |
+| License | MIT |
+| Import scope | Root `SKILL.md` and `LICENSE` |
+| Runtime owner | `home/browser-harness.nix` pins the matching PyPI CLI |
+
+### Refresh procedure
+
+1. Resolve the latest stable release and its commit from GitHub and PyPI.
+2. Download that exact commit into a temporary review directory:
+
+   ```sh
+   review_root="$(mktemp -d)"
+   python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+     --repo browser-use/browser-harness \
+     --path . \
+     --ref <commit> \
+     --dest "$review_root" \
+     --name browser-harness
+   ```
+
+3. Compare its root `SKILL.md` and `LICENSE` with `skills/browser-harness/`.
+4. Apply the reviewed files and update the release, imported commit, import
+   date, and `browserHarnessVersion` in `home/browser-harness.nix`.
+5. Run `home-manager build --flake .` to verify the package and managed links.
+
 ## `asd-ste100`
 
 | Field | Value |

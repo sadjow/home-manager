@@ -13,6 +13,15 @@ portable_skills=(
   ui-ux-design
 )
 
+vendor_skills=(
+  browser-harness
+)
+
+checked_skills=(
+  "${portable_skills[@]}"
+  "${vendor_skills[@]}"
+)
+
 retired_claude_skills=(
   playwright-testing
   ui-craft
@@ -23,7 +32,7 @@ fail() {
   exit 1
 }
 
-for skill in "${portable_skills[@]}"; do
+for skill in "${checked_skills[@]}"; do
   package="skills/$skill"
   skill_file="$package/SKILL.md"
 
