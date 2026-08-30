@@ -3,10 +3,14 @@
 ## Cold join
 
 A primary task link in server-rendered HTML should work before the LiveView
-socket joins; use a real `href` when full navigation is acceptable. A stateful
-form rendered before join must not accept input that the initial join patch can
-erase. Keep it briefly inert, expose one concise connecting status, and remove
-the boundary on mount/reconnect.
+socket joins; use a real `href` when full navigation is acceptable, especially
+for entry into a substantial bookmarkable task. Reserve `patch` for navigation
+within an already connected task when preserving the LiveView is valuable.
+Exercise the real entry before the join settles so a test cannot hide a first
+click lost to the initial patch. A stateful form rendered before join must not
+accept input that the initial join patch can erase. Keep it briefly inert,
+expose one concise connecting status, and remove the boundary on
+mount/reconnect.
 
 ## Reconnect versus reload
 
