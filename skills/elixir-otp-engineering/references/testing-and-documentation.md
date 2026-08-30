@@ -23,6 +23,25 @@ behavior fails for the intended reason. If red-first execution would mutate a
 live system, depend on unreliable timing, or require unavailable infrastructure,
 state that boundary and add the regression immediately after the fix.
 
+## Use line coverage as a diagnostic
+
+Prefer the coverage engine already provided by the pinned Elixir toolchain
+when a project only needs local visibility. Keep instrumentation outside the
+ordinary test and quality paths when feedback speed matters; enable it through
+an explicit command instead of slowing every run.
+
+Treat coverage as evidence about executed lines, not proof of behavior. It does
+not establish branch semantics, authorization, transaction rollback, process
+ordering, browser timing, accessibility, or useful assertions. Add tests for
+those contracts at their owning layer, then use the HTML or per-module report
+to find important code the suite still misses.
+
+A focused test invocation can help while changing one capability, but its
+overall percentage can include every compiled module and is not a project-wide
+baseline. Compare repository trends only with equivalent full-suite runs. Do
+not add a minimum threshold or automatic CI gate unless the project explicitly
+chooses that policy and has measured the runtime and baseline impact.
+
 ## Document useful contracts
 
 Write `@moduledoc` for public concepts and `@doc` where callers need behavior,
