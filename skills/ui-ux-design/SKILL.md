@@ -15,12 +15,19 @@ Identify the primary job, primary action, supporting context, trust needs, and
 failure/recovery path. Group related information, remove competing emphasis,
 and use typography, space, color, and position to make the reading order clear.
 
+Make the ordinary path understandable from the title, current state,
+persistent labels, controls, and sequence. Assume people scan before they read,
+but retain copy that prevents a likely error, explains a non-obvious
+consequence, format, unit, scope, or recovery path, or supplies necessary
+safety, legal, or trust context.
+
 Acquisition pages may use persuasive full-width bands, visual storytelling,
 proof, and a strong primary action. Internal operational pages should favor
 compact task completion, stable navigation, and high information utility.
 
 Read [information hierarchy and layout](references/information-hierarchy-and-layout.md)
-for composition, density, landing/task distinctions, and design tokens.
+for task comprehension, justified copy, composition, density, implementation
+boundaries, landing/task distinctions, and design tokens.
 
 ## Make responsive interaction coherent
 

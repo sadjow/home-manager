@@ -14,6 +14,33 @@ Order content by that mental model, not by database schema or component
 availability. Recognition is usually cheaper than recall; show useful choices
 and current state rather than expecting memory.
 
+The ordinary path should be understandable from the title, current state,
+persistent labels, controls, and sequence. Do not make completion depend on an
+instructional paragraph when the interface can communicate the decision
+directly. People often scan before reading, but do not turn that observation
+into the absolute claim that nobody reads.
+
+Visible helper copy earns space when it prevents a likely error, explains a
+non-obvious consequence, format, unit, scope, or recovery path, or supplies
+necessary safety, legal, or trust context. Otherwise remove it, shorten it, or
+reveal it when its condition occurs. Preserve persistent labels, accessible
+names and descriptions, status, explicit alternatives, and error recovery. A
+placeholder is not a label.
+
+Required provider, license, or legal attribution is context, not task status.
+Keep it visible and perceivable at the prominence its obligation requires, but
+place it outside success, error, loading, and confirmation messages unless the
+attribution itself changes the user's decision. Do not hide required credit;
+do not let it masquerade as operational feedback or compete with the next
+action.
+
+Prefer one immediate job or decision per focused screen. Use progress-marked
+steps only when each step is independently understandable and splitting does
+not remove comparison context, increase backtracking, or make completion and
+recovery harder. A complex comparison, safety decision, or tightly coupled set
+of fields can be clearer on one well-structured screen than across ceremonial
+steps.
+
 ## Match composition to the surface
 
 | Surface | Composition priority |
@@ -60,6 +87,13 @@ visible, reserve space for focus and selected states, and prevent document-level
 overflow. Prove the geometry at a compact boundary and again at a wide
 viewport; do not encode the acceptance test as a particular CSS class.
 
+Audit useful vertical task area as well as reflow. Account for persistent
+navigation, route context, section navigation, and action bars. Consolidate
+repeated headings, status, identity, and secondary actions so the task and its
+first useful control appear early. Do not impose an arbitrary viewport
+percentage; judge whether the person can identify and begin the job without
+scrolling through explanation or duplicated chrome.
+
 Treat a repeated-entity management page as an index unless its primary job is
 explicitly analytical. Each item needs identity, the most important actionable
 state, one primary destination, and compact secondary access. Render parent
@@ -71,6 +105,22 @@ states may expose more when that information directly changes the next task.
 
 The parent owns external spacing and relationships; components own internal
 padding. Use density variants only when the task context truly differs.
+
+## Structure implementation by responsibility
+
+Keep a page's top-level implementation readable as an outline of the user
+journey. Extract a cohesive task, domain section, repeated semantic contract,
+or complex data-to-view transformation when that boundary makes purpose,
+inputs, states, and tests clearer. Cross-page reuse is useful evidence, but it
+is not the only reason to create a component.
+
+Do not split by an arbitrary line count. Avoid components that merely rename a
+small fragment, accept most of the parent's state, hide data access, or force a
+reader to chase many files to understand one decision. The parent should own
+route-level orchestration and relationships; a component should own one
+cohesive presentation or interaction contract; domain rules should remain in
+their authoritative layer. Test stable behavior at those boundaries rather
+than private markup structure.
 
 ## Design tokens
 
