@@ -75,12 +75,29 @@ Before writing:
 - prefer one strong, well-supported comment over several weak or repetitive comments;
 - separate required changes, questions, optional suggestions, nits, and specific praise.
 
-When multiple comments exist, order them by demonstrated impact, confidence, and proximity to the promised flow. Use priority outside the exact body unless repository convention or the human asks for a label:
+When multiple comments exist, order them by demonstrated impact, confidence, and proximity to the promised flow. Track numeric priority outside the exact body:
 
 - **P0:** immediate catastrophic production or critical-data impact;
 - **P1:** merge blocker involving security, authorization, data integrity, or a core promised flow;
 - **P2:** important correctness, compatibility, maintainability, or usability issue to resolve before merge;
 - **P3:** optional improvement, polish, or preference.
+
+## Format comments conventionally
+
+Use Conventional Comments syntax by default unless the repository or the human
+requests another convention:
+
+```text
+<label> [decorations]: <subject>
+```
+
+Prefer labels and decorations that preserve the finding's classification and
+requiredness, such as `issue (blocking):`, `issue (non-blocking):`,
+`question:`, `suggestion (non-blocking):`, `nitpick (non-blocking):`, and
+`praise:`. Treat `(blocking)` as a merge requirement, not as a synonym for one
+numeric priority: a well-supported P2 can block merge, while optional P3
+feedback must not. Preserve an exact human-supplied body or a more local
+repository convention instead of silently normalizing it.
 
 ## Draft one complete concern
 
