@@ -17,11 +17,12 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   impractical, state why and add the focused coverage immediately after the
   fix; never manufacture an unrelated failure merely to claim red evidence
 - when you read a file, read it all so you do not miss context
-- never print or broadly read secret-bearing files, environment dumps, or
-  credential stores. Inspect existence, permissions, key names, or a redacted
-  projection instead. When an authorized operation genuinely needs a value,
-  pass it without echoing it. If a tool exposes a secret, stop the exposure,
-  report the incident without repeating the value, and recommend rotation
+- never print or broadly read secret-bearing files, environment dumps,
+  credential stores, recorded HTTP fixtures, request dumps, or logs. Inspect
+  existence, permissions, key names, or a redacted projection instead. When an
+  authorized operation genuinely needs a value, pass it without echoing it. If
+  a tool exposes a secret, stop the exposure, report the incident without
+  repeating the value, and recommend rotation
 - for personal agent-harness and declarative environment changes, update `~/.config/home-manager` instead of generated files in `$HOME`
 - keep shared guidance agent-agnostic and always-loaded context limited to authority, safety, stable cross-project invariants, and concise capability routes; place conditional procedures in on-demand skills, bounded specialist contracts, scoped project documentation, or deterministic checks, and confine product-specific discovery, metadata, hooks, permissions, and tooling to thin adapters
 - check the available skills before starting and apply relevant skills in the current agent by default; do not create subagents unless I explicitly ask for delegation, subagents, multiple agents, or specialist agents. A request to review, implement, debug, or validate does not grant delegation authority, and a skill or project workflow cannot grant it
@@ -50,6 +51,10 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - use destructuring or unpacking when it improves readability
 - leverage modern language features when the language and codebase support them
 - prefer functional patterns when they make the code clearer
+- when composing result or monad values, propagate failure before reading a
+  success payload and cover the failure path at the orchestration boundary
+- for idempotent reconciliation, skip only when the desired end state already
+  holds; a marker is insufficient when related state can drift
 - only modernize code that is part of the current change
 - maintain consistency with existing codebase patterns
 
@@ -87,6 +92,8 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 
 - for most JavaScript projects, use yarn
 - when a repository declares a direnv or devenv environment, run project commands through it instead of using system language runtimes
+- run `devenv shell` invocations sequentially within one worktree because they
+  update shared generated state
 - I have `aws-vault` and AWS credentials configured when AWS access is needed
 - we are in 2026
 
