@@ -11,7 +11,6 @@ let
     "accessible-web-interactions"
     "adapt-business-ux"
     "asd-ste100"
-    "browser-harness"
     "elixir-otp-engineering"
     "evolve-agent-harness"
     "explain-clearly"
@@ -68,7 +67,6 @@ in {
 
   imports = [
     ./home/nix
-    ./home/browser-harness.nix
     ./home/claude-code.nix
     ./home/ollama.nix
     ./home/opencode.nix

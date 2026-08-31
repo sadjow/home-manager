@@ -13,13 +13,8 @@ portable_skills=(
   ui-ux-design
 )
 
-vendor_skills=(
-  browser-harness
-)
-
 checked_skills=(
   "${portable_skills[@]}"
-  "${vendor_skills[@]}"
 )
 
 retired_claude_skills=(
