@@ -23,6 +23,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    # Keep GitHub CLI current without forcing all Home Manager packages to update.
+    nixpkgs-gh.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     # Keep Ollama current without forcing all Home Manager packages to update.
     nixpkgs-ollama.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -62,7 +65,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs-ollama, nixpkgs-opencode, home-manager, darwin, devenv, claude-code, codex-cli, aith, ... }:
+  outputs = { self, nixpkgs, nixpkgs-gh, nixpkgs-ollama, nixpkgs-opencode, home-manager, darwin, devenv, claude-code, codex-cli, aith, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -110,6 +113,7 @@
           ./home.nix
           { _module.args.devenv = devenv; }
           { _module.args.aith = aith; }
+          { _module.args.ghPackage = nixpkgs-gh.legacyPackages."aarch64-darwin".gh; }
           { _module.args.ollamaPackage = nixpkgs-ollama.legacyPackages."aarch64-darwin".ollama; }
           { _module.args.opencodePackage = nixpkgs-opencode.legacyPackages."aarch64-darwin".opencode; }
         ];

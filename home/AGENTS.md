@@ -86,6 +86,9 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 - do not mention dates in commit messages
 - write commit messages and PR titles in a positive manner
 - when opening PRs, use natural language and follow the repository template
+- when authorized to write GitHub issues, pull requests, or comments, attach
+  useful screenshots or videos with `gh ... --attach`; add descriptive image
+  alt text as `path#alt text`, and omit media that does not aid review
 - do not mention clean code work explicitly in commit messages
 
 ## Tooling Preferences

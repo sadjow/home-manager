@@ -851,6 +851,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-gh": {
+      "locked": {
+        "lastModified": 1788372231,
+        "narHash": "sha256-7aqErvrAEz/5OcPA5p3M+tVOqeYc4oJXkNIPXfCqxAw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9387b3fcc0c23c86661636da63faabad4235a0a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-ollama": {
       "locked": {
         "lastModified": 1784453100,
@@ -1060,6 +1076,7 @@
         "devenv": "devenv",
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs_7",
+        "nixpkgs-gh": "nixpkgs-gh",
         "nixpkgs-ollama": "nixpkgs-ollama",
         "nixpkgs-opencode": "nixpkgs-opencode"
       }

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, devenv, aith, ... }:
+{ config, pkgs, lib, devenv, aith, ghPackage, ... }:
 
 let
   skillDirectories = [
@@ -52,6 +52,13 @@ let
       "$@"
   '';
 in {
+  assertions = [
+    {
+      assertion = lib.versionAtLeast ghPackage.version "2.99.0";
+      message = "GitHub CLI 2.99.0 or newer is required for issue and pull request media attachments.";
+    }
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "sadjow";
@@ -95,7 +102,7 @@ in {
     pkgs.mqttui
     pkgs.ripgrep
     pkgs.pstree
-    pkgs.gh  # GitHub CLI
+    ghPackage  # GitHub CLI
     pkgs.asdf-vm
     pkgs.neovim
     pkgs.ruby
