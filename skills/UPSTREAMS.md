@@ -15,6 +15,7 @@ local skill package easy to compare with its upstream source.
 | License | MIT |
 | Import scope | Root `SKILL.md` and `LICENSE` |
 | Runtime owner | `home/browser-harness.nix` pins the matching PyPI CLI |
+| Local adaptation | Discovery description and `Tool selection` section in `SKILL.md`, maintained by the personal Home Manager harness |
 
 ### Refresh procedure
 
@@ -32,7 +33,9 @@ local skill package easy to compare with its upstream source.
    ```
 
 3. Compare its root `SKILL.md` and `LICENSE` with `skills/browser-harness/`.
-4. Apply the reviewed files and update the release, imported commit, import
+4. Merge reviewed upstream changes into the local copy, preserving the local
+   adaptation above. Do not replace it wholesale with upstream `SKILL.md` or
+   `browser-harness skill` output. Update the release, imported commit, import
    date, and `browserHarnessVersion` in `home/browser-harness.nix`.
 5. Run `home-manager build --flake .` to verify the package and managed links.
 

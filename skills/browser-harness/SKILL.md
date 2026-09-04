@@ -1,15 +1,34 @@
 ---
 name: browser-harness
-description: "Always use browser-harness for any web interaction: automation, scraping, testing, or site/app work."
+description: "Control the user's browser for work needing their existing signed-in session, or operate hosted services such as Excalidraw and Figma through the UI when an MCP/connector is unavailable or browser interaction is preferred. Prefer Playwright for isolated development and testing without the user's session."
 ---
 
 # browser-harness
 
 Direct browser control via CDP. For task-specific edits, use `agent-workspace/agent_helpers.py`. For setup, install, or connection problems, read https://github.com/browser-use/browser-harness/blob/main/install.md.
 
-## When Not to Use
+## Tool selection
 
-A basic fetch of public information needs no browser. If a plain HTTP request can read it — a public page, an API, docs — use `curl` or your fetch tool, and leave the browser alone. Use browser-harness when the task needs interaction (click, type, navigate), the user's logged-in session, JS rendering, or a bot-protected page. If a direct fetch fails or returns a shell page, then escalate to the browser.
+- Prefer browser-harness for authorized work that needs the user's existing
+  signed-in browser session. Reuse that session without extracting passwords,
+  tokens, or cookies into scripts, Playwright contexts, or cloud browsers.
+- Prefer Playwright for local development, app debugging, and automated tests
+  that do not need the user's real account or browser session. Test accounts
+  and authentication fixtures still belong in isolated development workflows;
+  an app having a login screen does not itself call for browser-harness.
+- Prefer browser-harness for interactive work in hosted services, such as
+  drawing diagrams in Excalidraw or editing a Figma canvas, when a suitable
+  MCP/connector is unavailable, lacks the needed interaction, or the browser
+  UI is the requested or better-fitting route. This also applies to anonymous
+  editor sessions. A capable MCP/connector remains a valid choice; its absence
+  alone does not block an available browser workflow.
+- Public information that a direct HTTP request, CLI, or API can retrieve
+  needs no browser. If that route fails or returns a JavaScript shell, select
+  a browser tool using the task and session needs above.
+
+These are routing preferences, not capability limits. Honor explicit tool
+choices and applicable tool restrictions. Browser access does not expand the
+authorized task or remove login, consent, or publishing checkpoints.
 
 Domain skills are off by default. Set `BH_DOMAIN_SKILLS=1` to enable them; see the bottom section.
 
