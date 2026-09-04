@@ -15,7 +15,7 @@ local skill package easy to compare with its upstream source.
 | License | MIT |
 | Import scope | Root `SKILL.md` and `LICENSE` |
 | Runtime owner | `home/browser-harness.nix` pins the matching PyPI CLI |
-| Local adaptation | Discovery description and `Tool selection` section in `SKILL.md`, maintained by the personal Home Manager harness |
+| Local adaptation | Discovery description, `Tool selection` section, and [local Codex routing adapter](browser-harness/references/codex-computer-use.md), maintained by the personal Home Manager harness |
 
 ### Refresh procedure
 

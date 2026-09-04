@@ -1,6 +1,6 @@
 ---
 name: browser-harness
-description: "Control the user's browser for work needing their existing signed-in session, or operate hosted services such as Excalidraw and Figma through the UI when an MCP/connector is unavailable or browser interaction is preferred. Prefer Playwright for isolated development and testing without the user's session."
+description: "Control the user's signed-in browser session or hosted editors through CDP when browser interaction is needed. In local Codex, check native Computer Use routing first and use browser-harness as fallback. Interactive development and QA can complement repeatable Playwright tests."
 ---
 
 # browser-harness
@@ -9,13 +9,20 @@ Direct browser control via CDP. For task-specific edits, use `agent-workspace/ag
 
 ## Tool selection
 
+Honor explicit tool and browser choices and the current host's routing before
+applying these defaults. For a local Codex task, read
+[Local Codex UI routing](references/codex-computer-use.md) before selecting this
+harness or starting its daemon. That adapter owns the local Codex preference;
+it does not change defaults for other agents or browser/cloud tasks.
+
 - Prefer browser-harness for authorized work that needs the user's existing
   signed-in browser session. Reuse that session without extracting passwords,
   tokens, or cookies into scripts, Playwright contexts, or cloud browsers.
-- Prefer Playwright for local development, app debugging, and automated tests
-  that do not need the user's real account or browser session. Test accounts
-  and authentication fixtures still belong in isolated development workflows;
-  an app having a login screen does not itself call for browser-harness.
+- Prefer Playwright for repeatable development and QA checks, scripted
+  debugging, and automated tests that do not need the user's real account or
+  browser session. Test accounts and authentication fixtures still belong in
+  isolated development workflows; an app having a login screen does not itself
+  call for browser-harness.
 - Prefer browser-harness for interactive work in hosted services, such as
   drawing diagrams in Excalidraw or editing a Figma canvas, when a suitable
   MCP/connector is unavailable, lacks the needed interaction, or the browser
@@ -29,6 +36,8 @@ Direct browser control via CDP. For task-specific edits, use `agent-workspace/ag
 These are routing preferences, not capability limits. Honor explicit tool
 choices and applicable tool restrictions. Browser access does not expand the
 authorized task or remove login, consent, or publishing checkpoints.
+
+The remaining instructions apply only after browser-harness is selected.
 
 Domain skills are off by default. Set `BH_DOMAIN_SKILLS=1` to enable them; see the bottom section.
 
