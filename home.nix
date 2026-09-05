@@ -1,4 +1,4 @@
-{ config, pkgs, lib, devenv, aith, ghPackage, ... }:
+{ config, pkgs, lib, devenv, aith, ghPackage, piPackage, ... }:
 
 let
   skillDirectories = [
@@ -40,6 +40,22 @@ let
     managedSkills);
   globalAgentInstructions = config.lib.file.mkOutOfStoreSymlink
     "${config.home.homeDirectory}/.config/home-manager/home/AGENTS.md";
+  piProfile = { command, agentDirectory }: pkgs.writeShellScriptBin command ''
+    pi_agent_dir="$HOME/${agentDirectory}"
+    ${pkgs.coreutils}/bin/install -d -m 700 "$pi_agent_dir"
+
+    export PI_CODING_AGENT_DIR="$pi_agent_dir"
+
+    exec ${lib.getExe piPackage} "$@"
+  '';
+  piPersonal = piProfile {
+    command = "pi-personal";
+    agentDirectory = ".pi/agent";
+  };
+  piSpireworks = piProfile {
+    command = "pi-spireworks";
+    agentDirectory = ".pi-spireworks/agent";
+  };
   codexSpireworks = pkgs.writeShellScriptBin "codex-spireworks" ''
     spireworks_codex_home="$HOME/.codex-spireworks"
     ${pkgs.coreutils}/bin/install -d -m 700 "$spireworks_codex_home"
@@ -75,6 +91,7 @@ in {
 
   imports = [
     ./home/nix
+    ./home/agent-mcp.nix
     ./home/browser-harness.nix
     ./home/claude-code.nix
     ./home/ollama.nix
@@ -117,6 +134,9 @@ in {
     pkgs._1password-cli
     pkgs.claude-code
     pkgs.github-copilot-cli
+    piPackage
+    piPersonal
+    piSpireworks
     # OpenAI Codex CLI
     pkgs.codex
     # Isolated Spireworks Codex CLI profile

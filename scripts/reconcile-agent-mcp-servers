@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if (( $# != 2 )); then
+  echo "usage: reconcile-agent-mcp-servers <name> <https-url>" >&2
+  exit 2
+fi
+
+server_name=$1
+server_url=$2
+
+if [[ ! $server_name =~ ^[a-zA-Z0-9_-]+$ ]]; then
+  echo "invalid MCP server name: $server_name" >&2
+  exit 2
+fi
+
+if [[ $server_url != https://* ]]; then
+  echo "remote MCP server URL must use HTTPS" >&2
+  exit 2
+fi
+
+reconcile_codex_config() {
+  local codex_home=$1
+  local current_config
+
+  install -d -m 700 "$codex_home"
+  current_config=$(CODEX_HOME="$codex_home" codex mcp get "$server_name" 2>/dev/null || true)
+
+  if grep -Fxq "  enabled: true" <<< "$current_config" \
+    && grep -Fxq "  transport: streamable_http" <<< "$current_config" \
+    && grep -Fxq "  url: $server_url" <<< "$current_config"; then
+    return
+  fi
+
+  CODEX_HOME="$codex_home" codex mcp remove "$server_name" >/dev/null 2>&1 || true
+  CODEX_HOME="$codex_home" codex mcp add "$server_name" --url "$server_url" >/dev/null
+}
+
+reconcile_json_config() {
+  local config_path=$1
+  local expected_entry=$2
+  local config_directory
+  local temporary_path
+
+  config_directory=$(dirname "$config_path")
+  install -d -m 700 "$config_directory"
+
+  if [[ -e $config_path ]]; then
+    if [[ ! -f $config_path ]] \
+      || ! jq -e 'type == "object" and ((.mcpServers? // {}) | type == "object")' \
+        "$config_path" >/dev/null; then
+      echo "cannot reconcile incompatible MCP config: $config_path" >&2
+      return 1
+    fi
+
+    if jq -e \
+      --arg name "$server_name" \
+      --argjson expected "$expected_entry" \
+      '.mcpServers[$name] == $expected' \
+      "$config_path" >/dev/null; then
+      chmod 600 "$config_path"
+      return
+    fi
+  fi
+
+  temporary_path=$(mktemp "$config_path.tmp.XXXXXX")
+
+  if [[ -f $config_path ]]; then
+    jq \
+      --arg name "$server_name" \
+      --argjson expected "$expected_entry" \
+      '.mcpServers = ((.mcpServers // {}) + {($name): $expected})' \
+      "$config_path" > "$temporary_path"
+  else
+    jq -n \
+      --arg name "$server_name" \
+      --argjson expected "$expected_entry" \
+      '{mcpServers: {($name): $expected}}' > "$temporary_path"
+  fi
+
+  chmod 600 "$temporary_path"
+  mv "$temporary_path" "$config_path"
+}
+
+claude_entry=$(jq -cn --arg url "$server_url" '{type: "http", url: $url}')
+cursor_entry=$(jq -cn --arg url "$server_url" '{url: $url}')
+copilot_entry=$(jq -cn --arg url "$server_url" '{type: "http", url: $url, tools: ["*"]}')
+
+reconcile_codex_config "$HOME/.codex"
+reconcile_codex_config "$HOME/.codex-spireworks"
+reconcile_json_config "$HOME/.claude.json" "$claude_entry"
+reconcile_json_config "$HOME/.cursor/mcp.json" "$cursor_entry"
+reconcile_json_config "$HOME/.copilot/mcp-config.json" "$copilot_entry"

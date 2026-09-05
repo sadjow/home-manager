@@ -58,6 +58,9 @@
     # Keep OpenCode current without forcing all Home Manager packages to update.
     nixpkgs-opencode.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    # Keep Pi current without forcing all Home Manager packages to update.
+    nixpkgs-pi.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     aith = {
       url = "github:sadjow/aith";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +68,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs-gh, nixpkgs-ollama, nixpkgs-opencode, home-manager, darwin, devenv, claude-code, codex-cli, aith, ... }:
+  outputs = { self, nixpkgs, nixpkgs-gh, nixpkgs-ollama, nixpkgs-opencode, nixpkgs-pi, home-manager, darwin, devenv, claude-code, codex-cli, aith, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -116,6 +119,7 @@
           { _module.args.ghPackage = nixpkgs-gh.legacyPackages."aarch64-darwin".gh; }
           { _module.args.ollamaPackage = nixpkgs-ollama.legacyPackages."aarch64-darwin".ollama; }
           { _module.args.opencodePackage = nixpkgs-opencode.legacyPackages."aarch64-darwin".opencode; }
+          { _module.args.piPackage = nixpkgs-pi.legacyPackages."aarch64-darwin".pi-coding-agent; }
         ];
       };
 

@@ -55,6 +55,9 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
   success payload and cover the failure path at the orchestration boundary
 - for idempotent reconciliation, skip only when the desired end state already
   holds; a marker is insufficient when related state can drift
+- when cancellation or skipping is a best-effort optimization, keep a
+  fallback fully prepared and valid; if continuing is unsafe, fail closed
+  explicitly instead of overloading one failure status with both meanings
 - only modernize code that is part of the current change
 - maintain consistency with existing codebase patterns
 

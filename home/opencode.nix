@@ -1,7 +1,8 @@
-{ pkgs, opencodePackage, ... }:
+{ pkgs, lib, opencodePackage, ... }:
 
 let
   model = "qwen3.6:35b";
+  remoteMcpServers = import ./remote-mcp-servers.nix;
   json = pkgs.formats.json { };
 in
 {
@@ -18,6 +19,11 @@ in
 
     model = "ollama/${model}";
     small_model = "ollama/${model}";
+
+    mcp = lib.mapAttrs (_: url: {
+      type = "remote";
+      inherit url;
+    }) remoteMcpServers;
 
     provider.ollama = {
       npm = "@ai-sdk/openai-compatible";

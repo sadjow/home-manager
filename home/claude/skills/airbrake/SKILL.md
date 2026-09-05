@@ -1,105 +1,109 @@
+---
+name: airbrake
+description: Review Airbrake projects and error groups through the Airbrake API. Use when triaging production errors, analyzing issue patterns, or inspecting projects, groups, deploys, and notices.
+---
+
 # Airbrake Issue Reviewer
 
-Review Airbrake error groups, inspect individual notices, and manage projects via the Airbrake API.
+Review Airbrake error groups without exposing credentials or broadly dumping potentially sensitive notice data.
 
 ## Configuration
 
 - **Base URL**: `https://api.airbrake.io`
-- **User Key**: `1cbe8d9c9c21174ab768c6bb745e01c85c205a59`
-- **Auth**: Append `?key=USER_KEY` (or `&key=USER_KEY`) to all requests
-
-## Quick Commands
-
-Use `curl` via Bash to interact with the Airbrake API. Always use `-s` for silent mode and pipe through `jq` for readable output.
-
-### List Projects
+- **Authentication**: Read the user API key from `AIRBRAKE_USER_KEY`.
+- Never store an API key in this skill, a command transcript, a repository, or a URL written to output.
+- Verify that the variable exists without printing it:
 
 ```bash
-curl -s "https://api.airbrake.io/api/v4/projects?key=1cbe8d9c9c21174ab768c6bb745e01c85c205a59" | jq .
+test -n "${AIRBRAKE_USER_KEY:-}"
 ```
 
-### List Error Groups (All Projects)
+Do not use `env`, `printenv`, `set`, `echo`, shell tracing, or another command that could expose the value.
+
+## Read-only workflow
+
+1. List projects to identify the exact project and ID.
+2. List group summaries for that project.
+3. Inspect a single group using a redacted projection.
+4. Inspect the smallest necessary set of notice fields only when group-level evidence is insufficient.
+5. Analyze frequency, recency, environment, deployment correlation, and affected operations.
+
+Do not fetch or print full API responses. Notices can contain request data, user data, headers, URLs, environment values, and exception messages with secrets or personal information.
+
+## Safe command patterns
+
+### List projects
 
 ```bash
-curl -s "https://api.airbrake.io/api/v4/groups?key=1cbe8d9c9c21174ab768c6bb745e01c85c205a59" | jq .
+curl -sG "https://api.airbrake.io/api/v4/projects" \
+  --data-urlencode "key=${AIRBRAKE_USER_KEY}" | \
+  jq '[.projects[] | {id, name}]'
 ```
 
-### List Error Groups (Specific Project)
+### List error-group summaries
 
 ```bash
-curl -s "https://api.airbrake.io/api/v4/projects/{PROJECT_ID}/groups?key=1cbe8d9c9c21174ab768c6bb745e01c85c205a59" | jq .
+curl -sG "https://api.airbrake.io/api/v4/projects/{PROJECT_ID}/groups" \
+  --data-urlencode "key=${AIRBRAKE_USER_KEY}" \
+  --data-urlencode "limit=20" | \
+  jq '[.groups[] | {
+    id,
+    projectId,
+    errorTypes: [.errors[]?.type],
+    noticeTotalCount,
+    lastNoticeAt,
+    createdAt,
+    resolved,
+    muted
+  }]'
 ```
 
-### Get Group Details
+### Inspect one group
 
 ```bash
-curl -s "https://api.airbrake.io/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}?key=1cbe8d9c9c21174ab768c6bb745e01c85c205a59" | jq .
+curl -sG "https://api.airbrake.io/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}" \
+  --data-urlencode "key=${AIRBRAKE_USER_KEY}" | \
+  jq '{
+    id,
+    projectId,
+    errorTypes: [.errors[]?.type],
+    noticeTotalCount,
+    lastNoticeAt,
+    createdAt,
+    resolved,
+    muted
+  }'
 ```
 
-### List Notices (Individual Occurrences)
+### Inspect notice metadata
+
+Use this only after selecting a specific group. Keep the limit small and omit request, user, environment-variable, header, parameter, session, body, and message fields.
 
 ```bash
-curl -s "https://api.airbrake.io/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}/notices?key=1cbe8d9c9c21174ab768c6bb745e01c85c205a59" | jq .
+curl -sG "https://api.airbrake.io/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}/notices" \
+  --data-urlencode "key=${AIRBRAKE_USER_KEY}" \
+  --data-urlencode "limit=5" | \
+  jq '[.notices[] | {
+    id,
+    createdAt,
+    errorTypes: [.errors[]?.type],
+    environment: .context.environment,
+    backtrace: [.errors[]?.backtrace[]? | {file, function, line}] | .[:12]
+  }]'
 ```
 
-## Workflow
+If a message or request attribute is genuinely necessary, retrieve only that field and redact credentials, tokens, personal data, query strings, and payload values before presenting it.
 
-### Reviewing Issues
+## Triage priorities
 
-1. **List projects** to identify the target project and its ID
-2. **List error groups** for the project, filtering by parameters as needed
-3. **Get group details** to see the error type, message, backtrace, and context
-4. **List notices** to see individual occurrences with their specific context (user, URL, environment variables)
-5. **Analyze patterns** across notices to determine root cause
+- **Frequency**: prioritize high-volume groups.
+- **Recency**: distinguish active incidents from historical noise.
+- **Environment**: prioritize production unless the task specifies otherwise.
+- **Deployment correlation**: compare first and last occurrence with deploys.
+- **Operational impact**: prioritize request failures, job failures, and data-integrity risks over benign background noise.
 
-### Triaging Issues
+## Mutating operations
 
-When reviewing errors, prioritize by:
-- **Notice count** (`noticeTotalCount`) — high-frequency errors impact more users
-- **Recency** (`lastNoticeAt`) — recent errors may indicate new regressions
-- **Environment** — production errors take priority over staging
+Muting, resolving, deleting, or otherwise changing an Airbrake group requires explicit user authorization. Resolve the exact project and group with read-only checks before any mutation.
 
-## Group Query Parameters
-
-| Parameter | Description |
-|-----------|-------------|
-| `page` | Page number (default: 1) |
-| `limit` | Results per page (default: 20) |
-| `order` | Sort order |
-| `deploy_id` | Filter by deploy |
-| `archived` | Filter archived groups |
-| `muted` | Filter muted groups |
-| `start_time` | Filter by start time |
-| `end_time` | Filter by end time |
-
-## Group Response Fields
-
-Key fields in a group object:
-- `id` — Group identifier
-- `projectId` — Associated project
-- `errors[].type` — Error class/type
-- `errors[].message` — Error message
-- `errors[].backtrace[]` — Stack trace (`file`, `function`, `line`, `column`)
-- `context.environment` — Environment name
-- `context.os`, `context.language` — Runtime info
-- `context.userId`, `context.userName`, `context.userEmail` — Affected user
-- `context.url` — URL where error occurred
-- `resolved` — Whether the group is resolved
-- `noticeCount` / `noticeTotalCount` — Occurrence counts
-- `lastNoticeAt` — Most recent occurrence
-- `createdAt` — First occurrence
-
-## Additional Operations
-
-| Operation | Method | Endpoint |
-|-----------|--------|----------|
-| Mute group | PUT | `/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}/muted?key=USER_KEY` |
-| Unmute group | PUT | `/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}/unmuted?key=USER_KEY` |
-| Delete group | DELETE | `/api/v4/projects/{PROJECT_ID}/groups/{GROUP_ID}?key=USER_KEY` |
-| List deploys | GET | `/api/v4/projects/{PROJECT_ID}/deploys?key=USER_KEY` |
-| Get deploy | GET | `/api/v4/projects/{PROJECT_ID}/deploys/{DEPLOY_ID}?key=USER_KEY` |
-| Project stats | GET | `/api/v4/projects/{PROJECT_ID}/stats?key=USER_KEY` |
-| Project activities | GET | `/api/v4/projects/{PROJECT_ID}/activities?key=USER_KEY` |
-| Group stats | GET | `/api/v5/projects/{PROJECT_ID}/groups/{GROUP_ID}/stats?period=PERIOD&time__gte=TIME&key=USER_KEY` |
-
-See [references/api-details.md](references/api-details.md) for full API reference.
+See [references/api-details.md](references/api-details.md) for endpoint shapes. Treat examples containing `USER_KEY` as placeholders for the environment variable, never as literal credentials.
