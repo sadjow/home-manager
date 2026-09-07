@@ -99,7 +99,7 @@ Personal harness and environment changes belong in `~/.config/home-manager`; pro
 - for most JavaScript projects, use yarn
 - run project commands through the declared direnv/devenv environment; serialize
   `devenv shell` calls within each worktree because they update shared generated state
-- start long-running project services in named tmux sessions; use
+- start long-running project services in named sessions on the default tmux server; use
   `tmux-project-services` for worktree isolation, environment setup, readiness,
   and shutdown. Short tests and builds can run directly.
 - I have `aws-vault` and AWS credentials configured when AWS access is needed
