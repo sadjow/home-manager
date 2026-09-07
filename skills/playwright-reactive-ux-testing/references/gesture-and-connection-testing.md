@@ -24,6 +24,15 @@ debounced change is pending. Verify browser constraint validation and submitter
 intent, not only the resulting URL. Include Back/review actions when they can
 patch the same form.
 
+Fill valid synthetic data before testing a successful native submit; separately
+prove invalid input blocks the request and permits correction. A dispatched
+`SubmitEvent` only invokes listeners and does not prove constraint validation or
+the browser's default action. `form.submit()` bypasses validation, while
+`requestSubmit()` applies it. Use synthetic dispatch for an explicit
+listener-level contract, not as a substitute for a user gesture. Never change
+the product to satisfy a test action that cannot occur through the supported
+interface. This is the project-neutral `form-entry-2026-09-06` review revision.
+
 ## Cold join, reconnect, and reload
 
 - Cold join: delay or block the reactive connection, load the full page, and

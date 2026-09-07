@@ -8,9 +8,10 @@ for entry into a substantial bookmarkable task. Reserve `patch` for navigation
 within an already connected task when preserving the LiveView is valuable.
 Exercise the real entry before the join settles so a test cannot hide a first
 click lost to the initial patch. A stateful form rendered before join must not
-accept input that the initial join patch can erase. Keep it briefly inert,
-expose one concise connecting status, and remove the boundary on
-mount/reconnect.
+accept input that the initial join patch can erase. Gate it briefly with one
+connecting status only when that draft cannot otherwise be preserved. A
+document-owned native POST with proven draft preservation remains usable before
+join and without JavaScript; sharing a reactive page does not justify gating it.
 
 ## Reconnect versus reload
 
@@ -54,6 +55,14 @@ Every async lookup has a bounded deadline, cancellation or obsolescence token,
 stale-reply rejection, and an actionable terminal state. A deliberate submit or
 Search supersedes background autocomplete; background work must not consume or
 silently discard it.
+
+For locally authored values echoed by server patches, capture the draft at
+input/change time. A parent hook's `beforeUpdate` may run after queued child
+patches have already changed the DOM. Retain pending values until a matching
+generation and value acknowledgement; refresh focus separately so restoring
+values cannot undo a newer Tab or click. Distinguish obsolete enrichment from
+an explicit selection that begins a new draft. These project-neutral decisions
+are retained as the `form-entry-2026-09-06` review revision.
 
 ## Uploads and durable processing
 

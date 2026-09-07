@@ -61,11 +61,24 @@ of nesting the flow in a bordered or elevated card. Wide screens may add subtle
 containment without changing the hierarchy.
 
 When one account task supports several authentication methods, choose one
-contextual primary method only when it is actually available. Keep the next
-viable method immediately recognizable and reveal legacy or specialist
-credentials progressively. Reauthentication may show only methods already
+contextual primary method only when it is actually available. Expose its usable
+control directly; a prominent method-selection link beside an exposed secondary
+input does not establish the intended hierarchy. Keep the next viable method
+recognizable and reveal specialist credentials progressively. An explicit
+method choice overrides the default; reauthentication uses only methods
 verified for that account. Do not make several equal-looking submit buttons
 compete or use a regional hint as proof of the preferred identity method.
+
+When observed users leave a task to look up an unfamiliar identifier, consider
+an explicit, editable suggestion path from context they can provide. Preserve
+manual entry and distinguish a suggested value from a confirmed fact. Device
+context need not describe the destination or subject of the task.
+
+Observe an uncoached first action before adding instructions. Record completion,
+recovery, and requests for help; automated visibility checks cannot establish
+improved comprehension or conversion. These reviewed form-entry decisions are
+retained as the project-neutral `form-entry-2026-09-06` revision; downstream
+adoption requires review rather than automatic synchronization.
 
 ## Use space and width intentionally
 

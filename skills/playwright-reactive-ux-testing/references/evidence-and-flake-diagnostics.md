@@ -17,6 +17,7 @@ When a test flakes, inspect the Playwright trace, actionability log, console,
 network, DOM snapshots, and application evidence. Classify the race:
 
 - fixture/data leakage;
+- synthetic activation that bypasses the native gesture or validation boundary;
 - ambiguous locator;
 - missing application ready/terminal state;
 - stale callback or competing state owner;
@@ -26,6 +27,13 @@ network, DOM snapshots, and application evidence. Classify the race:
 
 Retries may collect evidence in CI, but they do not repair an ambiguous
 contract.
+
+Separate fixture behavior, published provider conformance, and an observed
+runtime cause. A stubbed error proves the application's response to that error,
+not that a real service produced it. Replay the relevant complete operation
+when authorized before making a causal claim, and keep private inputs out of
+diagnostics. Correct an undocumented request field without inventing a provider
+failure to claim red-first evidence.
 
 ## Temporal evidence
 
