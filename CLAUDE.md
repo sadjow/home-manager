@@ -48,7 +48,8 @@ The codebase follows a modular flake-based structure:
 - **`flake.nix`**: Entry point defining inputs (nixpkgs, home-manager, darwin, devenv, claude-code) and outputs for aarch64-darwin
 - **`darwin-configuration.nix`**: nix-darwin system configuration (hostname, system-level settings)
 - **`home.nix`**: Main home-manager configuration importing modular configs and defining packages
-- **`home/nix/default.nix`**: Nix-specific settings including binary caches and authentication
+- **`home/nix/default.nix`**: User Nix settings and authentication configuration
+- **`home/nix/caches.nix`**: Binary cache catalog applied through Home Manager for all projects
 - **`home/shell.nix`**: Shell configuration (zsh with asdf-vm integration) and global direnv setup
 
 Key architectural decisions:
@@ -63,7 +64,8 @@ Key architectural decisions:
 
 - The repository is a git repo with the main branch as default
 - User-specific configuration is for user "sadjow" with home directory `/Users/sadjow`
-- Binary caches configured: nixos.org, devenv.cachix.org, nix-community.cachix.org, claude-code.cachix.org
+- Define cache URLs and complete public signing keys only in `home/nix/caches.nix`; apply them through Home Manager instead of running `cachix use`.
+- Keep cache settings out of `flake.nix`: its `nixConfig` requires literal values and cannot import the catalog.
 - Home-manager manages its own version (self-managed)
 
 ## Claude Code Integration

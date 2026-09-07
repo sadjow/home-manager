@@ -54,7 +54,8 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   ├── AGENTS.md          # Shared global agent instructions
 │   ├── claude/            # Authored Claude Code configuration
 │   ├── nix/
-│   │   └── default.nix    # Nix-specific settings and binary caches
+│   │   ├── caches.nix     # Binary cache URLs and public keys
+│   │   └── default.nix    # User Nix settings
 │   ├── claude-code.nix    # Claude Code integration
 │   └── shell.nix          # Shell configuration (zsh/bash with global direnv)
 ├── docs/
@@ -90,41 +91,20 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 
 ## Binary Caches
 
-This configuration uses several binary caches for faster package installation:
+Cache URLs and public signing keys are defined once in [`home/nix/caches.nix`](home/nix/caches.nix). Home Manager uses this catalog to generate the user Nix configuration. It takes effect after activation, including for subsequent builds of this configuration.
 
-- **cache.nixos.org**: Official Nix cache
-- **devenv.cachix.org**: Devenv package cache  
-- **nix-community.cachix.org**: Community packages
-- **claude-code.cachix.org**: Custom Claude Code builds
+After `home-manager switch`, Nix automatically checks these caches for matching packages across projects. Public caches do not require a Cachix token or a separate `cachix use` command. New caches must be registered in the catalog; Nix does not discover a cache from a package name.
 
-### Flake-level cache configuration (for fast devenv updates)
+Flake-provided configuration is also accepted automatically through the existing `nix.settings.accept-flake-config = true` setting. A cached build must match the exact package derivation and platform; changing inputs can require a local build.
 
-To ensure flake operations (including `devenv` updates) use the right caches without rebuilding locally, caches are declared at the flake level and accepted non-interactively:
-
-- Flake-level caches are set in `flake.nix` via `nixConfig.extra-substituters` and `nixConfig.extra-trusted-public-keys`.
-- Non-interactive acceptance is enabled in `home/nix/default.nix` via:
-  - `nix.settings.experimental-features = [ "nix-command" "flakes" ];`
-  - `nix.settings.accept-flake-config = true;`
+The former Garnix cache is excluded because its hosted service [shut down on July 15, 2026](https://garnix.io/blog/shutting-down/).
 
 Verification:
 
 ```bash
-# Show effective daemon config (should list cachix and devenv caches)
-nix config show | grep -E 'substituters|trusted.*keys'
-
-# Run flake commands without prompts
-nix --accept-flake-config flake check
+# Show only the effective cache URLs and public signing keys
+nix config show --json | jq '{substituters: .substituters.value, "trusted-public-keys": ."trusted-public-keys".value}'
 ```
-
-Troubleshooting:
-
-- If prompts still appear, pass `--accept-flake-config` on the command, or ensure Home Manager has applied the config:
-
-```bash
-home-manager switch --flake .
-```
-
-- If packages still rebuild, the exact inputs may not be present in caches for your platform; otherwise, caching is correctly configured.
 
 ## Development Environment Integration
 
@@ -214,21 +194,20 @@ The configuration is modular. Key files to modify:
 - **`home/AGENTS.md`**: Shared global instructions for supported coding agents
 - **`home/claude/`**: Authored Claude Code settings, agents, commands, hooks, and local skills
 - **`home/claude-code.nix`**: Claude Code file ownership and runtime-state boundary
-- **`home/nix/default.nix`**: Nix daemon settings and binary caches
+- **`home/nix/default.nix`**: User Nix settings
+- **`home/nix/caches.nix`**: Binary cache URLs and public signing keys
 - **`home/shell.nix`**: Shell configuration and direnv integration
 - **`flake.nix`**: Add new input flakes or change system configurations
 
 ### Adding Binary Caches
 
-To add a new binary cache, edit `home/nix/default.nix`:
+Add the cache URL and its complete public signing key to the `caches` attribute set in `home/nix/caches.nix`:
 
 ```nix
-caches = {
-  "cache.nixos.org" = "6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
-  "your-cache.cachix.org" = "your-public-key=";
-  # ... other caches
-};
+"https://your-cache.cachix.org" = "your-cache.cachix.org-1:your-public-key=";
 ```
+
+Apply with `home-manager switch --flake .#sadjow`. If the change includes a new untracked file, use `home-manager switch --flake 'path:.#sadjow'` so Nix includes it.
 
 ## Architecture
 
