@@ -1,7 +1,7 @@
 # AGENTS.md
 
-This file is managed from `~/.config/home-manager/home/AGENTS.md` through Home Manager.
-Treat `~/.config/home-manager` as the canonical source for personal, cross-project agent instructions, skills, AI tooling, and environment changes on this machine. Treat each project repository as canonical for its project-specific harness.
+Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`.
+Personal harness and environment changes belong in `~/.config/home-manager`; project-specific harness changes belong in their project repository.
 
 ## Workflow
 
@@ -97,9 +97,11 @@ Treat `~/.config/home-manager` as the canonical source for personal, cross-proje
 ## Tooling Preferences
 
 - for most JavaScript projects, use yarn
-- when a repository declares a direnv or devenv environment, run project commands through it instead of using system language runtimes
-- run `devenv shell` invocations sequentially within one worktree because they
-  update shared generated state
+- run project commands through the declared direnv/devenv environment; serialize
+  `devenv shell` calls within each worktree because they update shared generated state
+- start long-running project services in named tmux sessions; use
+  `tmux-project-services` for worktree isolation, environment setup, readiness,
+  and shutdown. Short tests and builds can run directly.
 - I have `aws-vault` and AWS credentials configured when AWS access is needed
 - we are in 2026
 

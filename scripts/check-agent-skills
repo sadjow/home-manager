@@ -10,6 +10,7 @@ portable_skills=(
   playwright-reactive-ux-testing
   role-aware-product-ux
   semantic-web-inputs
+  tmux-project-services
   ui-ux-design
 )
 

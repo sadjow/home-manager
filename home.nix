@@ -24,6 +24,7 @@ let
     "playwright-reactive-ux-testing"
     "role-aware-product-ux"
     "semantic-web-inputs"
+    "tmux-project-services"
     "ui-ux-design"
   ];
   managedSkillFiles = builtins.listToAttrs (lib.concatMap
