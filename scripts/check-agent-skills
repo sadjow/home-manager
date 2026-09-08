@@ -60,7 +60,7 @@ for skill in "${retired_claude_skills[@]}"; do
 done
 
 entrypoint_words=$(wc -w < home/AGENTS.md | tr -d ' ')
-(( entrypoint_words <= 1300 )) || fail "home/AGENTS.md has $entrypoint_words words; budget is 1300"
+(( entrypoint_words <= 1150 )) || fail "home/AGENTS.md has $entrypoint_words words; budget is 1150"
 
 grep -Fq 'force = true;' home.nix || fail "managed skills cannot replace legacy unmanaged targets"
 

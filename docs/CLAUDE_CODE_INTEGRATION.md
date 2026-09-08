@@ -22,11 +22,15 @@ Claude Code discovers user skills only in `~/.claude/skills`. The links that `ho
 
 ## Context Budget
 
-Always-loaded context is deliberately small. `home/claude/settings.json` caps each skill listing entry with `skillListingMaxDescChars` and lists rarely used skills name-only through `skillOverrides`, so the listing stays under `skillListingBudgetFraction` and no description is silently dropped. Measure with a headless run:
+Always-loaded context is deliberately small. `home/claude/settings.json` caps each skill listing entry with `skillListingMaxDescChars` and lists skills that are only ever invoked by name as `name-only` through `skillOverrides`, so the listing stays under `skillListingBudgetFraction`. When the listing still exceeds the budget, Claude Code silently drops descriptions starting with the least-used skills, so an important skill can lose its routing text without any warning; `/context` shows the listing size and `/skill-doctor` shows which skills cost most.
+
+Skills that a particular repository never needs belong in that repository's ignored `.claude/settings.local.json` as `"skillOverrides": {"<skill>": "off"}`, not in the global settings: personal skills stay available elsewhere and the project's own skills keep their descriptions. The same file takes `disabledMcpjsonServers` for a `.mcp.json` server the project does not use.
+
+Measure the first-turn prompt from the project directory before and after a change:
 
 ```bash
-claude -p 'Reply with exactly: ok' --model haiku --debug-file /tmp/claude-debug.txt --no-chrome
-grep 'Skill listing over budget' /tmp/claude-debug.txt
+claude -p 'Reply with exactly: ok' --model haiku --no-chrome --output-format json \
+  | jq '.usage | .input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens'
 ```
 
-No output means every listed description fits. Agent frontmatter must be valid single-line YAML; an invalid file is skipped silently. Check with `/doctor` or `/skill-doctor`.
+Pass `--settings <file.json>` to try an override without applying it. Denying a built-in tool through `permissions.deny` does not remove it from the prompt; `enableWorkflows: false` does remove the Workflow tool. Agent frontmatter must be valid single-line YAML; an invalid file is skipped silently. Check with `/doctor` or `/skill-doctor`.
