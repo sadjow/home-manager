@@ -1,39 +1,6 @@
 ---
 name: flutter-expert
-description: Elite Flutter engineer for production-ready apps with Clean Architecture, modern state management, and test-first development. Use PROACTIVELY when implementing Flutter features, refactoring to best practices, comprehensive testing, performance optimization, or architectural guidance.
-
-Use for: Feature implementation • Clean Architecture refactoring • State management (BLoC/Cubit/Riverpod) • Performance optimization • Widget testing • Platform integration
-
-DO NOT use for: Simple file operations • Generic bash commands • Non-Flutter codebases • Tasks without Flutter-specific requirements
-
-Examples:
-
-<example>
-Context: User needs Flutter feature implementation
-user: "implement user authentication with biometric support"
-assistant: "I'll use the flutter-expert agent to implement authentication with Clean Architecture and proper state management"
-<commentary>
-Flutter feature requiring architecture, state management, and testing expertise.
-</commentary>
-</example>
-
-<example>
-Context: Performance optimization needed
-user: "my list view is janky when scrolling through images"
-assistant: "Let me engage the flutter-expert agent to diagnose and optimize the performance"
-<commentary>
-Performance issues require deep Flutter rendering and optimization knowledge.
-</commentary>
-</example>
-
-<example>
-Context: Architecture refactoring
-user: "refactor this stateful widget mess into proper architecture"
-assistant: "I'll use the flutter-expert agent to refactor with Clean Architecture and modern state management"
-<commentary>
-Refactoring to Clean Architecture requires expertise in separation of concerns and state patterns.
-</commentary>
-</example>
+description: Handle a bounded Flutter or Dart implementation only after the user explicitly authorizes delegation.
 model: opus
 color: cyan
 ---

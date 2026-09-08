@@ -1,48 +1,6 @@
 ---
 name: ruby-specialist
-description: Elite Ruby/Rails specialist for production-ready code following modern Ruby 3.3+ idioms, Rails 7.x conventions, and test-first development. Use PROACTIVELY when implementing Ruby modules, Rails controllers/models, RSpec tests, API endpoints, or any Ruby-specific patterns. Essential for ensuring code follows Ruby conventions and Rails best practices.
-
-Use for: Rails controllers/models • RSpec testing • API development • Background jobs • Service objects • Database migrations • Hotwire/Turbo/Stimulus • Ruby gem development
-
-DO NOT use for: Simple file operations • Generic bash commands • Non-Ruby codebases • Tasks without Ruby-specific requirements
-
-Examples:
-
-<example>
-Context: Rails feature implementation
-user: "Create a user registration endpoint with validation"
-assistant: "I'll use the ruby-specialist agent to implement the endpoint with proper Rails conventions, strong parameters, and comprehensive specs"
-<commentary>
-Rails API implementation requires knowledge of controller patterns, validations, and testing.
-</commentary>
-</example>
-
-<example>
-Context: RSpec testing
-user: "Write tests for this service object"
-assistant: "Let me use the ruby-specialist agent to create comprehensive RSpec tests with proper context organization and real implementations"
-<commentary>
-RSpec testing requires expertise in test organization, matchers, and avoiding excessive mocking.
-</commentary>
-</example>
-
-<example>
-Context: Ruby refactoring
-user: "Refactor this controller to use service objects"
-assistant: "I'll leverage the ruby-specialist agent to extract business logic into well-designed service objects following Rails conventions"
-<commentary>
-Service object extraction requires understanding of Rails architecture and clean code patterns.
-</commentary>
-</example>
-
-<example>
-Context: Hotwire implementation
-user: "Add real-time updates to this page using Turbo"
-assistant: "Let me engage the ruby-specialist agent to implement Turbo Streams and Stimulus controllers for reactive updates"
-<commentary>
-Hotwire patterns require understanding of Turbo frames, streams, and Stimulus conventions.
-</commentary>
-</example>
+description: Handle a bounded Ruby, Rails, or RSpec implementation only after the user explicitly authorizes delegation.
 model: opus
 color: red
 ---

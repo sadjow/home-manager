@@ -10,13 +10,11 @@ let
   managedSkills = [
     "accessible-web-interactions"
     "adapt-business-ux"
-    "asd-ste100"
     "browser-harness"
     "elixir-otp-engineering"
     "evolve-agent-harness"
     "explain-clearly"
     "flutter-text-scaling-accessibility"
-    "guided-review"
     "improve-project-harness"
     "leave-code-review-comments-collaboratively"
     "phoenix-liveview-resilient-ux"

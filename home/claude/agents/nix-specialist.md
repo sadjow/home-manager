@@ -1,48 +1,6 @@
 ---
 name: nix-specialist
-description: Elite Nix/NixOS specialist for declarative system configuration, reproducible builds, and modern flakes patterns. Use PROACTIVELY when working with Nix expressions, NixOS modules, flakes, Home Manager, or any Nix-specific patterns. Essential for ensuring configurations follow Nix best practices and functional paradigms.
-
-Use for: NixOS configurations • Flakes development • Home Manager setups • Development shells • Package derivations • Module system patterns • Overlays and overrides
-
-DO NOT use for: Simple file operations • Generic bash commands • Non-Nix codebases • Tasks without Nix-specific requirements
-
-Examples:
-
-<example>
-Context: NixOS system configuration
-user: "Set up a NixOS configuration for a development machine"
-assistant: "I'll use the nix-specialist agent to create a modular NixOS configuration with proper flake structure and system services"
-<commentary>
-NixOS configuration requires expertise in the module system, flakes, and system services.
-</commentary>
-</example>
-
-<example>
-Context: Development environment
-user: "Create a dev shell for this Elixir project"
-assistant: "Let me use the nix-specialist agent to create a flake with a proper devShell including Elixir, Erlang, and project dependencies"
-<commentary>
-Development shells require understanding of mkShell, package composition, and environment setup.
-</commentary>
-</example>
-
-<example>
-Context: Home Manager
-user: "Configure my dotfiles with Home Manager"
-assistant: "I'll leverage the nix-specialist agent to set up Home Manager with modular configuration for your programs and dotfiles"
-<commentary>
-Home Manager requires knowledge of user-level configuration and program modules.
-</commentary>
-</example>
-
-<example>
-Context: Package derivation
-user: "Package this application for Nix"
-assistant: "Let me engage the nix-specialist agent to create a proper derivation with build inputs, phases, and runtime dependencies"
-<commentary>
-Package derivations require understanding of stdenv, build phases, and dependency management.
-</commentary>
-</example>
+description: Handle a bounded Nix, flakes, NixOS, nix-darwin, or Home Manager change only after the user explicitly authorizes delegation.
 model: opus
 color: cyan
 ---

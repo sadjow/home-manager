@@ -1,126 +1,36 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Repository Overview
+## Overview
 
-This is a Nix home-manager configuration repository for macOS (Apple Silicon) that manages user environment, packages, and dotfiles using Nix flakes.
+Nix flake home-manager configuration for macOS on Apple Silicon (aarch64-darwin), with nix-darwin for system-level settings. User `sadjow`, home directory `/Users/sadjow`. Uses nixpkgs-unstable with home-manager/master (alternatives in `docs/CHANNEL_STRATEGY.md`), allows unfree packages, and home-manager manages its own version.
 
-## Common Commands
-
-### Configuration Management
-```bash
-# Apply home-manager configuration
-home-manager switch --flake .
-
-# Apply nix-darwin system configuration
-sudo darwin-rebuild switch --flake .#codecraft
-
-# Build configuration without switching
-home-manager build --flake .
-
-# Preview changes (dry run)
-home-manager switch --flake . -n
-
-# Update flake dependencies
-nix flake update
-
-# Check configuration validity
-nix flake check
-```
-
-### Development Commands
-```bash
-# Show flake outputs
-nix flake show
-
-# Update specific input
-nix flake lock --update-input <input-name>
-
-# Run garbage collection
-nix-collect-garbage -d
-```
-
-## Architecture
-
-The codebase follows a modular flake-based structure:
-
-- **`flake.nix`**: Entry point defining inputs (nixpkgs, home-manager, darwin, devenv, claude-code) and outputs for aarch64-darwin
-- **`darwin-configuration.nix`**: nix-darwin system configuration (hostname, system-level settings)
-- **`home.nix`**: Main home-manager configuration importing modular configs and defining packages
-- **`home/nix/default.nix`**: User Nix settings and authentication configuration
-- **`home/nix/caches.nix`**: Binary cache catalog applied through Home Manager for all projects
-- **`home/shell.nix`**: Shell configuration (zsh with asdf-vm integration) and global direnv setup
-
-Key architectural decisions:
-- Uses Nix flakes for reproducibility
-- Configured for macOS on Apple Silicon (aarch64-darwin)
-- Allows unfree packages for proprietary software
-- Uses nix-darwin for system-level configuration (hostname, etc.)
-- Modular configuration structure via imports
-- **Channel Strategy**: Uses nixpkgs-unstable with home-manager/master for latest packages on development machine (see `docs/CHANNEL_STRATEGY.md` for alternatives)
-
-## Important Notes
-
-- The repository is a git repo with the main branch as default
-- User-specific configuration is for user "sadjow" with home directory `/Users/sadjow`
-- Define cache URLs and complete public signing keys only in `home/nix/caches.nix`; apply them through Home Manager instead of running `cachix use`.
-- Keep cache settings out of `flake.nix`: its `nixConfig` requires literal values and cannot import the catalog.
-- Home-manager manages its own version (self-managed)
-
-## Claude Code Integration
-
-This repository includes a special module (`home/claude-code.nix`) that:
-
-1. Creates a stable symlink at `~/.local/bin/claude` to prevent permission resets
-2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, hooks, and locally maintained skills
-3. Links shared skills from their canonical agent-skill sources
-4. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
-5. Preserves the mutable `~/.claude.json` file during Home Manager switches
-
-See `home/claude/README.md` for the managed and runtime ownership boundary.
-
-### Known Issues Fixed
-
-- **Permission Reset Issue**: Claude was asking for directory permissions after every `home-manager switch` because the nix store path changed. This is now fixed by using a stable symlink.
-- **Settings Loss**: Login state and trusted directories are now preserved.
-- **Configuration Drift**: Author-controlled Claude configuration now has one versioned Home Manager source of truth.
-
-## Global Direnv Integration
-
-This configuration includes comprehensive direnv support that works across all terminals and editors, including VSCode and Cursor.
-
-### Features
-
-- **Multi-shell Support**: Configured for both zsh and bash shells
-- **Login Shell Integration**: Works in login shells spawned by editors like VSCode/Cursor
-- **Global PATH**: Ensures direnv is always available in PATH for all applications
-- **Automatic Hook Loading**: Direnv hooks are loaded automatically regardless of shell initialization method
-
-### Implementation Details
-
-The global direnv setup is configured in `home/shell.nix` with:
-
-1. **Profile-level hooks**: Added to `.zprofile` and `.bash_profile` for login shells
-2. **Interactive shell hooks**: Built-in home-manager integration for zsh/bash
-3. **Session PATH**: Ensures direnv binary is always available via `home.sessionPath`
-4. **Redundant loading protection**: Prevents duplicate hook initialization
-
-### Verification
-
-Test direnv functionality in different shell contexts:
+## Commands
 
 ```bash
-# Test in zsh login shell
-zsh -l -c 'command -v _direnv_hook && echo "✓ direnv loaded"'
-
-# Test in bash login shell
-bash -l -c 'command -v _direnv_hook && echo "✓ direnv loaded"'
-
-# Test direnv binary availability
-direnv --version
+home-manager switch --flake .                    # apply user configuration
+home-manager switch --flake . -n                 # dry run
+home-manager build --flake .                     # build without switching
+sudo darwin-rebuild switch --flake .#codecraft   # apply nix-darwin system configuration
+nix flake check                                  # validate
+nix flake update                                 # update all inputs
+nix flake lock --update-input <input-name>       # update one input
+nix flake show                                   # list outputs
+nix-collect-garbage -d                           # garbage collection
 ```
 
-### Editor Integration
+## Layout
 
-This configuration ensures that when editors like VSCode, Cursor, or others spawn terminal sessions, they will automatically have access to direnv-managed environments. No additional setup is required.
+- `flake.nix`: inputs (nixpkgs, home-manager, darwin, devenv, claude-code) and aarch64-darwin outputs
+- `darwin-configuration.nix`: nix-darwin system configuration (hostname, system-level settings)
+- `home.nix`: main home-manager configuration importing the modules below and defining packages
+- `home/nix/default.nix`: user Nix settings and authentication
+- `home/nix/caches.nix`: binary cache catalog applied through Home Manager for all projects
+- `home/shell.nix`: zsh with asdf-vm and global direnv hooks for login and interactive shells (`docs/DIRENV_INTEGRATION.md`)
+- `home/claude-code.nix` and `home/claude/`: authored Claude Code configuration (`docs/CLAUDE_CODE_INTEGRATION.md`, ownership boundary in `home/claude/README.md`)
+
+## Rules
+
+- Define cache URLs and complete public signing keys only in `home/nix/caches.nix` and apply them through Home Manager instead of running `cachix use`. Keep them out of `flake.nix`, whose `nixConfig` requires literal values.
+- Keep the stable `~/.local/bin/claude` symlink and the `~/.claude.json` preservation in `home/claude-code.nix`; they prevent permission and login resets after a switch.

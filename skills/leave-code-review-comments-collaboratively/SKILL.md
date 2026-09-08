@@ -1,6 +1,6 @@
 ---
 name: leave-code-review-comments-collaboratively
-description: Collaborate with a human to turn already surfaced pull-request observations or verified findings into clear, prioritized inline or summary comments, then post only the exact approved target and wording. Use when the user wants to draft, refine, approve, or post feedback on a GitHub pull request. Do not use for the initial walkthrough, broad change understanding, or autonomous finding generation; use guided-review for that phase.
+description: Collaborate with a human to turn already surfaced pull-request observations or verified findings into clear, prioritized inline or summary comments, then post only the exact approved target and wording. Use when the user wants to draft, refine, approve, or post feedback on a GitHub pull request. Do not use for the initial walkthrough, broad change understanding, or autonomous finding generation.
 ---
 
 # Leave Code Review Comments Collaboratively
@@ -11,7 +11,6 @@ Help the human decide what feedback to leave and express it precisely. Begin fro
 
 - Do not turn a comment request into a new broad review or a search for additional findings.
 - Do not modify the pull-request branch or implement the requested change.
-- Use `$guided-review` when the human first needs a high-level model or a part-by-part walkthrough.
 - Accept notes from a guided review, the human's own review, another reviewer, test evidence, or an already completed analysis.
 - Preserve the human's intended requiredness and uncertainty. Do not strengthen a question into a defect or soften required work into a suggestion.
 
@@ -51,7 +50,7 @@ For each supplied note, establish:
 - requiredness and remaining uncertainty;
 - relevant test, runtime result, contract, or authoritative source.
 
-Reuse this packet from `$guided-review` when available. If evidence is incomplete, inspect the diff and surrounding implementation only for this candidate. Ask one focused question or keep the uncertainty visible instead of inventing support.
+Reuse an existing packet from an earlier walkthrough when available. If evidence is incomplete, inspect the diff and surrounding implementation only for this candidate. Ask one focused question or keep the uncertainty visible instead of inventing support.
 
 ## Verify before drafting
 
