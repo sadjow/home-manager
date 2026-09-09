@@ -10,6 +10,13 @@
   where contractual, and cleanup of timers/resources.
 - Durable jobs: argument validation, retry classification, idempotent replay,
   stale state, and terminal failure handling.
+- Declarative seeds and reconcilers: fresh setup, existing incomplete records,
+  drift after success, and a subsequent no-op. Assert the declared fields and
+  related rows, not only parent existence or an initialization marker. Correct
+  hashes, timestamps, revisions, and audit counts must not churn. Distinguish
+  authoritative declarations from create-only defaults explicitly; do not
+  silently preserve drift in the former or overwrite user-owned state in the
+  latter.
 - External adapters: complete recorded request/response or handshake shapes,
   including fields that choose branches. A hand-built subset proves only that
   subset.
