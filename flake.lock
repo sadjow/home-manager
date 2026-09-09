@@ -899,22 +899,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-pi": {
-      "locked": {
-        "lastModified": 1787964612,
-        "narHash": "sha256-0N9nghg3nwzX6b6qc77EzjR9cu/Z+UR66FlfsCqiURs=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e8be7818e19ada32105a8af937a6a473b38167ca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-src": {
       "flake": false,
       "locked": {
@@ -1025,6 +1009,40 @@
         "type": "github"
       }
     },
+    "nixpkgs_8": {
+      "locked": {
+        "lastModified": 1788690626,
+        "narHash": "sha256-+v4I4LawmRD/mVxO7QIAerRrCkElp3YImzWkkUnvOTg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c25784012c9982bca5b3e0de87e90bbdac8927d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pi-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_8"
+      },
+      "locked": {
+        "lastModified": 1788837515,
+        "narHash": "sha256-DhB/TI26Sj7E6DOBx1V5ufN4gjD73AZHm/BKu04WGPI=",
+        "owner": "sadjow",
+        "repo": "pi-nix",
+        "rev": "ba0968fff217faae6368eec3f5a88942ad44f0b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "pi-nix",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": [
@@ -1095,7 +1113,7 @@
         "nixpkgs-gh": "nixpkgs-gh",
         "nixpkgs-ollama": "nixpkgs-ollama",
         "nixpkgs-opencode": "nixpkgs-opencode",
-        "nixpkgs-pi": "nixpkgs-pi"
+        "pi-nix": "pi-nix"
       }
     },
     "rust-overlay": {
