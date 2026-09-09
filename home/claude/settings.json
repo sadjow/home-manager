@@ -81,6 +81,11 @@
     "defaultMode": "default"
   },
   "model": "opus",
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "hooks": {
     "PostToolUse": [
       {
