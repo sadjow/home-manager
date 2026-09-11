@@ -77,6 +77,37 @@ debugging merely because the native tool was not immediately visible. Discover
 available tools first; retain the user's existing authorization for permitted
 actions without inventing additional confirmation steps.
 
+## Authentication across apps
+
+When the user authorizes retrieving a login code from Messages or an available
+phone-mirroring app, carry that authorization through the current sign-in flow.
+Use the authorized app before asking the user to transcribe the code. Prefer
+Messages when it already exposes the relevant SMS; discover phone mirroring
+only when needed and never assume that an iPhone is connected or controllable.
+Reading a code does not authorize replying to its sender or using it for a
+different service, account, password reset, or transaction.
+
+Match the sender, request time, and intended destination before using a code.
+Keep codes and credentials out of commentary, artifacts, harness files, and
+memory. Where supported, inspect only the relevant conversation and suppress
+or redact authentication values in tool output. Transfer the current code
+directly into the authorized service and verify successful authentication.
+
+Distinguish code delivery from the receiving form's state. If a code arrives
+but the page never exposes its entry fields, diagnose that UI transition;
+do not repeatedly resend codes or ask the user for a code already available.
+After a bounded wait and an observed-UI recovery attempt, report the actual
+blocker. A retry must account for whether it invalidates the previous code.
+
+Preserve the active tab with the tool's documented handoff or deliverable
+mechanism before ending a turn that needs continuation. Verify its existence
+on return; a preservation request is not proof that the tab survived. Reuse
+the existing sign-in flow when possible rather than restarting authentication.
+
+Apply the live tool's confirmation modes separately from login authorization.
+Reuse consent where its contract permits, but do not convert standing user
+approval into an exception to an action-time confirmation or handoff rule.
+
 ## Basis and maintenance
 
 This is a personal routing preference based on task fit and the current tool
