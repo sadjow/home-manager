@@ -1,4 +1,0 @@
-interface:
-  display_name: "Evolve Agent Harness"
-  short_description: "Turn feedback into durable agent improvements"
-  default_prompt: "Use $evolve-agent-harness to turn these findings into appropriately scoped and validated agent-harness improvements."

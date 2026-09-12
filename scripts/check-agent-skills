@@ -1,67 +1,107 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-portable_skills=(
-  accessible-web-interactions
-  adapt-business-ux
-  elixir-otp-engineering
-  phoenix-liveview-resilient-ux
-  phoenix-ui-architect
-  playwright-reactive-ux-testing
-  role-aware-product-ux
-  semantic-web-inputs
-  tmux-project-services
-  ui-ux-design
-)
-
-vendor_skills=(
-  browser-harness
-)
-
-checked_skills=(
-  "${portable_skills[@]}"
-  "${vendor_skills[@]}"
-)
-
-retired_claude_skills=(
-  playwright-testing
-  ui-craft
-)
-
 fail() {
-  echo "agent skill check failed: $*" >&2
+  echo "agent skill integration check failed: $*" >&2
   exit 1
 }
 
-for skill in "${checked_skills[@]}"; do
-  package="skills/$skill"
-  skill_file="$package/SKILL.md"
-
-  [[ -f "$skill_file" ]] || fail "missing $skill_file"
-  grep -Fxq "name: $skill" "$skill_file" || fail "$skill frontmatter name does not match its directory"
-  grep -Eq '^description: .+' "$skill_file" || fail "$skill has no frontmatter description"
-  grep -Fq "\"$skill\"" home.nix || fail "$skill is not listed in managedSkills"
-  [[ ! -e "home/claude/skills/$skill" ]] || fail "$skill has a competing Claude-owned package"
-
-  while IFS= read -r reference; do
-    [[ -f "$package/$reference" ]] || fail "$skill links missing reference $reference"
-  done < <(sed -nE 's/.*\]\((references\/[^)#]+).*/\1/p' "$skill_file")
-done
-
-if grep -RIniE '/Users/|/home/|~/|\.config/home-manager' \
-  "${portable_skills[@]/#/skills/}" >/dev/null; then
-  grep -RIniE '/Users/|/home/|~/|\.config/home-manager' \
-    "${portable_skills[@]/#/skills/}" >&2 || true
-  fail "portable skills contain project or machine-specific content"
-fi
-
-for skill in "${retired_claude_skills[@]}"; do
-  [[ ! -e "home/claude/skills/$skill" ]] || fail "retired Claude skill remains: $skill"
-done
-
 entrypoint_words=$(wc -w < home/AGENTS.md | tr -d ' ')
-(( entrypoint_words <= 1150 )) || fail "home/AGENTS.md has $entrypoint_words words; budget is 1150"
+(( entrypoint_words <= 1150 )) || fail "global instructions exceed 1150 words"
 
-grep -Fq 'force = true;' home.nix || fail "managed skills cannot replace legacy unmanaged targets"
+grep -Fq 'github:sadjow/skills' flake.nix || fail "missing public skills input"
+grep -Fq './home/agent-skills.nix' home.nix || fail "missing skills module"
+[[ -f home/agent-skills.nix ]] || fail "skills module source is missing"
+bash -n scripts/link-private-skills
 
-echo "Agent skill harness checks passed."
+test_root=$(mktemp -d)
+trap 'rm -rf "$test_root"' EXIT
+private_root="$test_root/private checkout"
+client_root="$test_root/client"
+mkdir -p "$client_root" "$private_root/skills/example"
+printf '%s\n' '---' 'name: example' 'description: Example' '---' > "$private_root/skills/example/SKILL.md"
+
+# Child-only HOME overrides isolate activation without changing this shell's home.
+env HOME="$client_root" bash scripts/link-private-skills "$test_root/missing" .agents/skills
+[[ ! -e "$client_root/.agents" ]] || fail "missing private checkout created links"
+for run in 1 2; do
+  env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .codex/skills
+  for directory in .agents/skills .codex/skills; do
+    [[ "$(readlink "$client_root/$directory/example")" == "$private_root/skills/example" ]] || fail "private link target differs"
+    [[ -f "$client_root/$directory/example/SKILL.md" ]] || fail "private link does not resolve"
+  done
+done
+
+mkdir -p "$client_root/.agents/skills/user-directory" "$test_root/unrelated" "$private_root/skills/reference-only"
+printf 'preserve\n' > "$client_root/.agents/skills/user-directory/existing"
+ln -s "$test_root/unrelated" "$client_root/.agents/skills/unrelated"
+ln -s "$test_root/missing-target" "$client_root/.agents/skills/unrelated-dangling"
+ln -s "$private_root/skills/reference-only" "$client_root/.agents/skills/reference-only"
+ln -s "$private_root/skills/example/missing" "$client_root/.agents/skills/nested-private-target"
+ln -s "$private_root/skills/missing" "$client_root/.agents/skills/private-alias"
+ln -s "${private_root}-other/skills/similar-root" "$client_root/.agents/skills/similar-root"
+
+mv "$private_root/skills/example" "$private_root/skills/renamed-example"
+mkdir "$test_root/failing-bin"
+printf '%s\n' '#!/usr/bin/env bash' 'exit 1' > "$test_root/failing-bin/ln"
+chmod +x "$test_root/failing-bin/ln"
+if env HOME="$client_root" PATH="$test_root/failing-bin:$PATH" bash scripts/link-private-skills "$private_root" .agents/skills .codex/skills; then
+  fail "link creation failure was ignored"
+fi
+[[ -L "$client_root/.agents/skills/example" ]] || fail "failed reconciliation pruned an obsolete link"
+for run in 1 2; do
+  env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .codex/skills
+done
+for directory in .agents/skills .codex/skills; do
+  [[ ! -L "$client_root/$directory/example" ]] || fail "renamed private skill left an obsolete link"
+  [[ -f "$client_root/$directory/renamed-example/SKILL.md" ]] || fail "renamed private skill link does not resolve"
+done
+[[ -f "$client_root/.agents/skills/user-directory/existing" ]] || fail "unrelated directory was damaged"
+for preserved in unrelated unrelated-dangling reference-only nested-private-target private-alias similar-root; do
+  [[ -L "$client_root/.agents/skills/$preserved" ]] || fail "unrelated link was removed: $preserved"
+done
+mv "$private_root/skills/renamed-example" "$private_root/skills/example"
+env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .codex/skills
+
+ln -s "$private_root/skills/retired" "$client_root/.agents/skills/retired"
+env HOME="$client_root" bash scripts/link-private-skills "$test_root/missing" .agents/skills
+[[ -L "$client_root/.agents/skills/retired" ]] || fail "missing private checkout pruned a link"
+rm "$client_root/.agents/skills/example"
+mkdir "$client_root/.agents/skills/example"
+printf 'preserve\n' > "$client_root/.agents/skills/example/existing"
+if env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .cursor/skills 2>/dev/null; then
+  fail "private link replaced a conflicting directory"
+fi
+[[ -f "$client_root/.agents/skills/example/existing" ]] || fail "existing directory was damaged"
+[[ ! -e "$client_root/.cursor" ]] || fail "conflict produced partial links"
+[[ -L "$client_root/.agents/skills/retired" ]] || fail "conflict pruned an obsolete link"
+rm -r "$client_root/.agents/skills/example"
+ln -s "$test_root/unrelated" "$client_root/.agents/skills/example"
+if env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills 2>/dev/null; then
+  fail "private link replaced a conflicting symlink"
+fi
+[[ "$(readlink "$client_root/.agents/skills/example")" == "$test_root/unrelated" ]] || fail "conflicting symlink was changed"
+rm "$client_root/.agents/skills/example"
+printf 'preserve\n' > "$client_root/.cursor"
+if env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .cursor/skills 2>/dev/null; then
+  fail "private link ignored a conflicting parent path"
+fi
+[[ -f "$client_root/.cursor" ]] || fail "conflicting parent file was changed"
+[[ ! -L "$client_root/.agents/skills/example" ]] || fail "parent conflict produced partial links"
+[[ -L "$client_root/.agents/skills/retired" ]] || fail "parent conflict pruned an obsolete link"
+rm "$client_root/.cursor"
+ln -s "$test_root/missing-client" "$client_root/.cursor"
+if env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .cursor/skills 2>/dev/null; then
+  fail "private link ignored a dangling parent symlink"
+fi
+[[ "$(readlink "$client_root/.cursor")" == "$test_root/missing-client" ]] || fail "dangling parent symlink was changed"
+[[ ! -L "$client_root/.agents/skills/example" ]] || fail "dangling parent conflict produced partial links"
+rm "$client_root/.cursor"
+for run in 1 2; do
+  env HOME="$client_root" bash scripts/link-private-skills "$private_root" .agents/skills .codex/skills .claude/skills .cursor/skills
+done
+[[ ! -L "$client_root/.agents/skills/retired" ]] || fail "resolved conflict left an obsolete link"
+for directory in .agents/skills .codex/skills .claude/skills .cursor/skills; do
+  [[ -f "$client_root/$directory/example/SKILL.md" ]] || fail "resolved conflict did not reconcile links"
+done
+echo "Agent skill integration checks passed."

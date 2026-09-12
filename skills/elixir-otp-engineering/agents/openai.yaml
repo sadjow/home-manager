@@ -1,4 +1,0 @@
-interface:
-  display_name: "Elixir OTP Engineering"
-  short_description: "Design reliable Elixir and OTP systems"
-  default_prompt: "Use $elixir-otp-engineering to design and verify this Elixir or OTP change."

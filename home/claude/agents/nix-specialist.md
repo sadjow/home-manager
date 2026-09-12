@@ -1,6 +1,6 @@
 ---
 name: nix-specialist
-description: Handle a bounded Nix, flakes, NixOS, nix-darwin, or Home Manager change only after the user explicitly authorizes delegation.
+description: Handle a bounded Nix, flakes, NixOS, nix-darwin, or Home Manager change.
 model: opus
 color: cyan
 ---

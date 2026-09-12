@@ -1,6 +1,6 @@
 ---
 name: clean-code-specialist
-description: Handle a bounded behavior-preserving refactor for readability, duplication, or code smells only after the user explicitly authorizes delegation.
+description: Handle a bounded behavior-preserving refactor for readability, duplication, or code smells.
 model: opus
 color: green
 ---

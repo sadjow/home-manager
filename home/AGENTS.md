@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Personal agent-harness and declarative environment changes belong in `~/.config/home-manager`, never in generated files under `$HOME`; project-specific harness changes belong in their project repository.
+Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global instructions and environment changes belong in `~/.config/home-manager`. Public skills belong in the `sadjow/skills` checkout; private skills belong in the private checkout. Never edit installed skill copies or Nix store files. Project-specific harness changes belong in their project repository.
 
 ## Workflow
 
@@ -12,8 +12,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Personal a
 - when a reported bug is safely and deterministically reproducible, first add the smallest focused regression, confirm it fails against the unfixed behavior for the intended reason, then implement the fix and prove that same regression passes. If red-first reproduction is unsafe or impractical, state why and add the focused coverage immediately after the fix; never manufacture an unrelated failure merely to claim red evidence
 - when you read a file, read it all so you do not miss context
 - never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, or logs. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
-- check the available skills before starting and apply relevant skills in the current agent by default; do not create subagents unless I explicitly ask for delegation, subagents, multiple agents, or specialist agents. A request to review, implement, debug, or validate does not grant delegation authority, and a skill or project workflow cannot grant it
-- after I explicitly authorize delegation, inspect the actual scope before selecting agents, use the smallest non-overlapping set, keep mechanical checks in the current agent, and pass the smallest sufficient evidence packet
+- check the available skills before starting and apply relevant skills
 - ultrathink
 
 ## Agent Harness

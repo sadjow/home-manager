@@ -1113,7 +1113,8 @@
         "nixpkgs-gh": "nixpkgs-gh",
         "nixpkgs-ollama": "nixpkgs-ollama",
         "nixpkgs-opencode": "nixpkgs-opencode",
-        "pi-nix": "pi-nix"
+        "pi-nix": "pi-nix",
+        "skills": "skills"
       }
     },
     "rust-overlay": {
@@ -1134,6 +1135,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789226639,
+        "narHash": "sha256-lTxbwK1mRuQStVogpl2NTcr7GnJ/Wtm9oaXBsrJvlJ0=",
+        "owner": "sadjow",
+        "repo": "skills",
+        "rev": "0d4730bdd925c9150389caa9c1291f73a68c55d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "skills",
         "type": "github"
       }
     },

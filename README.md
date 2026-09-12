@@ -56,6 +56,7 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   ├── nix/
 │   │   ├── caches.nix     # Binary cache URLs and public keys
 │   │   └── default.nix    # User Nix settings
+│   ├── agent-skills.nix   # Pinned public skills and local private links
 │   ├── claude-code.nix    # Claude Code integration
 │   └── shell.nix          # Shell configuration (zsh/bash with global direnv)
 ├── docs/
@@ -88,6 +89,34 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 
 - **devenv**: Fast, declarative development environments
 - **claude-code**: AI coding assistant with dedicated Node.js runtime
+
+## Agent skills
+
+Public skills are maintained in [sadjow/skills](https://github.com/sadjow/skills).
+`home/agent-skills.nix` installs the revision pinned by the `skills` flake input
+into the shared, Codex, Claude Code, and Cursor skill directories. Edit the skills
+repository; installed Nix store files are read-only.
+
+To adopt a newer published revision:
+
+```sh
+nix flake update skills --flake 'path:.'
+nix flake check 'path:.'
+home-manager build --flake 'path:.#sadjow'
+```
+
+Activate separately with `home-manager switch --flake 'path:.#sadjow'` when ready.
+Home Manager does not run npm or fetch a moving skills branch during activation.
+Unmodified upstream skills keep their existing installer-managed source; their
+installation commands are in the public repository's upstream catalog.
+
+Optional private skills stay in a separate authenticated checkout at
+`~/.config/skills-private`. Clone that repository using your configured Git
+credentials and restrict its directory permissions to `700`. During activation,
+Home Manager discovers `skills/*/SKILL.md` in that checkout and creates local links
+for the same four clients. No private contents or skill-name inventory are read
+at Nix evaluation time or copied into the Nix store. A missing checkout is allowed;
+an unrelated existing destination is preserved and reported as a conflict.
 
 ## Binary Caches
 
@@ -192,7 +221,7 @@ The configuration is modular. Key files to modify:
 
 - **`home.nix`**: Main package list and basic settings
 - **`home/AGENTS.md`**: Shared global instructions for supported coding agents
-- **`home/claude/`**: Authored Claude Code settings, agents, commands, hooks, and local skills
+- **`home/claude/`**: Authored Claude Code settings, agents, commands, and hooks
 - **`home/claude-code.nix`**: Claude Code file ownership and runtime-state boundary
 - **`home/nix/default.nix`**: User Nix settings
 - **`home/nix/caches.nix`**: Binary cache URLs and public signing keys

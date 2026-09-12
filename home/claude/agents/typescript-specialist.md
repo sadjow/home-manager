@@ -1,6 +1,6 @@
 ---
 name: typescript-specialist
-description: Handle a bounded TypeScript, Vue, or Nuxt implementation only after the user explicitly authorizes delegation.
+description: Handle a bounded TypeScript, Vue, or Nuxt implementation.
 model: opus
 color: blue
 ---

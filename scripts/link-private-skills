@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+private_root=$1
+shift
+[[ -d "$private_root/skills" ]] || exit 0
+
+for directory in "$@"; do
+  ancestor="$HOME/$directory"
+  while [[ "$ancestor" != "$HOME" ]]; do
+    if [[ -e "$ancestor" || -L "$ancestor" ]]; then
+      if [[ ! -d "$ancestor" ]]; then
+        echo "Private skill link directory conflicts with an existing path: $ancestor" >&2
+        exit 1
+      fi
+      break
+    fi
+    ancestor=${ancestor%/*}
+  done
+done
+
+for source in "$private_root"/skills/*; do
+  [[ -f "$source/SKILL.md" ]] || continue
+  for directory in "$@"; do
+    target="$HOME/$directory/${source##*/}"
+    if [[ -e "$target" || -L "$target" ]]; then
+      if [[ ! -L "$target" ]] || [[ "$(readlink "$target")" != "$source" ]]; then
+        echo "Private skill link conflicts with an existing destination: $target" >&2
+        exit 1
+      fi
+    fi
+  done
+done
+
+for source in "$private_root"/skills/*; do
+  [[ -f "$source/SKILL.md" ]] || continue
+  for directory in "$@"; do
+    target="$HOME/$directory/${source##*/}"
+    mkdir -p "$HOME/$directory"
+    [[ -L "$target" ]] || ln -s "$source" "$target"
+  done
+done
+
+# Prune only after every desired link exists, using the exact targets this script creates.
+for directory in "$@"; do
+  for target in "$HOME/$directory"/*; do
+    [[ -L "$target" && ! -e "$target" ]] || continue
+    [[ "$(readlink "$target")" == "$private_root/skills/${target##*/}" ]] || continue
+    rm "$target"
+  done
+done

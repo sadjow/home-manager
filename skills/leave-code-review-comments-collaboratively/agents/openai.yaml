@@ -1,4 +1,0 @@
-interface:
-  display_name: "Leave Review Comments Collaboratively"
-  short_description: "Draft and safely post human-approved PR feedback"
-  default_prompt: "Use $leave-code-review-comments-collaboratively to turn my review notes into precise pull request comments and ask before posting each one."

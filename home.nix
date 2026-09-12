@@ -1,42 +1,6 @@
 { config, pkgs, lib, devenv, aith, ghPackage, piPackage, ... }:
 
 let
-  skillDirectories = [
-    ".agents/skills"
-    ".claude/skills"
-    ".codex/skills"
-    ".cursor/skills"
-  ];
-  managedSkills = [
-    "accessible-web-interactions"
-    "adapt-business-ux"
-    "browser-harness"
-    "elixir-otp-engineering"
-    "evolve-agent-harness"
-    "explain-clearly"
-    "flutter-text-scaling-accessibility"
-    "improve-project-harness"
-    "leave-code-review-comments-collaboratively"
-    "phoenix-liveview-resilient-ux"
-    "phoenix-ui-architect"
-    "playwright-reactive-ux-testing"
-    "role-aware-product-ux"
-    "semantic-web-inputs"
-    "tmux-project-services"
-    "ui-ux-design"
-  ];
-  managedSkillFiles = builtins.listToAttrs (lib.concatMap
-    (skill: map
-      (directory: {
-        name = "${directory}/${skill}";
-        value = {
-          force = true;
-          source = config.lib.file.mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/.config/home-manager/skills/${skill}";
-        };
-      })
-      skillDirectories)
-    managedSkills);
   globalAgentInstructions = config.lib.file.mkOutOfStoreSymlink
     "${config.home.homeDirectory}/.config/home-manager/home/AGENTS.md";
   piProfile = { command, agentDirectory }: pkgs.writeShellScriptBin command ''
@@ -90,6 +54,7 @@ in {
 
   imports = [
     ./home/nix
+    ./home/agent-skills.nix
     ./home/agent-mcp.nix
     ./home/browser-harness.nix
     ./home/claude-code.nix
@@ -189,7 +154,7 @@ in {
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  } // managedSkillFiles;
+  };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

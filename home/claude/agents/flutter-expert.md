@@ -1,6 +1,6 @@
 ---
 name: flutter-expert
-description: Handle a bounded Flutter or Dart implementation only after the user explicitly authorizes delegation.
+description: Handle a bounded Flutter or Dart implementation.
 model: opus
 color: cyan
 ---

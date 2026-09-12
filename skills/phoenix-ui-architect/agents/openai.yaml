@@ -1,4 +1,0 @@
-interface:
-  display_name: "Phoenix UI Architect"
-  short_description: "Structure maintainable Phoenix interfaces"
-  default_prompt: "Use $phoenix-ui-architect to design and verify this Phoenix UI architecture."

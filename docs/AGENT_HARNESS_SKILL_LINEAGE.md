@@ -4,7 +4,7 @@ This diagram shows how a portable personal capability can benefit a project whil
 
 ```mermaid
 flowchart TB
-  portable["Personal harness · Home Manager<br/>Portable principle or skill<br/>canonical personal source"]
+  portable["Public skills · sadjow/skills<br/>Portable principle or skill<br/>canonical skill source"]
   adopt{"Does this project<br/>choose to adopt it?"}
   unchanged["No project change"]
   projectCopy["Project harness · repository<br/>Self-contained project-owned<br/>copy or adaptation"]
@@ -30,16 +30,19 @@ The personal source survives loss of project access. The project-owned version s
 
 ## Portable capability inventory
 
+The paths below belong to [sadjow/skills](https://github.com/sadjow/skills).
+Home Manager consumes a pinned revision; it no longer owns their contents.
+
 | Personal owner | Portable responsibility |
 |---|---|
 | `skills/elixir-otp-engineering/` | Elixir, OTP, Ecto, concurrency, side effects, tests, and documentation |
-| `skills/phoenix-ui-architect/` | Phoenix presentation architecture, HEEx, forms, components, and layout |
-| `skills/phoenix-liveview-resilient-ux/` | LiveView latency, concurrent events, recovery, uploads, and asynchronous work |
+| `skills/phoenix-ui-architecture/` | Phoenix presentation architecture, HEEx, forms, components, and layout |
+| `skills/phoenix-liveview-interaction-resilience/` | LiveView latency, concurrent events, recovery, uploads, and asynchronous work |
 | `skills/accessible-web-interactions/` | WCAG 2.2 AA interaction design and practical accessibility evidence |
-| `skills/semantic-web-inputs/` | Context-authoritative localized inputs and resilient browser editing |
+| `skills/locale-aware-web-inputs/` | Context-authoritative localized inputs and resilient browser editing |
 | `skills/playwright-reactive-ux-testing/` | Temporal and state-boundary testing for reactive interfaces |
-| `skills/ui-ux-design/` | Visual hierarchy, responsive composition, motion, and task efficiency |
-| `skills/adapt-business-ux/` | Progressive business workflows and context-aware operational UX |
+| `skills/web-ui-design/` | Visual hierarchy, responsive composition, motion, and task efficiency |
+| `skills/business-workflow-ux/` | Progressive business workflows and context-aware operational UX |
 
 These personal packages deliberately omit originating modules, commands, paths,
 product vocabulary, domain policy, provider decisions, locale defaults, and

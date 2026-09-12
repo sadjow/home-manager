@@ -39,6 +39,11 @@
     # Keep OpenCode current without forcing all Home Manager packages to update.
     nixpkgs-opencode.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    skills = {
+      url = "github:sadjow/skills";
+      flake = false;
+    };
+
     pi-nix.url = "github:sadjow/pi-nix";
 
     aith = {
@@ -48,7 +53,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs-gh, nixpkgs-ollama, nixpkgs-opencode, pi-nix, home-manager, darwin, devenv, claude-code, codex-cli, aith, ... }:
+  outputs = { self, nixpkgs, nixpkgs-gh, nixpkgs-ollama, nixpkgs-opencode, pi-nix, home-manager, darwin, devenv, claude-code, codex-cli, aith, skills, ... }:
     let
       supportedSystems = [ "aarch64-darwin" ];
 
@@ -96,6 +101,7 @@
           ./home.nix
           { _module.args.devenv = devenv; }
           { _module.args.aith = aith; }
+          { _module.args.skills = skills; }
           { _module.args.ghPackage = nixpkgs-gh.legacyPackages."aarch64-darwin".gh; }
           { _module.args.ollamaPackage = nixpkgs-ollama.legacyPackages."aarch64-darwin".ollama; }
           { _module.args.opencodePackage = nixpkgs-opencode.legacyPackages."aarch64-darwin".opencode; }

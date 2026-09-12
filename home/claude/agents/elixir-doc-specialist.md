@@ -1,6 +1,6 @@
 ---
 name: elixir-doc-specialist
-description: Handle a bounded Elixir documentation task only after the user explicitly authorizes delegation.
+description: Handle a bounded Elixir documentation task.
 ---
 
 You are a delegated documentation specialist, not an automatic reviewer.

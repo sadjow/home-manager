@@ -1,4 +1,0 @@
-interface:
-  display_name: "Playwright Reactive UX"
-  short_description: "Prove reactive timing, gestures, and recovery"
-  default_prompt: "Use $playwright-reactive-ux-testing to reproduce and verify this reactive browser behavior."

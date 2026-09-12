@@ -11,7 +11,7 @@ Analyze code review feedback from the GitHub pull request for the current branch
 1. **Identify PR**: Get the PR number for the current branch (or use provided: $ARGUMENTS)
 2. **Fetch Comments**: Retrieve all review comments, inline code comments, and general feedback
 3. **Analyze & Categorize**: Organize feedback by type and priority
-4. **Select a Capability Route**: Keep work in the current agent unless the user explicitly authorizes delegation
+4. **Select a Capability Route**: Choose the current agent or useful bounded specialists for the feedback
 5. **Provide Action Plan**: Create actionable next steps
 
 ## Step 1: Get PR Information
@@ -85,7 +85,7 @@ Organize comments into categories:
 
 Analyze and plan straightforward follow-up in the current agent. Do not invoke a specialist merely because this command names one.
 
-If the user explicitly asks for delegation, select the smallest specialist set from the actual feedback:
+When delegation helps, select the smallest specialist set from the actual feedback:
 
 **For DRY/SSOT violations or duplication**:
 → Use `clean-code-specialist` agent
@@ -102,7 +102,7 @@ If the user explicitly asks for delegation, select the smallest specialist set f
 Example:
 ```
 Reviewer feedback: "This function has duplicate timeout values"
-→ The current agent can handle this. If you explicitly want delegation, the clean-code-specialist is the relevant specialist.
+→ The current agent can handle this directly; clean-code-specialist is useful when independent refactoring review would add value.
 ```
 
 ## Step 5: Generate Action Plan
@@ -114,7 +114,7 @@ For each comment thread, provide:
 3. **Category**: Critical/Suggestion/Question/Nitpick
 4. **Analysis**: Your interpretation and context
 5. **Proposed Action**: What to do about it
-6. **Capability Route**: Current agent, deterministic command, or an explicitly authorized specialist
+6. **Capability Route**: Current agent, deterministic command, or a useful bounded specialist
 7. **Response Draft**: Suggested reply to reviewer (if needed)
 
 ## Output Format
@@ -170,7 +170,7 @@ For each comment thread, provide:
 1. Extract timeout constant to config/constants.js
 2. Break function into smaller, focused functions
 
-**Capability Route**: Current agent by default; clean-code-specialist only after explicit delegation authorization
+**Capability Route**: Current agent or clean-code-specialist for bounded refactoring analysis
 
 **Response Draft**:
 "Agreed on both points. Refactoring to extract constants and split the function."
@@ -195,7 +195,7 @@ For each comment thread, provide:
    - [ ] Fix security issue in payment.js:42
    - [ ] Address blocking review comments
 
-2. **Optional Delegation** (only when explicitly requested):
+2. **Optional Delegation** (when useful):
    - [ ] Clean code specialist for the bounded user.js refactoring
    - [ ] Run `/extract-constants` on payment module
 
@@ -210,9 +210,9 @@ For each comment thread, provide:
 
 ---
 
-## Delegation Boundary
+## External Action Boundary
 
-Continue in the current agent unless the user explicitly requests delegation. Drafting a response is not permission to send it, and preparing a commit plan is not permission to stage, commit, or push.
+Drafting a response is not permission to send it, and preparing a commit plan is not permission to stage, commit, or push.
 ```
 
 ## Special Cases

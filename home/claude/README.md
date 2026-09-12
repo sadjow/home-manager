@@ -2,7 +2,7 @@
 
 Home Manager owns the author-controlled Claude Code configuration in this directory.
 
-Managed paths include global instructions, settings, agents, commands, hooks, and locally maintained skills. Shared skills can be linked from their canonical source by `home/claude-code.nix`.
+Managed paths include global instructions, settings, agents, commands, and hooks. Skill installation belongs to `home/agent-skills.nix`, which consumes the public skills repository and links locally available private skills.
 
 Claude Code continues to own mutable application data such as authentication, transcripts, project memory, caches, plugin downloads, file history, jobs, sessions, and daemon state.
 

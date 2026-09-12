@@ -1,6 +1,6 @@
 ---
 name: ruby-specialist
-description: Handle a bounded Ruby, Rails, or RSpec implementation only after the user explicitly authorizes delegation.
+description: Handle a bounded Ruby, Rails, or RSpec implementation.
 model: opus
 color: red
 ---

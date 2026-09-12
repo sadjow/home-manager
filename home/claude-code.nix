@@ -1,59 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
-let
-  claudeOwnedSkills = builtins.attrNames (builtins.readDir ./claude/skills);
-  sharedAgentSkills = [
-    "find-skills"
-    "flutter-adding-home-screen-widgets"
-    "flutter-animating-apps"
-    "flutter-architecting-apps"
-    "flutter-building-forms"
-    "flutter-building-layouts"
-    "flutter-building-plugins"
-    "flutter-caching-data"
-    "flutter-embedding-native-views"
-    "flutter-handling-concurrency"
-    "flutter-handling-http-and-json"
-    "flutter-implementing-navigation-and-routing"
-    "flutter-improving-accessibility"
-    "flutter-interoperating-with-native-apis"
-    "flutter-localizing-apps"
-    "flutter-managing-state"
-    "flutter-reducing-app-size"
-    "flutter-setting-up-on-linux"
-    "flutter-setting-up-on-macos"
-    "flutter-setting-up-on-windows"
-    "flutter-testing-apps"
-    "flutter-theming-apps"
-    "flutter-working-with-databases"
-    "graphql-schema"
-    "playwright-best-practices"
-    "postgresql-table-design"
-    "rails-expert"
-    "redis-development"
-    "skill-creator"
-    "vue"
-  ];
-  claudeOwnedSkillFiles = builtins.listToAttrs (map
-    (skill: {
-      name = ".claude/skills/${skill}";
-      value = {
-        source = ./claude/skills/${skill};
-        force = true;
-      };
-    })
-    claudeOwnedSkills);
-  sharedAgentSkillFiles = builtins.listToAttrs (map
-    (skill: {
-      name = ".claude/skills/${skill}";
-      value = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/.agents/skills/${skill}";
-        force = true;
-      };
-    })
-    sharedAgentSkills);
-in {
+{
   # Home Manager owns authored Claude inputs. Claude keeps mutable runtime state.
   home.file = {
     ".claude/CLAUDE.md" = {
@@ -83,7 +30,7 @@ in {
       recursive = true;
       force = true;
     };
-  } // claudeOwnedSkillFiles // sharedAgentSkillFiles;
+  };
 
   # Create stable claude binary paths to prevent permission resets
   home.activation.claudeStableLink = lib.hm.dag.entryAfter ["writeBoundary"] ''

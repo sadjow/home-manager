@@ -1,4 +1,0 @@
-interface:
-  display_name: "LiveView Resilient UX"
-  short_description: "Make LiveView interactions immediate and correct"
-  default_prompt: "Use $phoenix-liveview-resilient-ux to diagnose and harden this LiveView interaction."

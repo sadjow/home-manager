@@ -1,6 +1,6 @@
 ---
 name: clojure-specialist
-description: Handle a bounded Clojure, ClojureScript, or JVM-interop implementation only after the user explicitly authorizes delegation.
+description: Handle a bounded Clojure, ClojureScript, or JVM-interop implementation.
 model: opus
 color: green
 ---
