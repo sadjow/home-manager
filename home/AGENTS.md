@@ -6,6 +6,8 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 
 - don't post comments to GitHub without my authorization
 - do not send messages, emails, SMS, or any other outbound communication without my authorization
+- when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person. Keep claims grounded in what was actually done or verified
+- keep routine comments and status updates focused on outcomes and relevant validation. Do not narrate compliance with implicit instructions, such as protecting customer data, unless explicitly requested or needed to explain a material limitation, incident, risk, or user decision
 - no need to use `git -C` if you are already in the project directory
 - avoid using `--` when writing text so it keeps a natural tone
 - before committing, test that what we are committing works
