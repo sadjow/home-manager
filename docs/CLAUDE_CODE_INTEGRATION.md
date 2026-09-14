@@ -3,10 +3,9 @@
 The module `home/claude-code.nix`:
 
 1. Creates a stable symlink at `~/.local/bin/claude` to prevent permission resets
-2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, hooks, and locally maintained skills
-3. Links shared skills from their canonical agent-skill sources
-4. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
-5. Preserves the mutable `~/.claude.json` file during Home Manager switches
+2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, and hooks
+3. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
+4. Preserves the mutable `~/.claude.json` file during Home Manager switches
 
 See `home/claude/README.md` for the managed and runtime ownership boundary.
 
@@ -18,7 +17,15 @@ See `home/claude/README.md` for the managed and runtime ownership boundary.
 
 ## Skill Discovery
 
-Claude Code discovers user skills only in `~/.claude/skills`. The links that `home.nix` and `home/claude-code.nix` place there point at `skills/` in this repository or at `~/.agents/skills`, the canonical store shared with other agents, so one skill on disk is loaded once. The debug log line `Loading skills from:` shows the scanned directories, and `Loaded N unique skills` shows the result.
+`home/agent-skills.nix` owns this configuration's links in `~/.claude/skills`.
+Public skills resolve to the pinned `sadjow/skills` source in the Nix store;
+private skills resolve directly to the local private checkout. Selected upstream
+skills retain links to their installer-managed sources under `~/.agents/skills`.
+The public and private links share their targets with the other configured clients.
+
+See [Agent skills](../README.md#agent-skills) for the authoritative installation
+paths, update workflow, verification, and migration recovery instructions. Skill
+contents are maintained outside this Home Manager repository.
 
 ## Context Budget
 

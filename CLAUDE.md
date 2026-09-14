@@ -28,6 +28,7 @@ nix-collect-garbage -d                           # garbage collection
 - `home/nix/default.nix`: user Nix settings and authentication
 - `home/nix/caches.nix`: binary cache catalog applied through Home Manager for all projects
 - `home/shell.nix`: zsh with asdf-vm and global direnv hooks for login and interactive shells (`docs/DIRENV_INTEGRATION.md`)
+- `home/agent-skills.nix`: public skill installation and private checkout links (workflow in `README.md`, Agent skills section)
 - `home/claude-code.nix` and `home/claude/`: authored Claude Code configuration (`docs/CLAUDE_CODE_INTEGRATION.md`, ownership boundary in `home/claude/README.md`)
 
 ## Rules

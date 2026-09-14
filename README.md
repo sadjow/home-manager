@@ -94,8 +94,20 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 
 Public skills are maintained in [sadjow/skills](https://github.com/sadjow/skills).
 `home/agent-skills.nix` installs the revision pinned by the `skills` flake input
-into the shared, Codex, Claude Code, and Cursor skill directories. Edit the skills
-repository; installed Nix store files are read-only.
+into these discovery directories:
+
+| Consumer | Directory |
+|---|---|
+| Shared agent discovery | `~/.agents/skills` |
+| Codex | `~/.codex/skills` |
+| Claude Code | `~/.claude/skills` |
+| Cursor | `~/.cursor/skills` |
+
+Each public skill has a symbolic link in every directory, resolving to the same
+pinned source in the Nix store. The four destinations do not contain independent
+copies. Edit the public skills repository; installed Nix store files are read-only.
+Local checkout edits become installed public skills only after publishing them,
+updating the pin, and activating the resulting Home Manager generation.
 
 To adopt a newer published revision:
 
@@ -114,9 +126,48 @@ Optional private skills stay in a separate authenticated checkout at
 `~/.config/skills-private`. Clone that repository using your configured Git
 credentials and restrict its directory permissions to `700`. During activation,
 Home Manager discovers `skills/*/SKILL.md` in that checkout and creates local links
-for the same four clients. No private contents or skill-name inventory are read
+for the same four discovery directories. Each link resolves to the same private
+checkout, so edits there are available through all four links without republishing.
+New or renamed private skills need another activation to reconcile their links.
+No private contents or skill-name inventory are read
 at Nix evaluation time or copied into the Nix store. A missing checkout is allowed;
 an unrelated existing destination is preserved and reported as a conflict.
+
+### Verify installation
+
+A successful build does not activate its links. After switching, verify the
+installed skill files rather than relying only on the checkout or build result:
+
+```sh
+bash scripts/check-agent-skills
+
+# Print dangling links in the two discovery directories used by this setup for Codex.
+find "$HOME/.agents/skills" "$HOME/.codex/skills" -type l ! -exec test -e {} \; -print
+
+# Replace browser-harness with the skill being investigated.
+for directory in .agents/skills .codex/skills .claude/skills .cursor/skills; do
+  test -f "$HOME/$directory/browser-harness/SKILL.md" || printf 'Missing: %s\n' "$directory/browser-harness"
+done
+```
+
+The integration check exercises the configuration and private-link reconciler in
+a temporary home; it does not audit the active installation. The filesystem checks
+above verify installed paths. Confirm discovery in the client as well, starting a
+new task or restarting it if its catalog has not refreshed.
+
+### Recover from migration conflicts
+
+Moving or renaming a skill source can leave an older generation's links dangling.
+Build and activate the current configuration after migrating sources. If activation
+fails because a real directory occupies a managed skill path, inspect that exact
+path and move it to a backup outside the discovery directories before retrying.
+Keep the backup until the managed replacement has been verified.
+
+For an obsolete dangling link, inspect its target with `readlink` and confirm that
+it belongs to a retired or renamed skill before moving it to the backup. Do not
+bulk-delete unrelated links or directories. A failed switch can already have
+applied some changes; rerun the switch after resolving the conflict and verify
+that it completes successfully.
 
 ## Binary Caches
 
