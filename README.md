@@ -90,6 +90,21 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 - **devenv**: Fast, declarative development environments
 - **claude-code**: AI coding assistant with dedicated Node.js runtime
 
+## Codex permissions
+
+`home/codex.nix` manages the personal Codex defaults in `~/.codex/config.toml`.
+Each activation sets Full access: `sandbox_mode = "danger-full-access"` and
+`approval_policy = "never"`. This removes command sandbox restrictions and disables
+approval prompts governed by that policy. Computer Use app permissions and Locked
+Use remain separate controls.
+
+The activation preserves other settings and TOML comments, keeps the file writable
+with mode `600`, and saves the previous content to `config.toml.home-manager-backup`
+when it changes. An incompatible `default_permissions` selector is removed.
+Existing task overrides and the isolated `codex-spireworks` profile are unchanged.
+
+See [OpenAI's default permissions documentation](https://learn.chatgpt.com/docs/sandboxing#configure-defaults).
+
 ## Agent skills
 
 Public skills are maintained in [sadjow/skills](https://github.com/sadjow/skills).

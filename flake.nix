@@ -77,6 +77,16 @@
           pkgs = nixpkgsFor.${system};
         in
         {
+          codex-settings = pkgs.runCommand "codex-settings-check" {
+            nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [ ps.tomlkit ])) ];
+          } ''
+            cp -R ${self} source
+            chmod -R u+w source
+            cd source
+            python3 tests/test_codex_settings.py
+            touch "$out"
+          '';
+
           agent-skills = pkgs.runCommand "agent-skills-check" {
             nativeBuildInputs = [
               pkgs.bash
