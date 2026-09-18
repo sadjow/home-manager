@@ -7,14 +7,6 @@
       source = ./claude/CLAUDE.md;
       force = true;
     };
-    ".claude/settings.json" = {
-      source = ./claude/settings.json;
-      force = true;
-    };
-    ".claude/settings.local.json" = {
-      source = ./claude/settings.local.json;
-      force = true;
-    };
     ".claude/agents" = {
       source = ./claude/agents;
       recursive = true;
@@ -31,6 +23,15 @@
       force = true;
     };
   };
+
+  home.activation.claudeWritableSettings = lib.hm.dag.entryAfter ["linkGeneration"] (
+    lib.concatMapStringsSep "\n" (name: ''
+      run ${pkgs.python3}/bin/python3 ${../scripts/reconcile-claude-settings.py} \
+        ${./claude + "/${name}"} \
+        "$HOME/.claude/${name}" \
+        "$HOME/.claude/.home-manager-settings/${name}"
+    '') [ "settings.json" "settings.local.json" ]
+  );
 
   # Create stable claude binary paths to prevent permission resets
   home.activation.claudeStableLink = lib.hm.dag.entryAfter ["writeBoundary"] ''

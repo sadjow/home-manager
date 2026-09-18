@@ -77,6 +77,16 @@
           pkgs = nixpkgsFor.${system};
         in
         {
+          claude-settings = pkgs.runCommand "claude-settings-check" {
+            nativeBuildInputs = [ pkgs.python3 ];
+          } ''
+            cp -R ${self} source
+            chmod -R u+w source
+            cd source
+            python3 tests/test_claude_settings.py SettingsReconciliationTest
+            touch "$out"
+          '';
+
           codex-settings = pkgs.runCommand "codex-settings-check" {
             nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [ ps.tomlkit ])) ];
           } ''
