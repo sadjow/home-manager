@@ -53,6 +53,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 
 ## Git And Reviews
 
+- when committing work that changes skills, also commit the task's validated changes in each canonical public or private skills repository; keep unrelated changes out of those commits. A request to push that work includes its companion skills commits, with private skills pushed only to a verified private remote
 - use one-line conventional commit messages
 - do not add co-authors in commits
 - write commit messages based on the code that changed, not on the request itself
