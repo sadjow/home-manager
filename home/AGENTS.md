@@ -7,11 +7,11 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - don't post comments to GitHub without my authorization
 - do not send messages, emails, SMS, or any other outbound communication without my authorization
 - when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person. Keep claims grounded in what was actually done or verified
-- keep routine comments and status updates focused on outcomes and relevant validation. Do not narrate compliance with implicit instructions, such as protecting customer data, unless explicitly requested or needed to explain a material limitation, incident, risk, or user decision
+- focus routine comments and status updates on outcomes and validation. Describe compliance with implicit instructions only when requested or needed to explain a material limitation, incident, risk, or user decision
 - no need to use `git -C` if you are already in the project directory
 - avoid using `--` when writing text so it keeps a natural tone
 - before committing, test that what we are committing works
-- when a reported bug is safely and deterministically reproducible, first add the smallest focused regression, confirm it fails against the unfixed behavior for the intended reason, then implement the fix and prove that same regression passes. If red-first reproduction is unsafe or impractical, state why and add the focused coverage immediately after the fix; never manufacture an unrelated failure merely to claim red evidence
+- for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - when you read a file, read it all so you do not miss context
 - never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, or logs. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
 - check the available skills before starting and apply relevant skills
@@ -53,7 +53,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 
 ## Git And Reviews
 
-- when committing work that changes skills, also commit the task's validated changes in each canonical public or private skills repository; keep unrelated changes out of those commits. A request to push that work includes its companion skills commits, with private skills pushed only to a verified private remote
+- when committing skill changes, include the task's validated changes in each canonical public or private skills repository, excluding unrelated work. Push requests include companion skills commits; push private skills only to a verified private remote
 - use one-line conventional commit messages
 - do not add co-authors in commits
 - write commit messages based on the code that changed, not on the request itself
