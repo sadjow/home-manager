@@ -64,7 +64,7 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   └── CHANNEL_STRATEGY.md             # Nixpkgs channel strategy and alternatives
 ├── overlays/
 │   └── README.md          # Information about custom overlays
-├── CLAUDE.md              # AI assistant guidance
+├── AGENTS.md              # Shared repository guidance for coding agents
 └── README.md              # This file
 ```
 
@@ -348,7 +348,7 @@ Apply with `home-manager switch --flake .#sadjow`. If the change includes a new 
 
 - Check the [Home Manager manual](https://nix-community.github.io/home-manager/)
 - Review the [Nix flakes documentation](https://nixos.wiki/wiki/Flakes)
-- See `CLAUDE.md` for AI assistant specific guidance
+- See [AGENTS.md](AGENTS.md) for coding agent repository guidance
 
 ## Related Projects
 

@@ -2,16 +2,33 @@
 
 The module `home/claude-code.nix`:
 
-1. Creates a stable symlink at `~/.local/bin/claude` to prevent permission resets
+1. Creates a stable wrapper at `~/.local/bin/claude` to prevent permission resets
 2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, and hooks
 3. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
 4. Preserves the mutable `~/.claude.json` file during Home Manager switches
 
 See `home/claude/README.md` for the managed and runtime ownership boundary.
 
+## Instruction Discovery
+
+The repository's [AGENTS.md](../AGENTS.md) owns shared project guidance. Claude Code
+2.1.277 was verified to load it directly with the default
+`claude-md-or-agents-md` setting. Keep the repository root free of a `CLAUDE.md`
+alias, which would take precedence over native AGENTS.md discovery. See the
+[release notes](https://github.com/anthropics/claude-code/releases/tag/v2.1.277)
+for provider availability.
+
+Global instructions remain in `home/AGENTS.md`, linked at `~/AGENTS.md` and
+`~/.codex/AGENTS.md`. The global `~/.claude/CLAUDE.md` imports `~/AGENTS.md` and adds
+Claude-specific guidance from `home/claude/CLAUDE.md`. This user-scope import
+remains necessary independently of project-file discovery. In a fresh Claude
+session, confirm the startup message reports `AGENTS.md loaded` and use `/memory`
+to verify the global import appears once. In 2.1.277, `/memory` still labels its
+project entry `CLAUDE.md`; that label does not reflect native AGENTS.md discovery.
+
 ## Known Issues Fixed
 
-- **Permission Reset Issue**: Claude asked for directory permissions after every `home-manager switch` because the nix store path changed. The stable symlink fixes this.
+- **Permission Reset Issue**: Claude asked for directory permissions after every `home-manager switch` because the nix store path changed. The stable wrapper keeps the executable path consistent.
 - **Settings Loss**: Login state and trusted directories are preserved across switches.
 - **Configuration Drift**: Author-controlled Claude configuration has one versioned Home Manager source of truth.
 

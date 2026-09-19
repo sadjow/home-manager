@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-Guidance for Claude Code when working in this repository.
+Shared guidance for coding agents working in this repository.
 
 ## Overview
 
@@ -34,4 +34,4 @@ nix-collect-garbage -d                           # garbage collection
 ## Rules
 
 - Define cache URLs and complete public signing keys only in `home/nix/caches.nix` and apply them through Home Manager instead of running `cachix use`. Keep them out of `flake.nix`, whose `nixConfig` requires literal values.
-- Keep the stable `~/.local/bin/claude` symlink and the `~/.claude.json` preservation in `home/claude-code.nix`; they prevent permission and login resets after a switch.
+- Keep the stable `~/.local/bin/claude` wrapper and the `~/.claude.json` preservation in `home/claude-code.nix`; they prevent permission and login resets after a switch.
