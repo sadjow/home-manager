@@ -13,7 +13,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - before committing, test that what we are committing works
 - for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - when you read a file, read it all so you do not miss context
-- never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, or logs. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
+- never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, logs, or browser consoles. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
 - check the available skills before starting and apply relevant skills
 - ultrathink
 
@@ -42,6 +42,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - prefer functional patterns when they make the code clearer
 - when composing result or monad values, propagate failure before reading a success payload and cover the failure path at the orchestration boundary
 - for idempotent reconciliation, skip only when the desired end state already holds; a marker is insufficient when related state can drift
+- when a write replaces more state than its caller changed, such as a whole list for a one-item move, compare all of that state with what the caller last read or apply only the change; checking part of it, such as membership without order, lets a stale view revert another writer's work
 - when cancellation or skipping is a best-effort optimization, keep a fallback fully prepared and valid; if continuing is unsafe, fail closed explicitly instead of overloading one failure status with both meanings
 - only modernize code that is part of the current change
 - maintain consistency with existing codebase patterns
