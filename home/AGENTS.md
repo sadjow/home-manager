@@ -42,7 +42,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - prefer functional patterns when they make the code clearer
 - when composing result or monad values, propagate failure before reading a success payload and cover the failure path at the orchestration boundary
 - for idempotent reconciliation, skip only when the desired end state already holds; a marker is insufficient when related state can drift
-- when a write replaces more state than its caller changed, such as a whole list for a one-item move, compare all of that state with what the caller last read or apply only the change; checking part of it, such as membership without order, lets a stale view revert another writer's work
+- when a write replaces more state than its caller changed, such as a whole list for a one-item move, compare all of that state with what the caller last read or apply only the change; checking part of it, such as membership without order, lets a stale view revert another writer's work; likewise, interpret a relative command, such as move up, against the state its control was drawn from rather than the latest state
 - when cancellation or skipping is a best-effort optimization, keep a fallback fully prepared and valid; if continuing is unsafe, fail closed explicitly instead of overloading one failure status with both meanings
 - only modernize code that is part of the current change
 - maintain consistency with existing codebase patterns
