@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# A deliberate review point for always-loaded context, not a client limit:
+# growth must displace existing guidance or raise the budget with its reason
+# in the same commit.
+word_budget=1150
+
+words=$(wc -w < home/AGENTS.md | tr -d ' ')
+if (( words > word_budget )); then
+  echo "global instructions have $words words, over the $word_budget-word budget; trim them, move conditional guidance to a skill, or raise the budget with its reason" >&2
+  exit 1
+fi
+echo "Global instructions: $words of $word_budget words."

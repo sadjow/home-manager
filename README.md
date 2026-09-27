@@ -297,7 +297,7 @@ home.packages = [
 The configuration is modular. Key files to modify:
 
 - **`home.nix`**: Main package list and basic settings
-- **`home/AGENTS.md`**: Shared global instructions for supported coding agents
+- **`home/AGENTS.md`**: Shared global instructions for supported coding agents, held to a word budget (see [Context Budget](docs/CLAUDE_CODE_INTEGRATION.md#context-budget))
 - **`home/claude/`**: Authored Claude Code settings, agents, commands, and hooks
 - **`home/claude-code.nix`**: Claude Code file ownership and runtime-state boundary
 - **`home/nix/default.nix`**: User Nix settings

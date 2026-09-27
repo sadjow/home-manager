@@ -123,6 +123,16 @@
             bash scripts/check-agent-skills
             touch "$out"
           '';
+
+          agent-instructions = pkgs.runCommand "agent-instructions-check" {
+            nativeBuildInputs = [ pkgs.bash pkgs.coreutils ];
+          } ''
+            cp -R ${self} source
+            chmod -R u+w source
+            cd source
+            bash scripts/check-agent-instructions
+            touch "$out"
+          '';
         });
 
       homeConfigurations."sadjow" = home-manager.lib.homeManagerConfiguration {

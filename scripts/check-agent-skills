@@ -6,9 +6,6 @@ fail() {
   exit 1
 }
 
-entrypoint_words=$(wc -w < home/AGENTS.md | tr -d ' ')
-(( entrypoint_words <= 1150 )) || fail "global instructions exceed 1150 words"
-
 grep -Fq 'github:sadjow/skills' flake.nix || fail "missing public skills input"
 grep -Fq './home/agent-skills.nix' home.nix || fail "missing skills module"
 [[ -f home/agent-skills.nix ]] || fail "skills module source is missing"
