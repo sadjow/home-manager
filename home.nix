@@ -97,7 +97,6 @@ in {
     pkgs.atuin
     pkgs.jq
     pkgs._1password-cli
-    pkgs.claude-code
     pkgs.github-copilot-cli
     piPackage
     piPersonal

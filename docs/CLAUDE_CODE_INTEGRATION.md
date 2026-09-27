@@ -2,7 +2,9 @@
 
 The module `home/claude-code.nix`:
 
-1. Creates a stable wrapper at `~/.local/bin/claude` to prevent permission resets
+1. Creates a stable wrapper at `~/.local/bin/claude` that prevents permission resets and passes
+   `--allow-dangerously-skip-permissions`, so every session can switch to bypass permissions mode
+   with Shift+Tab while still starting in the configured `defaultMode`
 2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, and hooks
 3. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
 4. Preserves the mutable `~/.claude.json` file during Home Manager switches
@@ -25,6 +27,23 @@ remains necessary independently of project-file discovery. In a fresh Claude
 session, confirm the startup message reports `AGENTS.md loaded` and use `/memory`
 to verify the global import appears once. In 2.1.277, `/memory` still labels its
 project entry `CLAUDE.md`; that label does not reflect native AGENTS.md discovery.
+
+## Bypass Permissions Mode
+
+Keep `pkgs.claude-code` out of `home.packages`. Home Manager appends `~/.local/bin` to
+`PATH` after `~/.nix-profile/bin`, so a profile copy of the binary shadows the wrapper and
+sessions started with plain `claude` lose the bypass option. Claude Code offers no settings
+key or environment variable for this; `permissions.defaultMode: "bypassPermissions"` would
+start every session bypassed instead of making the mode available.
+
+The VS Code, Cursor, and Windsurf extensions launch their own bundled binary and read
+`claudeCode.allowDangerouslySkipPermissions` from the editor's user settings instead.
+Each activation sets it to `true` in those `settings.json` files through
+`scripts/set-jsonc-setting.js`, which uses the pinned `jsonc-parser` from
+`pkgs/jsonc-parser.nix` so comments, trailing commas, and layout survive. A file that
+already has the value is left untouched; otherwise the previous contents are saved with
+the suffix `.home-manager-backup`. Turning the setting off in an editor lasts until the
+next switch.
 
 ## Known Issues Fixed
 

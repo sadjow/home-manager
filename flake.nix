@@ -87,6 +87,17 @@
             touch "$out"
           '';
 
+          editor-settings = pkgs.runCommand "editor-settings-check" {
+            nativeBuildInputs = [ pkgs.nodejs pkgs.python3 ];
+            JSONC_PARSER = pkgs.callPackage ./pkgs/jsonc-parser.nix { };
+          } ''
+            cp -R ${self} source
+            chmod -R u+w source
+            cd source
+            python3 tests/test_editor_settings.py
+            touch "$out"
+          '';
+
           codex-settings = pkgs.runCommand "codex-settings-check" {
             nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [ ps.tomlkit ])) ];
           } ''

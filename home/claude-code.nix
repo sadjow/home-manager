@@ -1,5 +1,10 @@
 { pkgs, lib, ... }:
 
+let
+  # Editor extensions launch their bundled Claude binary, so the wrapper's flag never reaches them.
+  claudeExtensionEditors = [ "Code" "Cursor" "Windsurf" ];
+  jsoncParser = pkgs.callPackage ../pkgs/jsonc-parser.nix { };
+in
 {
   # Home Manager owns authored Claude inputs. Claude keeps mutable runtime state.
   home.file = {
@@ -31,6 +36,14 @@
         "$HOME/.claude/${name}" \
         "$HOME/.claude/.home-manager-settings/${name}"
     '') [ "settings.json" "settings.local.json" ]
+  );
+
+  home.activation.claudeEditorBypassPermissions = lib.hm.dag.entryAfter ["writeBoundary"] (
+    lib.concatMapStringsSep "\n" (editor: ''
+      run env JSONC_PARSER=${jsoncParser} ${pkgs.nodejs}/bin/node ${../scripts/set-jsonc-setting.js} \
+        "$HOME/Library/Application Support/${editor}/User/settings.json" \
+        claudeCode.allowDangerouslySkipPermissions true
+    '') claudeExtensionEditors
   );
 
   # Create stable claude binary paths to prevent permission resets
