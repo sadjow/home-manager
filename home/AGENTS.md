@@ -11,6 +11,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - no need to use `git -C` if you are already in the project directory
 - avoid using `--` when writing text so it keeps a natural tone
 - before committing, test that what we are committing works
+- after interrupting or timing out a command that can change remote or shared state, check process and target-state evidence before you retry it or report whether it ran; child processes can outlive their wrapper and still apply the change
 - for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - when you read a file, read it all so you do not miss context
 - never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, logs, or browser consoles. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
