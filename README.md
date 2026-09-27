@@ -132,6 +132,17 @@ nix flake check 'path:.'
 home-manager build --flake 'path:.#sadjow'
 ```
 
+A `path:` build includes uncommitted changes. When the worktree has any, compare
+the first two paths below before updating the pin: a match means that work is
+already active, while a difference means the switch would also activate it. After
+the build, the closure difference should list only the updated skills source.
+
+```sh
+nix eval --raw 'path:.#homeConfigurations.sadjow.activationPackage.outPath'
+readlink -f ~/.local/state/nix/profiles/home-manager
+nix store diff-closures "$(readlink -f ~/.local/state/nix/profiles/home-manager)" ./result
+```
+
 Activate separately with `home-manager switch --flake 'path:.#sadjow'` when ready.
 Home Manager does not run npm or fetch a moving skills branch during activation.
 Unmodified upstream skills keep their existing installer-managed source; their
