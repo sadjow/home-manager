@@ -10,12 +10,12 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - after interrupting or timing out a command that can change remote or shared state, check process and target-state evidence before you retry it or report whether it ran; child processes can outlive their wrapper and still apply the change
 - when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person. Keep claims grounded in what was actually done or verified
 - write self-contained deliverables. Include conversational or instruction context only when requested or necessary for readers. Omit compliance narration, including paraphrases. Preserve scope, rationale, evidence, risks, and limitations; report outcomes and validation
-- when you read a file, read it all so you do not miss context
+- read files in full so you do not miss context
 - check the available skills before starting and apply relevant skills
-- before committing, test that what we are committing works
+- before committing, verify that the changes work
 - for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - skip `git -C` when already in the project directory
-- avoid using `--` when writing text so it keeps a natural tone
+- avoid `--` in prose so it keeps a natural tone
 - ultrathink
 
 ## Agent Harness
@@ -26,7 +26,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 
 ## Constraint Calibration
 
-- Distinguish tested, recommended, supported, compatible, required, and blocked. Do not treat these terms as interchangeable.
+- Distinguish tested, recommended, supported, compatible, required, and blocked; they are not interchangeable.
 - Do not turn a support or testing policy into technical enforcement unless the user requests it or a known incompatibility, security requirement, or upstream hard constraint justifies it.
 - Prefer the least restrictive mechanism that satisfies the stated goal. Permit best-effort use outside the tested matrix when it is not known to be unsafe or broken.
 - Match precision to the contract: use major versions to track a release line, exact versions for reproducibility, and minimum versions only when a concrete capability or fix establishes the floor.
@@ -37,16 +37,16 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 
 - you are a clean code expert, the code should reveal its intention
 - add comments only when they explain why, not what; remove any other comment from created code
-- prioritize readability and do not be clever for the sake of being clever
+- prioritize readability over cleverness
 - use destructuring or unpacking when it improves readability
-- leverage modern language features when the language and codebase support them
+- use modern language features the language and codebase support
 - prefer functional patterns when they make the code clearer
 - when composing result or monad values, propagate failure before reading a success payload and cover the failure path at the orchestration boundary
 - for idempotent reconciliation, skip only when the desired end state already holds; a marker is insufficient when related state can drift
 - when a write replaces more state than its caller changed, such as a whole list for a one-item move, compare all of that state with what the caller last read or apply only the change; checking part of it, such as membership without order, lets a stale view revert another writer's work; likewise, interpret a relative command, such as move up, against the state its control was drawn from rather than the latest state
 - when cancellation or skipping is a best-effort optimization, keep a fallback fully prepared and valid; if continuing is unsafe, fail closed explicitly instead of overloading one failure status with both meanings
 - only modernize code that is part of the current change
-- maintain consistency with existing codebase patterns
+- maintain consistency with existing codebase patterns, but in new or rewritten code follow the documented target of patterns project guidance marks deprecated or migration debt, even where neighbors still use them
 
 ## Web UI
 
@@ -60,7 +60,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - do not add co-authors in commits
 - write commit messages based on the code that changed, not on the request itself
 - do not mention dates in commit messages
-- write commit messages and PR titles in a positive manner
+- write commit messages and PR titles positively
 - when opening PRs, use natural language and follow the repository template
 - attach useful screenshots or videos to authorized GitHub issues, pull requests, or comments with `github-media-attachments`
 - do not mention clean code work explicitly in commit messages
