@@ -2,7 +2,7 @@
 
 Home Manager owns the author-controlled Claude Code configuration in this directory.
 
-Managed paths include global instructions, settings, agents, commands, and hooks. Skill installation belongs to `home/agent-skills.nix`, which consumes the public skills repository and links locally available private skills.
+Managed paths include global instructions, settings, agents, commands, and hooks. They are installed into `~/.claude` and into each isolated profile listed in `profiles.nix`. Skill installation belongs to `home/agent-skills.nix`, which consumes the public skills repository and links locally available private skills.
 
 `settings.json` and `settings.local.json` are installed as writable files with mode
 `600`, so Claude can save model selections and other preferences. On first

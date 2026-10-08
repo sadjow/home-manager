@@ -2,6 +2,10 @@
 
 let
   remoteMcpServers = import ./remote-mcp-servers.nix;
+  claudeProfiles = import ./claude/profiles.nix;
+  # The default profile keeps its state beside its directory, isolated ones inside theirs.
+  claudeStateFiles = [ ".claude.json" ]
+    ++ map (directory: "${directory}/.claude.json") (lib.attrValues claudeProfiles.isolated);
   reconcileAgentMcpServers = pkgs.writeShellApplication {
     name = "reconcile-agent-mcp-servers";
     runtimeInputs = [
@@ -20,7 +24,8 @@ in
       (name: url: ''
         ${lib.getExe reconcileAgentMcpServers} \
           ${lib.escapeShellArg name} \
-          ${lib.escapeShellArg url}
+          ${lib.escapeShellArg url} \
+          ${lib.escapeShellArgs claudeStateFiles}
       '')
       remoteMcpServers));
 }

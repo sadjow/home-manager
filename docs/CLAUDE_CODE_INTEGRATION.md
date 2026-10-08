@@ -8,6 +8,7 @@ The module `home/claude-code.nix`:
 2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, and hooks
 3. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
 4. Preserves the mutable `~/.claude.json` file during Home Manager switches
+5. Installs a command for each isolated profile in `home/claude/profiles.nix`
 
 See `home/claude/README.md` for the managed and runtime ownership boundary.
 
@@ -53,7 +54,8 @@ next switch.
 
 ## Skill Discovery
 
-`home/agent-skills.nix` owns this configuration's links in `~/.claude/skills`.
+`home/agent-skills.nix` owns this configuration's links in `~/.claude/skills`
+and in each isolated profile's `skills` directory.
 Public skills resolve to the pinned `sadjow/skills` source in the Nix store;
 private skills resolve directly to the local private checkout. Selected upstream
 skills retain links to their installer-managed sources under `~/.agents/skills`.
@@ -62,6 +64,14 @@ The public and private links share their targets with the other configured clien
 See [Agent skills](../README.md#agent-skills) for the authoritative installation
 paths, update workflow, verification, and migration recovery instructions. Skill
 contents are maintained outside this Home Manager repository.
+
+## Isolated Profiles
+
+Each entry under `isolated` in `home/claude/profiles.nix` installs a command that runs the stable wrapper with `CLAUDE_CONFIG_DIR` set to its directory, for example `claude-stackbuilders` with `~/.claude-stackbuilders`. The profile signs in to its own account and keeps its own transcripts, project memory, plugins, and `.claude.json` state, while Home Manager installs the same instructions, settings, agents, commands, hooks, skills, and remote MCP servers as the default profile. Settings changed through `/config` stay in the profile where they were made.
+
+Claude Code [keys the macOS Keychain entry to the configuration directory](https://code.claude.com/docs/en/authentication), so subscription logins in different profiles stay signed in at the same time. That separation does not cover Claude Console sign-ins without an API key, which are stored outside the configuration directory. The editor extensions launch their bundled binary and keep using the default profile.
+
+After the first switch, run `claude-stackbuilders`, sign in with `/login`, and confirm with `/status` that the account is the expected one and with `/memory` that the global instructions load once.
 
 ## Subagent Models and Effort
 

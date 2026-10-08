@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if (( $# != 2 )); then
-  echo "usage: reconcile-agent-mcp-servers <name> <https-url>" >&2
+if (( $# < 3 )); then
+  echo "usage: reconcile-agent-mcp-servers <name> <https-url> <claude-state-file>..." >&2
   exit 2
 fi
 
 server_name=$1
 server_url=$2
+claude_state_files=("${@:3}")
 
 if [[ ! $server_name =~ ^[a-zA-Z0-9_-]+$ ]]; then
   echo "invalid MCP server name: $server_name" >&2
@@ -88,6 +89,8 @@ copilot_entry=$(jq -cn --arg url "$server_url" '{type: "http", url: $url, tools:
 
 reconcile_codex_config "$HOME/.codex"
 reconcile_codex_config "$HOME/.codex-spireworks"
-reconcile_json_config "$HOME/.claude.json" "$claude_entry"
+for state_file in "${claude_state_files[@]}"; do
+  reconcile_json_config "$HOME/$state_file" "$claude_entry"
+done
 reconcile_json_config "$HOME/.cursor/mcp.json" "$cursor_entry"
 reconcile_json_config "$HOME/.copilot/mcp-config.json" "$copilot_entry"

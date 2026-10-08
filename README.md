@@ -147,11 +147,11 @@ into these discovery directories:
 |---|---|
 | Shared agent discovery | `~/.agents/skills` |
 | Codex | `~/.codex/skills` |
-| Claude Code | `~/.claude/skills` |
+| Claude Code | `~/.claude/skills` and each isolated profile's `skills` |
 | Cursor | `~/.cursor/skills` |
 
 Each public skill has a symbolic link in every directory, resolving to the same
-pinned source in the Nix store. The four destinations do not contain independent
+pinned source in the Nix store. The destinations do not contain independent
 copies. Edit the public skills repository; installed Nix store files are read-only.
 Local checkout edits become installed public skills only after publishing them,
 updating the pin, and activating the resulting Home Manager generation.
@@ -184,8 +184,8 @@ Optional private skills stay in a separate authenticated checkout at
 `~/.config/skills-private`. Clone that repository using your configured Git
 credentials and restrict its directory permissions to `700`. During activation,
 Home Manager discovers `skills/*/SKILL.md` in that checkout and creates local links
-for the same four discovery directories. Each link resolves to the same private
-checkout, so edits there are available through all four links without republishing.
+for the same discovery directories. Each link resolves to the same private
+checkout, so edits there are available through every link without republishing.
 New or renamed private skills need another activation to reconcile their links.
 No private contents or skill-name inventory are read
 at Nix evaluation time or copied into the Nix store. A missing checkout is allowed;
@@ -203,7 +203,7 @@ bash scripts/check-agent-skills
 find "$HOME/.agents/skills" "$HOME/.codex/skills" -type l ! -exec test -e {} \; -print
 
 # Replace browser-harness with the skill being investigated.
-for directory in .agents/skills .codex/skills .claude/skills .cursor/skills; do
+for directory in .agents/skills .codex/skills .claude/skills .claude-stackbuilders/skills .cursor/skills; do
   test -f "$HOME/$directory/browser-harness/SKILL.md" || printf 'Missing: %s\n' "$directory/browser-harness"
 done
 ```

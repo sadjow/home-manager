@@ -13,9 +13,13 @@ class ClaudeSettingsActivationTest(unittest.TestCase):
         expression = '''let
           flake = builtins.getFlake (toString ./.);
           config = flake.homeConfigurations.sadjow.config;
+          profiles = import ./home/claude/profiles.nix;
+          isolated = builtins.attrValues profiles.isolated;
         in {
           linked = builtins.any (name: builtins.hasAttr name config.home.file)
-            [ ".claude/settings.json" ".claude/settings.local.json" ];
+            (builtins.concatMap (directory: [ "${directory}/settings.json" "${directory}/settings.local.json" ])
+              ([ profiles.default ] ++ isolated));
+          isolated = isolated;
           activation = config.home.activation.claudeWritableSettings.data or "";
         }'''
         cls.config = json.loads(subprocess.check_output(
@@ -37,6 +41,12 @@ class ClaudeSettingsActivationTest(unittest.TestCase):
             self.assertFalse(target.is_symlink(), 'settings still point to a read-only store file')
             self.assertFalse(self.config['linked'], 'Home Manager still owns a settings symlink')
             self.assertEqual(target.stat().st_mode & 0o777, 0o600)
+            self.assertTrue(self.config['isolated'], 'no isolated Claude profile is configured')
+            for directory in self.config['isolated']:
+                profile_settings = home / directory / 'settings.json'
+                self.assertEqual(json.loads(profile_settings.read_text()),
+                                 json.loads(Path('home/claude/settings.json').read_text()))
+                self.assertEqual(profile_settings.stat().st_mode & 0o777, 0o600)
             local = target.with_name('settings.local.json')
             self.assertFalse(local.is_symlink())
             self.assertEqual(local.stat().st_mode & 0o777, 0o600)

@@ -1,12 +1,14 @@
 { config, pkgs, lib, skills, ... }:
 
 let
+  claudeProfiles = import ./claude/profiles.nix;
+  claudeSkillDirectories = map (directory: "${directory}/skills")
+    ([ claudeProfiles.default ] ++ lib.attrValues claudeProfiles.isolated);
   skillDirectories = [
     ".agents/skills"
-    ".claude/skills"
     ".codex/skills"
     ".cursor/skills"
-  ];
+  ] ++ claudeSkillDirectories;
   publicSkills = builtins.attrNames (lib.filterAttrs
     (name: type: type == "directory" && builtins.pathExists "${skills}/skills/${name}/SKILL.md")
     (builtins.readDir "${skills}/skills"));
@@ -72,15 +74,15 @@ let
       skillDirectories)
     publicSkills);
   upstreamSkillFiles = builtins.listToAttrs (map
-    (name: {
-      name = ".claude/skills/${name}";
+    ({ directory, name }: {
+      name = "${directory}/${name}";
       value = {
         source = config.lib.file.mkOutOfStoreSymlink
           "${config.home.homeDirectory}/.agents/skills/${name}";
         force = true;
       };
     })
-    upstreamSkills);
+    (lib.cartesianProduct { directory = claudeSkillDirectories; name = upstreamSkills; }));
 in {
   assertions = [{
     assertion = lib.intersectLists publicSkills upstreamSkills == [];
