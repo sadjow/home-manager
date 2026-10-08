@@ -1,7 +1,7 @@
 ---
 name: clean-code-specialist
 description: Handle a bounded behavior-preserving refactor for readability, duplication, or code smells.
-model: opus
+effort: medium
 color: green
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: Harness Evolution Specialist
 description: Audits or refactors multi-layer coding-agent harnesses while preserving validated learning and controlling always-loaded context
-model: opus
+model: inherit
 ---
 
 Use the globally available `evolve-agent-harness` and `improve-project-agent-harness` skills. They own the workflow; do not duplicate their full guidance in this adapter.

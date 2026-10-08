@@ -63,6 +63,16 @@ See [Agent skills](../README.md#agent-skills) for the authoritative installation
 paths, update workflow, verification, and migration recovery instructions. Skill
 contents are maintained outside this Home Manager repository.
 
+## Subagent Models and Effort
+
+`CLAUDE_CODE_SUBAGENT_MODEL` makes Sonnet the default for subagents, agent-team teammates, and workflow agents that are not assigned a model another way. A model passed when Claude spawns an agent and an agent's `model` field, including `inherit`, take precedence; the built-in Explore and Plan agents keep following the session model. See the [subagent model order](https://code.claude.com/docs/en/sub-agents#choose-a-model).
+
+The bounded implementation agents leave `model` unset so the default applies, and set `effort: medium`. Sonnet saves cost mainly at lower effort, while an unset `effort` inherits the session level, and at `xhigh` or `max` Sonnet starts its own review rounds, sometimes with subagents ([Sonnet 5.5 guidance](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#steer-initiative-and-scope)). The review and harness agents set `model: inherit` so judgment-heavy work stays on the session model.
+
+Cursor also loads `~/.claude/agents`. It defaults `model` to `inherit` and does not document `effort`, so keep Cursor-only syntax, such as bracketed model parameters, out of these shared files.
+
+Top-level `effortLevel` reaches only Opus 5, Fable 5.1, and earlier models, and a `modelSettings` entry overrides it, so `modelSettings` declares the effort for current models ([settings reference](https://code.claude.com/docs/en/settings-reference)). `CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING` affects only Opus 4.6 and Sonnet 4.6 and stays unset. `/tasks` shows the model each subagent ran on, and its effort when the definition sets one.
+
 ## Context Budget
 
 Always-loaded context is deliberately small. `home/AGENTS.md` loads into every Claude Code and Codex session, and `scripts/check-agent-instructions`, which runs in `nix flake check`, holds it to a word budget. The budget is a chosen review point, not a client limit: Claude Code recommends keeping each instruction file [under 200 lines](https://code.claude.com/docs/en/memory), and Codex reads the global `~/.codex/AGENTS.md` in full, outside the `project_doc_max_bytes` cap that bounds repository instruction files. Studies found that context files do not measurably improve task success ([Gloaguen et al.](https://arxiv.org/abs/2602.11988), [Khatri](https://arxiv.org/abs/2607.27250)) while raising inference cost by over 20% in the first, although agents follow their instructions well; adherence also degrades as instructions accumulate and favors earlier ones ([IFScale](https://arxiv.org/abs/2507.11538)). The file therefore keeps authority, safety, and non-standard practices that no skill or check owns, with authority and safety first. When the check fails, remove guidance that a skill or check already owns, move conditional guidance into a skill, or raise the budget in the same commit with its reason. The budget covers only this file; project instructions, memory, and the skill listing also load in every session, so compare the whole first-turn prompt with the measurement below.

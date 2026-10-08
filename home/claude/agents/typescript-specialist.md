@@ -1,7 +1,7 @@
 ---
 name: typescript-specialist
 description: Handle a bounded TypeScript, Vue, or Nuxt implementation.
-model: opus
+effort: medium
 color: blue
 ---
 
