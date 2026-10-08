@@ -11,6 +11,11 @@ let
     (name: type: type == "directory" && builtins.pathExists "${skills}/skills/${name}/SKILL.md")
     (builtins.readDir "${skills}/skills"));
   upstreamSkills = [
+    "build-iterated-agentic-loop"
+    "codebase-design"
+    "design-control-loop"
+    "diagnosing-bugs"
+    "domain-modeling"
     "find-skills"
     "flutter-adding-home-screen-widgets"
     "flutter-animating-apps"
@@ -35,11 +40,25 @@ let
     "flutter-theming-apps"
     "flutter-working-with-databases"
     "graphql-schema"
+    "grill-me"
+    "grill-with-docs"
+    "grilling"
+    "handoff"
+    "improve-claude-md"
+    "improve-codebase-architecture"
     "playwright-best-practices"
     "postgresql-table-design"
+    "prototype"
     "rails-expert"
     "redis-development"
+    "show-me"
+    "tdd"
+    "teach"
+    "to-questionnaire"
+    "visual-pr"
     "vue"
+    "wait-what"
+    "wizard"
   ] ++ lib.optional (!(lib.elem "skill-creator" publicSkills)) "skill-creator";
   publicSkillFiles = builtins.listToAttrs (lib.concatMap
     (name: map
