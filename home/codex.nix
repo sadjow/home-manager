@@ -8,6 +8,13 @@ let
   };
 in
 {
+  home.packages = [
+    (pkgs.writeShellScriptBin "codex-daemon-reconcile" ''
+      exec ${python}/bin/python3 ${../scripts/reconcile-codex-daemon.py} \
+        --codex ${lib.getExe pkgs.codex} "$@"
+    '')
+  ];
+
   home.activation.codexSettings = lib.hm.dag.entryAfter [ "agentMcpServers" ] ''
     run ${python}/bin/python3 ${../scripts/reconcile-codex-settings.py} \
       ${settings} "$HOME/.codex/config.toml"

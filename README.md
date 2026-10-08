@@ -105,6 +105,38 @@ Existing task overrides and the isolated `codex-spireworks` profile are unchange
 
 See [OpenAI's default permissions documentation](https://learn.chatgpt.com/docs/sandboxing#configure-defaults).
 
+### Shared Codex daemon
+
+Home Manager installs `codex-daemon-reconcile`. Running it without arguments checks
+saved daemon feature overrides against the installed CLI without changing state.
+It exits with status 1 when overrides conflict or the check fails.
+
+```sh
+codex-daemon-reconcile
+codex-daemon-reconcile --restart
+```
+
+Use `--restart` when ready to interrupt active or queued work on the shared daemon.
+The helper stops the daemon and starts it fresh through Codex's lifecycle commands,
+which clear saved session feature overrides. Other daemon settings are left to
+Codex to preserve. Desired persistent feature preferences belong in `config.toml`.
+`CODEX_HOME` selects the target profile; the default is `~/.codex`.
+Home Manager activation does not restart the daemon.
+
+Codex 0.161.0 can retain a stale `api_key_model_discovery` override after a CLI
+upgrade. `app-server daemon restart --enable api_key_model_discovery` was observed
+to report success while retaining the disabled override. The interactive
+“Restart with these settings” action also repairs it. A fresh stop/start avoids
+editing Codex's internal settings file directly.
+Upstream report: [openai/codex#51787](https://github.com/openai/codex/issues/51787).
+
+After reconciliation, launch `codex` and confirm the compatibility prompt is gone.
+Matching versions, `features list`, and a successful restart are insufficient:
+CLI defaults, persisted overrides, and the live server handshake are separate
+evidence. The helper checks saved overrides and daemon availability; it does not
+claim to verify the live feature handshake. If a lifecycle command fails or is
+interrupted, check `codex app-server daemon version` before retrying.
+
 ## Agent skills
 
 Public skills are maintained in [sadjow/skills](https://github.com/sadjow/skills).

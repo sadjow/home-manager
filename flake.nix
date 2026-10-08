@@ -105,6 +105,7 @@
             chmod -R u+w source
             cd source
             python3 tests/test_codex_settings.py
+            python3 tests/test_codex_daemon.py
             touch "$out"
           '';
 
