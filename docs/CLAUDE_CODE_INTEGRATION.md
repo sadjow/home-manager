@@ -71,6 +71,8 @@ Each entry under `isolated` in `home/claude/profiles.nix` installs a command tha
 
 Claude Code [keys the macOS Keychain entry to the configuration directory](https://code.claude.com/docs/en/authentication), so subscription logins in different profiles stay signed in at the same time. That separation does not cover Claude Console sign-ins without an API key, which are stored outside the configuration directory. The editor extensions launch their bundled binary and keep using the default profile.
 
+`remoteControlAtStartup: true` in `home/claude/settings.json` connects each interactive session to [Remote Control](https://code.claude.com/docs/en/remote-control) in every profile. A Team or Enterprise organization can publish its own default, which Claude Code stores under `defaults` in the profile's `policy-limits.json`; an explicit user-scope value outranks that default but not an organization lock or `disableRemoteControl`. Only `settings.json` can turn auto-connect on; a `false` in `settings.local.json` or a project's `.claude/settings.json` turns it off for that scope.
+
 After the first switch, run `claude-stackbuilders`, sign in with `/login`, and confirm with `/status` that the account is the expected one and with `/memory` that the global instructions load once.
 
 ## Subagent Models and Effort

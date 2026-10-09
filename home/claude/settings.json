@@ -116,6 +116,7 @@
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": true,
   "skipWorkflowUsageWarning": true,
   "theme": "dark",
   "voiceEnabled": true
