@@ -43,7 +43,7 @@ in
 
   home.activation.claudeWritableSettings = lib.hm.dag.entryAfter ["linkGeneration"] (
     lib.concatMapStringsSep "\n" ({ directory, name }: ''
-      run ${pkgs.python3}/bin/python3 ${../scripts/reconcile-claude-settings.py} \
+      run ${pkgs.python3}/bin/python3 ${../scripts/reconcile-json-settings.py} \
         ${./claude + "/${name}"} \
         "$HOME/${directory}/${name}" \
         "$HOME/${directory}/.home-manager-settings/${name}"

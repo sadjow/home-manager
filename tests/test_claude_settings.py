@@ -67,7 +67,7 @@ class SettingsReconciliationTest(unittest.TestCase):
         self.source = root / 'source.json'
         self.target = root / 'runtime/settings.json'
         self.baseline = root / 'baseline/settings.json'
-        self.activate = runpy.run_path('scripts/reconcile-claude-settings.py')['activate']
+        self.activate = runpy.run_path('scripts/reconcile-json-settings.py')['activate']
         self.defaults = {'model': 'default', 'permissions': {'allow': ['Read'], 'old': True}}
         self.source.write_text(json.dumps(self.defaults))
 

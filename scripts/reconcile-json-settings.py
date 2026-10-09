@@ -65,4 +65,4 @@ if __name__ == '__main__':
     try:
         activate(*(Path(argument) for argument in sys.argv[1:]))
     except (OSError, ValueError) as error:
-        sys.exit(f'Could not reconcile Claude settings: {error}')
+        sys.exit(f'Could not reconcile settings: {error}')
