@@ -58,6 +58,9 @@ Personal Nix home-manager configuration for macOS (Apple Silicon) that manages u
 │   │   └── default.nix    # User Nix settings
 │   ├── agent-skills.nix   # Pinned public skills and local private links
 │   ├── claude-code.nix    # Claude Code integration
+│   ├── codex/             # Codex profiles shared with T3 Code
+│   ├── codex.nix          # Codex CLI, defaults, and isolated profiles
+│   ├── t3-code.nix        # T3 Code provider instances
 │   └── shell.nix          # Shell configuration (zsh/bash with global direnv)
 ├── docs/
 │   ├── AGENT_HARNESS_SKILL_LINEAGE.md # Personal and project skill feedback loop
@@ -104,6 +107,35 @@ when it changes. An incompatible `default_permissions` selector is removed.
 Existing task overrides and the isolated `codex-spireworks` profile are unchanged.
 
 See [OpenAI's default permissions documentation](https://learn.chatgpt.com/docs/sandboxing#configure-defaults).
+
+## T3 Code providers
+
+`home/t3-code.nix` declares the provider instances T3 Code shows in its Settings
+UI: the `claudeAgent` and `codex` instances, the isolated `claude_stackbuilders`
+and `codex_spireworks` instances built from `home/claude/profiles.nix` and
+`home/codex/profiles.nix`, and one Cursor instance per organization,
+`cursor_spireworks` and `cursor_durst`. Each
+activation merges them into `~/.t3/userdata/settings.json` with the same
+three-way reconciliation as the Claude settings: the file stays writable with
+mode `600`, provider fields chosen in the UI survive while the declared fields
+are unchanged, and T3 Code reloads the file as soon as activation rewrites it.
+The baseline lives in `~/.t3/userdata/.home-manager-settings/`, and the previous
+content is saved beside the runtime file with the suffix `.home-manager-backup`.
+
+Provider authentication stays with each CLI's own home directory, so nothing in
+the declared settings is secret. To add another isolated Claude Code or Codex
+account, add its profile to the matching profiles file and describe its instance
+in `home/t3-code.nix`; the instance runs the profile's wrapper command and points
+`homePath` at the same config directory.
+
+The Cursor agent keeps a single browser login per machine in the macOS keychain,
+which `cursor_spireworks` uses. Every other organization authenticates with an
+API key from its Cursor dashboard, supplied as a sensitive `CURSOR_API_KEY`
+variable in the Environment section of its instance in T3 Code; the value goes to
+T3 Code's secret store, never to this repository. `cursor_durst` is declared
+disabled so it cannot fall back to the keychain login, and enabling it in the UI
+after adding the key survives later activations because the declared field is
+unchanged.
 
 ### Shared Codex daemon
 

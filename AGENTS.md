@@ -30,6 +30,8 @@ nix-collect-garbage -d                           # garbage collection
 - `home/shell.nix`: zsh with asdf-vm and global direnv hooks for login and interactive shells (`docs/DIRENV_INTEGRATION.md`)
 - `home/agent-skills.nix`: public skill installation and private checkout links (workflow in `README.md`, Agent skills section)
 - `home/claude-code.nix` and `home/claude/`: authored Claude Code configuration (`docs/CLAUDE_CODE_INTEGRATION.md`, ownership boundary in `home/claude/README.md`)
+- `home/codex.nix` and `home/codex/profiles.nix`: Codex defaults and isolated profiles
+- `home/t3-code.nix`: T3 Code provider instances reconciled into `~/.t3/userdata/settings.json` (`README.md`, T3 Code providers section)
 
 ## Rules
 

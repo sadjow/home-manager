@@ -48,6 +48,7 @@ in {
     ./home/browser-harness.nix
     ./home/claude-code.nix
     ./home/codex.nix
+    ./home/t3-code.nix
     ./home/ollama.nix
     ./home/opencode.nix
     # ./home/claude-code-settings.nix  # Disabled - Claude Code manages its own MCP servers
