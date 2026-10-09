@@ -77,9 +77,9 @@ After the first switch, run `claude-stackbuilders`, sign in with `/login`, and c
 
 ## Subagent Models and Effort
 
-`CLAUDE_CODE_SUBAGENT_MODEL` makes Sonnet the default for subagents, agent-team teammates, and workflow agents that are not assigned a model another way. A model passed when Claude spawns an agent and an agent's `model` field, including `inherit`, take precedence; the built-in Explore and Plan agents keep following the session model. See the [subagent model order](https://code.claude.com/docs/en/sub-agents#choose-a-model).
+`CLAUDE_CODE_SUBAGENT_MODEL` makes Opus the default for subagents, agent-team teammates, and workflow agents that are not assigned a model another way. A model passed when Claude spawns an agent and an agent's `model` field, including `inherit`, take precedence; the built-in Explore and Plan agents keep following the session model. See the [subagent model order](https://code.claude.com/docs/en/sub-agents#choose-a-model).
 
-The bounded implementation agents leave `model` unset so the default applies, and set `effort: medium`. Sonnet saves cost mainly at lower effort, while an unset `effort` inherits the session level, and at `xhigh` or `max` Sonnet starts its own review rounds, sometimes with subagents ([Sonnet 5.5 guidance](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#steer-initiative-and-scope)). The review and harness agents set `model: inherit` so judgment-heavy work stays on the session model.
+The `opus` alias tracks the current Opus release line, the same way the session `model` does, so both move together on a Claude Code update. The bounded implementation agents leave `model` unset so the default applies, and set `effort: medium`, which overrides the `xhigh` that `modelSettings` declares for Opus in the main session; an unset `effort` would inherit the session level. The review and harness agents set `model: inherit` so judgment-heavy work stays on the session model.
 
 Cursor also loads `~/.claude/agents`. It defaults `model` to `inherit` and does not document `effort`, so keep Cursor-only syntax, such as bracketed model parameters, out of these shared files.
 
