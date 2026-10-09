@@ -33,6 +33,6 @@ nix-collect-garbage -d                           # garbage collection
 
 ## Rules
 
-- Publish changes as commits pushed directly to `main`. This is a personal Home Manager configuration with no review step, so open a pull request only when explicitly asked.
+- Publish changes as commits pushed directly to `main`. This is a personal Home Manager configuration in a public repository: pull requests broadcast activity to followers and need no review here, so open one only when explicitly asked.
 - Define cache URLs and complete public signing keys only in `home/nix/caches.nix` and apply them through Home Manager instead of running `cachix use`. Keep them out of `flake.nix`, whose `nixConfig` requires literal values.
 - Keep the stable `~/.local/bin/claude` wrapper and the `~/.claude.json` preservation in `home/claude-code.nix`; they prevent permission and login resets after a switch.
