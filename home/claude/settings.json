@@ -105,6 +105,7 @@
   },
   "extraKnownMarketplaces": {},
   "alwaysThinkingEnabled": true,
+  "autoCompactEnabled": true,
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-fable-5-1": {
