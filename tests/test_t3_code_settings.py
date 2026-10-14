@@ -60,6 +60,10 @@ class T3CodeSettingsActivationTest(unittest.TestCase):
             self.assertEqual(instances['cursor_durst']['driver'], 'cursor')
             self.assertEqual(instances['claude_stackbuilders']['config'],
                              {'binaryPath': 'claude-stackbuilders', 'homePath': '~/.claude-stackbuilders'})
+            self.assertEqual(instances['claude_spireworks']['config'],
+                             {'binaryPath': 'claude-spireworks', 'homePath': '~/.claude-spireworks'})
+            self.assertEqual(instances['claude_spireworks']['displayName'],
+                             instances['codex_spireworks']['displayName'])
 
             instances['claudeAgent']['config']['launchArgs'] = '--verbose'
             target.write_text(json.dumps(settings))

@@ -3,6 +3,7 @@
 {
   default = ".claude";
   isolated = {
+    claude-spireworks = ".claude-spireworks";
     claude-stackbuilders = ".claude-stackbuilders";
   };
 }

@@ -111,11 +111,10 @@ See [OpenAI's default permissions documentation](https://learn.chatgpt.com/docs/
 ## T3 Code providers
 
 `home/t3-code.nix` declares the provider instances T3 Code shows in its Settings
-UI: the `claudeAgent` and `codex` instances, the isolated `claude_stackbuilders`
-and `codex_spireworks` instances built from `home/claude/profiles.nix` and
-`home/codex/profiles.nix`, and one Cursor instance per organization,
-`cursor_spireworks` and `cursor_durst`. Each
-activation merges them into `~/.t3/userdata/settings.json` with the same
+UI: the `claudeAgent` and `codex` instances, the isolated `claude_spireworks`,
+`claude_stackbuilders`, and `codex_spireworks` instances built from
+`home/claude/profiles.nix` and `home/codex/profiles.nix`, and one Cursor instance
+per organization, `cursor_spireworks` and `cursor_durst`. Each activation merges them into `~/.t3/userdata/settings.json` with the same
 three-way reconciliation as the Claude settings: the file stays writable with
 mode `600`, provider fields chosen in the UI survive while the declared fields
 are unchanged, and T3 Code reloads the file as soon as activation rewrites it.
@@ -235,7 +234,7 @@ bash scripts/check-agent-skills
 find "$HOME/.agents/skills" "$HOME/.codex/skills" -type l ! -exec test -e {} \; -print
 
 # Replace browser-harness with the skill being investigated.
-for directory in .agents/skills .codex/skills .claude/skills .claude-stackbuilders/skills .cursor/skills; do
+for directory in .agents/skills .codex/skills .claude/skills .claude-spireworks/skills .claude-stackbuilders/skills .cursor/skills; do
   test -f "$HOME/$directory/browser-harness/SKILL.md" || printf 'Missing: %s\n' "$directory/browser-harness"
 done
 ```

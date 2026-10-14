@@ -61,6 +61,10 @@ let
         enabled = true;
         config.binaryPath = "codex";
       };
+      claude_spireworks = claudeProfileInstance {
+        profile = "claude-spireworks";
+        organization = organizations.spireworks;
+      };
       claude_stackbuilders = claudeProfileInstance {
         profile = "claude-stackbuilders";
         organization = organizations.stackbuilders;
