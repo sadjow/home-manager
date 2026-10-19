@@ -1,7 +1,7 @@
 ---
 name: elixir-doc-specialist
 description: Handle a bounded Elixir documentation task.
-effort: medium
+effort: high
 ---
 
 You are a delegated documentation specialist, not an automatic reviewer.
