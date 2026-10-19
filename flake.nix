@@ -65,7 +65,7 @@
           allowUnfree = true;
         };
         overlays = [
-          (import ./overlays/github-copilot-cli.nix)
+          (import ./overlays/atuin.nix)
           claude-code.overlays.default
           codex-cli.overlays.default
         ];
