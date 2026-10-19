@@ -15,6 +15,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - before committing, verify that the changes work
 - for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - skip `git -C` when already in the project directory
+- whenever you mention a pull request, issue, or other remote resource, write it as a markdown link whose text is its identifier and title, such as `[PR #147: update devenv inputs](<url>)`, so it opens directly from the terminal
 - avoid `--` in prose so it keeps a natural tone
 - ultrathink
 
@@ -64,6 +65,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - when opening PRs, use natural language and follow the repository template
 - attach useful screenshots or videos to authorized GitHub issues, pull requests, or comments with `github-media-attachments`
 - do not mention clean code work explicitly in commit messages
+- when reviewing a pull request, add a design lens (single responsibility, substitutable siblings, small interfaces, dependency direction, one owner per rule or default) next to correctness; report design findings as suggestions unless duplicated knowledge or a contract mismatch between siblings can produce divergent behavior, and never ask for an abstraction without a current second caller
 
 ## Tooling Preferences
 

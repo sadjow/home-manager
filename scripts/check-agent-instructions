@@ -3,8 +3,10 @@ set -euo pipefail
 
 # A deliberate review point for always-loaded context, not a client limit:
 # growth must displace existing guidance or raise the budget with its reason
-# in the same commit.
-word_budget=1150
+# in the same commit. 1300 holds the deliverable narration, remote-resource
+# link, and review design lens conventions, which apply across every review
+# and reporting route rather than to one skill.
+word_budget=1300
 
 words=$(wc -w < home/AGENTS.md | tr -d ' ')
 if (( words > word_budget )); then
