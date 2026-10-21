@@ -1,5 +1,5 @@
 ---
-name: Harness Evolution Specialist
+name: harness-evolution-specialist
 description: Audits or refactors multi-layer coding-agent harnesses while preserving validated learning and controlling always-loaded context
 model: inherit
 ---

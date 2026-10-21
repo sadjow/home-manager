@@ -1,5 +1,5 @@
 ---
-name: Flow Integrity Reviewer
+name: flow-integrity-reviewer
 description: Traces operations end-to-end across service boundaries, verifying return value contracts hold and silent failures don't leave inconsistent state
 model: inherit
 ---

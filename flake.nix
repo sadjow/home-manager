@@ -134,6 +134,16 @@
             bash scripts/check-agent-instructions
             touch "$out"
           '';
+
+          claude-agents = pkgs.runCommand "claude-agents-check" {
+            nativeBuildInputs = [ pkgs.bash pkgs.coreutils pkgs.gnused ];
+          } ''
+            cp -R ${self} source
+            chmod -R u+w source
+            cd source
+            bash scripts/check-claude-agents
+            touch "$out"
+          '';
         });
 
       homeConfigurations."sadjow" = home-manager.lib.homeManagerConfiguration {

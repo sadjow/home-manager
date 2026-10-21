@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Instructions and delegation briefs address agents by file name, so a name
+# that differs from its file leaves those references pointing at no agent.
+failures=0
+for definition in home/claude/agents/*.md; do
+  expected=$(basename "$definition" .md)
+  actual=$(sed -n '1,/^---$/s/^name:[[:space:]]*//p' "$definition")
+
+  if [[ ! $expected =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+    echo "$definition: file name is not lowercase kebab-case" >&2
+    failures=$((failures + 1))
+  elif [[ $actual != "$expected" ]]; then
+    echo "$definition: name is '$actual', expected '$expected'" >&2
+    failures=$((failures + 1))
+  fi
+done
+
+(( failures == 0 )) || exit 1
+echo "Claude agent names match their file names."

@@ -132,6 +132,10 @@ Claude Code [keys the macOS Keychain entry to the configuration directory](https
 
 After the first switch that adds a profile, run its command, such as `claude-spireworks` or `claude-stackbuilders`, sign in with `/login`, and confirm with `/status` that the account is the expected one and with `/memory` that the global instructions load once.
 
+## Subagent Definitions
+
+`home/claude/agents` holds the subagent definitions linked into every profile. Each `name` matches its file name in lowercase kebab-case, because instructions and delegation briefs address an agent by that name and a mismatch leaves the reference pointing at no agent. `scripts/check-claude-agents`, which runs in `nix flake check`, enforces the match.
+
 ## Subagent Models and Effort
 
 `CLAUDE_CODE_SUBAGENT_MODEL` makes Sonnet the default for subagents, agent-team teammates, and workflow agents that are not assigned a model another way. A model passed when Claude spawns an agent and an agent's `model` field, including `inherit`, take precedence; the built-in Explore and Plan agents keep following the session model. See the [subagent model order](https://code.claude.com/docs/en/sub-agents#choose-a-model).
