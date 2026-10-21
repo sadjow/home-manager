@@ -84,7 +84,6 @@ in {
     pkgs.ffmpeg
     pkgs.cachix
     pkgs.git-lfs
-    pkgs.atuin
     pkgs.jq
     pkgs._1password-cli
     pkgs.github-copilot-cli

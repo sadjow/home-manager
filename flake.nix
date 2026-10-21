@@ -65,7 +65,6 @@
           allowUnfree = true;
         };
         overlays = [
-          (import ./overlays/atuin.nix)
           claude-code.overlays.default
           codex-cli.overlays.default
         ];
