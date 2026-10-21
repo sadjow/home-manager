@@ -47,7 +47,9 @@
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
+    "CLAUDE_CODE_SUBAGENT_MODEL": "opus",
+    "CLAUDE_STREAM_FIRST_BYTE_TIMEOUT_MS": "30000",
+    "API_TIMEOUT_MS": "120000"
   },
   "permissions": {
     "allow": [

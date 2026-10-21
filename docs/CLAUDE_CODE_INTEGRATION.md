@@ -77,6 +77,28 @@ log, such as the `cache_touch` requests sent every 30 seconds, keep completing, 
 closed that one response and the local network is fine. Claude Code then retries the
 response on its own.
 
+When no response headers arrive at all, the spinner reads `No response from the API after … ·
+retrying once, waiting up to …` and the log has a `[first-byte] no response headers` line.
+In 2.1.303 the first wait is `CLAUDE_STREAM_FIRST_BYTE_TIMEOUT_MS` plus one second per 32 KB
+of request body, and the single retry waits `API_TIMEOUT_MS` minus one second, which also caps
+the first wait. Other requests keep working while one hangs, so pressing Esc and sending the
+message again recovers sooner than waiting.
+
+`home/claude/settings.json` sets the first-byte wait to 30 seconds instead of the default 180
+and `API_TIMEOUT_MS` to 2 minutes instead of 10, so a hung request fails after about 2.5
+minutes instead of 13. Claude Code raises any first-byte value below 10 seconds to 10. Debug
+logs from 1,049 healthy requests put the first stream event at 1.4 seconds for the median and
+22.7 seconds at most, with 2% beyond 10 seconds, so both waits leave room for slow healthy
+responses.
+
+`API_TIMEOUT_MS` is the client timeout for every API call, but it stops once response headers
+arrive, so it does not limit how long a streamed response takes. It does cap requests that
+return everything at once, including the non-streaming request Claude Code sends after a
+stream fails, which otherwise waits 5 minutes: a reply that takes longer than 2 minutes to
+produce that way fails and has to be sent again. A run through a proxy that held back every
+response confirmed both waits with only the settings file supplying the values: Claude Code
+gave up 33 seconds after sending a 75 KB request and 119 seconds into the retry.
+
 Claude Code never deletes these files, so the wrapper removes logs older than
 `debugLogRetentionDays` from `home/claude-code.nix` on every launch. Editor extensions use
 their bundled binary and are not affected.
