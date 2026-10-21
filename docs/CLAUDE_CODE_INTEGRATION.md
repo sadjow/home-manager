@@ -136,6 +136,8 @@ After the first switch that adds a profile, run its command, such as `claude-spi
 
 `home/claude/agents` holds the subagent definitions linked into every profile. Each `name` matches its file name in lowercase kebab-case, because instructions and delegation briefs address an agent by that name and a mismatch leaves the reference pointing at no agent. `scripts/check-claude-agents`, which runs in `nix flake check`, enforces the match.
 
+Bodies are thin adapters. They name the skills to load for the assigned boundary and defer to the repository's own instructions, so language and framework practice lives in skills rather than in agent prompts. Each delegated specialist ends with a short delegation contract: it owns only the scope the coordinator names, preserves concurrent edits, returns its validation evidence and remaining risk, and does not commit, push, deploy, or contact external systems without explicit authority. The contract is repeated in each file on purpose: Claude Code loads a body only when that agent runs, and Cursor reads these files without the global instructions, so each definition has to carry it. Update every copy together.
+
 `flow-integrity-reviewer` lists `Edit, Write, NotebookEdit` under `disallowedTools`. A `permissionMode` field cannot restrict a subagent whose parent session runs in bypass permissions mode, but the tool list still applies. The reviewer keeps Bash for git history and searches, so staying read-only there rests on its prompt. Cursor uses its own `readonly` field instead, which stays out of these shared files, so the reviewer is not enforced read-only in Cursor.
 
 ## Subagent Models and Effort
