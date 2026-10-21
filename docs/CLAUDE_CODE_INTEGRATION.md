@@ -136,6 +136,8 @@ After the first switch that adds a profile, run its command, such as `claude-spi
 
 `home/claude/agents` holds the subagent definitions linked into every profile. Each `name` matches its file name in lowercase kebab-case, because instructions and delegation briefs address an agent by that name and a mismatch leaves the reference pointing at no agent. `scripts/check-claude-agents`, which runs in `nix flake check`, enforces the match.
 
+`flow-integrity-reviewer` lists `Edit, Write, NotebookEdit` under `disallowedTools`. A `permissionMode` field cannot restrict a subagent whose parent session runs in bypass permissions mode, but the tool list still applies. The reviewer keeps Bash for git history and searches, so staying read-only there rests on its prompt. Cursor uses its own `readonly` field instead, which stays out of these shared files, so the reviewer is not enforced read-only in Cursor.
+
 ## Subagent Models and Effort
 
 `CLAUDE_CODE_SUBAGENT_MODEL` makes Sonnet the default for subagents, agent-team teammates, and workflow agents that are not assigned a model another way. A model passed when Claude spawns an agent and an agent's `model` field, including `inherit`, take precedence; the built-in Explore and Plan agents keep following the session model. See the [subagent model order](https://code.claude.com/docs/en/sub-agents#choose-a-model).
