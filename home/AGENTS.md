@@ -17,7 +17,6 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - skip `git -C` when already in the project directory
 - whenever you mention a pull request, issue, or other remote resource, write it as a markdown link whose text is its identifier and title, such as `[PR #147: update devenv inputs](<url>)`, so it opens directly from the terminal
 - avoid `--` in prose so it keeps a natural tone
-- ultrathink
 
 ## Agent Harness
 
