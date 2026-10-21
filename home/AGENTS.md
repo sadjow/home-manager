@@ -72,7 +72,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - for most JavaScript projects, use yarn
 - run project commands through the declared direnv/devenv environment; serialize `devenv shell` calls within each worktree because they update shared generated state
 - start long-running project services in named tmux sessions with `tmux-project-services`; short tests and builds can run directly
-- I have `aws-vault` and AWS credentials configured when AWS access is needed
+- for AWS access, run commands through `aws-vault`; default to the account's `*-readonly` profile, which assumes a read-only role, and use the writable profile only when I explicitly ask for a change in that account
 - we are in 2026
 
 ## DRY And SSOT
