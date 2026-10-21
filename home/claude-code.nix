@@ -3,6 +3,8 @@
 let
   # Editor extensions launch their bundled Claude binary, so the wrapper's flag never reaches them.
   claudeExtensionEditors = [ "Code" "Cursor" "Windsurf" ];
+  # Claude Code never prunes its per-session debug logs, so the wrapper does.
+  debugLogRetentionDays = 14;
   jsoncParser = pkgs.callPackage ../pkgs/jsonc-parser.nix { };
   profiles = import ./claude/profiles.nix;
   configDirectories = [ profiles.default ] ++ lib.attrValues profiles.isolated;
@@ -70,9 +72,14 @@ in
     rm -f $HOME/.local/bin/claude
     rm -f $HOME/.local/bin/claude-bun
 
-    # Create wrapper script that enables skip-permissions as a selectable mode
-    printf '#!/usr/bin/env bash\nexec %s --allow-dangerously-skip-permissions "$@"\n' \
-      "${pkgs.claude-code}/bin/claude" > $HOME/.local/bin/claude
+    # The wrapper keeps skip-permissions selectable and records every session's
+    # debug log under the active profile's debug directory for later diagnosis.
+    cat > $HOME/.local/bin/claude <<'WRAPPER'
+#!/usr/bin/env bash
+find "''${CLAUDE_CONFIG_DIR:-$HOME/.claude}/debug" -name '*.txt' -type f \
+  -mtime +${toString debugLogRetentionDays} -delete 2>/dev/null
+exec ${pkgs.claude-code}/bin/claude --allow-dangerously-skip-permissions --debug "$@"
+WRAPPER
     chmod +x $HOME/.local/bin/claude
 
     # Avoid following managed skill symlinks into their source directories

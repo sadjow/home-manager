@@ -2,9 +2,10 @@
 
 The module `home/claude-code.nix`:
 
-1. Creates a stable wrapper at `~/.local/bin/claude` that prevents permission resets and passes
+1. Creates a stable wrapper at `~/.local/bin/claude` that prevents permission resets, passes
    `--allow-dangerously-skip-permissions`, so bypass permissions mode stays selectable with
-   Shift+Tab even when a session starts in another `defaultMode`
+   Shift+Tab even when a session starts in another `defaultMode`, and passes `--debug`, so
+   every session keeps a debug log
 2. Manages authored Claude configuration from `home/claude/`, including instructions, settings, agents, commands, and hooks
 3. Leaves authentication, transcripts, projects, caches, downloaded plugins, and other runtime state writable under `~/.claude`
 4. Preserves the mutable `~/.claude.json` file during Home Manager switches
@@ -47,6 +48,38 @@ Each activation sets it to `true` in those `settings.json` files through
 already has the value is left untouched; otherwise the previous contents are saved with
 the suffix `.home-manager-backup`. Turning the setting off in an editor lasts until the
 next switch.
+
+## Debug Logs
+
+Claude Code offers no settings key or environment variable that turns debug logging on,
+so the wrapper passes `--debug`. Each session then writes
+`<config dir>/debug/<session-id>.txt` silently: nothing changes on screen or on stderr,
+and isolated profiles log under their own `CLAUDE_CONFIG_DIR`. When a session misbehaves,
+for example with repeated `Waiting for API response` retries, the newest file holds the
+underlying error:
+
+```bash
+ls -t ~/.claude/debug | head -1
+```
+
+The spinner shows `Waiting for API response · will retry in … · check your network` after
+20 seconds without a byte from one response, whatever the cause; the network hint is fixed
+text, not a diagnosis. To tell a stalled response from a local network failure, search the
+log:
+
+```bash
+grep -E 'Stall\] stream_idle|Slow first byte|\[first-byte\]|Stream connection|API error' <log>
+```
+
+`[Stall] stream_idle_partial` lines count the seconds since that response's last byte. When
+they end in a `Stream connection` line with `ECONNRESET` while other requests in the same
+log, such as the `cache_touch` requests sent every 30 seconds, keep completing, the API
+closed that one response and the local network is fine. Claude Code then retries the
+response on its own.
+
+Claude Code never deletes these files, so the wrapper removes logs older than
+`debugLogRetentionDays` from `home/claude-code.nix` on every launch. Editor extensions use
+their bundled binary and are not affected.
 
 ## Known Issues Fixed
 
