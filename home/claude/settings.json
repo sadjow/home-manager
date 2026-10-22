@@ -80,7 +80,7 @@
       "Bash(pgrep:*)",
       "Bash(mdfind:*)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "bypassPermissions"
   },
   "model": "opus",
   "attribution": {

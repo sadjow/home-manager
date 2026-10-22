@@ -36,8 +36,8 @@ Keep `pkgs.claude-code` out of `home.packages`. Home Manager appends `~/.local/b
 `PATH` after `~/.nix-profile/bin`, so a profile copy of the binary shadows the wrapper and
 sessions started with plain `claude` lose the bypass option. Claude Code offers no settings
 key or environment variable for this. The authored `permissions.defaultMode` is
-`auto`, so every session starts in auto mode; the wrapper flag keeps bypass permissions
-selectable with Shift+Tab, and `skipDangerousModePermissionPrompt`,
+`bypassPermissions`, so every session starts bypassed; the wrapper flag keeps the mode
+selectable after switching to a stricter mode, and `skipDangerousModePermissionPrompt`,
 which the CLI records once the warning dialog is accepted, stays in the runtime file.
 
 The VS Code, Cursor, and Windsurf extensions launch their own bundled binary and read
@@ -138,7 +138,7 @@ After the first switch that adds a profile, run its command, such as `claude-spi
 
 Bodies are thin adapters. They name the skills to load for the assigned boundary and defer to the repository's own instructions, so language and framework practice lives in skills rather than in agent prompts. Each delegated specialist ends with a short delegation contract: it owns only the scope the coordinator names, preserves concurrent edits, returns its validation evidence and remaining risk, and does not commit, push, deploy, or contact external systems without explicit authority. The contract is repeated in each file on purpose: Claude Code loads a body only when that agent runs, and Cursor reads these files without the global instructions, so each definition has to carry it. Update every copy together.
 
-`flow-integrity-reviewer` lists `Edit, Write, NotebookEdit` under `disallowedTools`. A `permissionMode` field cannot restrict a subagent whose parent session has switched to bypass permissions mode, but the tool list still applies. The reviewer keeps Bash for git history and searches, so staying read-only there rests on its prompt. Cursor uses its own `readonly` field instead, which stays out of these shared files, so the reviewer is not enforced read-only in Cursor.
+`flow-integrity-reviewer` lists `Edit, Write, NotebookEdit` under `disallowedTools`. A `permissionMode` field cannot restrict a subagent whose parent session runs in bypass permissions mode, but the tool list still applies. The reviewer keeps Bash for git history and searches, so staying read-only there rests on its prompt. Cursor uses its own `readonly` field instead, which stays out of these shared files, so the reviewer is not enforced read-only in Cursor.
 
 ## Subagent Models and Effort
 
