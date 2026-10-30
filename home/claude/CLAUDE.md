@@ -9,3 +9,6 @@
 - Delegate bounded implementation across several files, or independent workstreams, to the matching specialist so it runs on the default subagent model; do single-file edits and steps that depend on your current context directly.
 - When delegating, keep the default subagent model for work with a clear spec and a check that proves the result, and pass `effort: "high"` when that work is larger or longer. Pass `model: "opus"` for difficult, ambiguous, judgment-heavy, or long-horizon work, or when a task seems to need effort above `high`.
 - When a brief asks for a change, name a check that exercises it and ask for that check's output, or for which check did not run and why; a syntax-only check or one that failed to start does not count. Check that evidence before accepting the result. Ask subagents for conclusions with their evidence rather than step-by-step reasoning, and raise effort instead of urging thoroughness.
+- `explain-and-present` is always loaded through the import below; follow it directly instead of invoking the skill.
+
+@~/.agents/skills/explain-and-present/SKILL.md
