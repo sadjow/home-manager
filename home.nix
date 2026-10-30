@@ -77,6 +77,12 @@ in {
     ghPackage  # GitHub CLI
     pkgs.asdf-vm
     pkgs.neovim
+    # Install one desktop format to avoid duplicate font faces in Font Book.
+    (pkgs.runCommandLocal "${pkgs.jetbrains-mono.name}-desktop" { } ''
+      mkdir -p "$out/share/fonts"
+      ln -s ${pkgs.jetbrains-mono}/share/fonts/opentype "$out/share/fonts/opentype"
+    '')
+    (pkgs.fira-code.override { useVariableFont = false; })
     pkgs.ruby
     pkgs.nodejs_22  # Node.js 22.x LTS
     pkgs.cocoapods
