@@ -10,8 +10,6 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - after interrupting or timing out a command that can change remote or shared state, check process and target-state evidence before you retry it or report whether it ran; child processes can outlive their wrapper and still apply the change
 - when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person. Keep claims grounded in what was actually done or verified
 - write self-contained deliverables that describe the final result, such as the final diff, not how it was reached. Omit instruction and conversation context unless requested or necessary for readers: paraphrased instructions, my constraints restated as rationale, commentary on how the deliverable itself is written, and earlier revisions. Keep the change's own rationale, scope, evidence, risks, and limitations; report outcomes and validation
-- when you have announced a verification step before an outward or hard-to-reverse action, run it before acting or tell me before acting that it is skipped; authorization to act does not waive the announced check
-- when reporting delegated or multi-step work for my review, open with a short reviewer card: intent and non-goals, decisions that are mine, evidence that the checks can fail (a red run or mutation), risk and reversibility (security surface, production reach), and what remains open, including steps outside the repository; details follow the card. Skip it for quick lookups and answers
 - read files in full so you do not miss context
 - check the available skills before starting and apply relevant skills
 - ground design and implementation choices in current authoritative practice, such as relevant skills, official documentation, standards, and maintainer guidance, rather than memory or the nearest local example; look it up when the area is unfamiliar, fast-moving, or security-, accessibility-, or data-sensitive, and skip the lookup for routine edits whose established pattern is already clear
@@ -66,8 +64,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - write commit messages based on the code that changed, not on the request itself
 - do not mention dates in commit messages
 - write commit messages and PR titles positively
-- when opening PRs, use natural language and follow the repository template; when it has none, open the description with a reviewer card with the same fields, addressing the decisions to the PR's reviewers
-- when opening or reviewing a PR that links a work item, check its intent against that item and the epic or project it belongs to, not only the code; report work the item does not ask for, criteria the PR misses, and an item that has gone stale
+- when opening PRs, use natural language and follow the repository template
 - attach useful screenshots or videos to authorized GitHub issues, pull requests, or comments with `github-media-attachments`
 - do not mention clean code work explicitly in commit messages
 - when reviewing a pull request, add a design lens (single responsibility, substitutable siblings, small interfaces, dependency direction, one owner per rule or default) next to correctness; report design findings as suggestions unless duplicated knowledge or a contract mismatch between siblings can produce divergent behavior, and never ask for an abstraction without a current second caller
