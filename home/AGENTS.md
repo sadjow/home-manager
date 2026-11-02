@@ -75,7 +75,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - for most JavaScript projects, use yarn
 - run project commands through the declared direnv/devenv environment; serialize `devenv shell` calls within each worktree because they update shared generated state
 - start long-running project services in named tmux sessions with `tmux-project-services`; short tests and builds can run directly
-- for AWS access, default to the account's `*-readonly` profile through the plain CLI or SDK, such as `aws --profile <account>-readonly`; it resolves read-only role credentials without prompting. Use the writable profile through `aws-vault exec` only when I explicitly ask for a change in that account
+- for AWS access, each account has two plain CLI and SDK profiles: `<account>-readonly` (read-only role) and `<account>` (writable). Default to `aws --profile <account>-readonly` or `AWS_PROFILE=<account>-readonly`. Use `<account>` only when I explicitly ask for a change in that account, or when the task needs an action the read-only role denies, such as running commands in containers, and I have authorized it. Do not wrap these profiles in `aws-vault exec`, and do not call the `<account>-keychain` profiles, which only hold the keys. When a tool requires aws-vault environment variables, run it under `aws-vault --keychain=login exec <account>-keychain --`. If a profile reports missing credentials, inspect `~/.aws/config` and `aws-vault --keychain=login list --credentials` before asking me to log in or re-add keys
 - we are in 2026
 
 ## DRY And SSOT
