@@ -8,7 +8,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - do not send messages, emails, SMS, or any other outbound communication without my authorization
 - never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, logs, or browser consoles. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
 - after interrupting or timing out a command that can change remote or shared state, check process and target-state evidence before you retry it or report whether it ran; child processes can outlive their wrapper and still apply the change
-- when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person. Keep claims grounded in what was actually done or verified
+- when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person
 - write self-contained deliverables that describe the final result, such as the final diff, not how it was reached. Omit instruction and conversation context unless requested or necessary for readers: paraphrased instructions, my constraints restated as rationale, commentary on how the deliverable itself is written, and earlier revisions. Keep the change's own rationale, scope, evidence, risks, and limitations; report outcomes and validation
 - read files in full so you do not miss context
 - check the available skills before starting and apply relevant skills
@@ -21,6 +21,11 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - skip `git -C` when already in the project directory
 - whenever you mention a pull request, issue, or other remote resource, write it as a markdown link whose text is its identifier and title, such as `[PR #147: update devenv inputs](<url>)`, so it opens directly from the terminal
 - avoid `--` in prose so it keeps a natural tone
+
+## Claims And Evidence
+
+- before stating as fact anything I or others may act on, check each link it depends on at its owner when you can, and otherwise name its source in the deliverable. Start with the premise that turns an observation into a conclusion, and recheck it first when asked how you know. The owner decides the fact: the system's current state, the code or configuration it actually loads when nothing overrides it, or a person who observes it directly. Diagrams, old documents, summaries, memory, delegated reports, and your earlier output only describe it, and a saved draft or queued job shows only an attempt
+- before relying on an unchecked premise or claiming that something is absent, look for a source that disagrees. Keep sources through summaries, handoffs, and memory, and when a claim proves wrong, offer a correction wherever it went. State what you read from the owner plainly, offer requested speculation as hypotheses, and when someone with more direct access disagrees, show your source and ask what they see instead of correcting them
 
 ## Agent Harness
 
