@@ -37,6 +37,7 @@
     "github-media-attachments": "name-only",
     "github-team-delivery-review": "name-only",
     "keybindings-help": "name-only",
+    "review-pr-collaboratively": "user-invocable-only",
     "schedule": "name-only",
     "skill-creator": "name-only",
     "update-config": "name-only",
