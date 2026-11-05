@@ -9,7 +9,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - never print or broadly read secret-bearing files, environment dumps, credential stores, recorded HTTP fixtures, request dumps, logs, or browser consoles. Inspect existence, permissions, key names, or a redacted projection instead. When an authorized operation genuinely needs a value, pass it without echoing it. If a tool exposes a secret, stop the exposure, report the incident without repeating the value, and recommend rotation
 - after interrupting or timing out a command that can change remote or shared state, check process and target-state evidence before you retry it or report whether it ran; child processes can outlive their wrapper and still apply the change
 - when posting comments or updates on my behalf, write in my voice without referring to me by name or in the third person
-- write self-contained deliverables that describe the final result, such as the final diff, not how it was reached. Omit instruction and conversation context unless requested or necessary for readers: paraphrased instructions, my constraints restated as rationale, commentary on how the deliverable itself is written, and earlier revisions. Keep the change's own rationale, scope, evidence, risks, and limitations; report outcomes and validation
+- write self-contained deliverables, including posted comments and review bodies, that describe the final result, not how it was reached. Omit instruction and conversation context unless requested or necessary for readers: paraphrased instructions, my constraints or your working mode restated as framing, commentary on or tallies of the deliverable's own parts, and earlier revisions. Keep the change's own rationale, scope, evidence, risks, and limitations; report outcomes and validation
 - read files in full so you do not miss context
 - check the available skills before starting and apply relevant skills
 - ground design and implementation choices in current authoritative practice, such as relevant skills, official documentation, standards, and maintainer guidance, rather than memory or the nearest local example; look it up when the area is unfamiliar, fast-moving, or security-, accessibility-, or data-sensitive, and skip the lookup for routine edits whose established pattern is already clear
@@ -18,7 +18,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - before committing, verify that the changes work
 - for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - skip `git -C` when already in the project directory
-- whenever you mention a pull request, issue, or other remote resource, write it as a markdown link whose text is its identifier and title, such as `[PR #147: update devenv inputs](<url>)`, so it opens directly from the terminal
+- whenever you mention a pull request, issue, or other remote resource, make it a markdown link so it opens directly from the terminal; put the link on a short phrase that says what the work is, such as `[updated the devenv inputs](<url>)`, and add the identifier only when readers need it to search
 - avoid `--` in prose so it keeps a natural tone
 
 ## Claims And Evidence
