@@ -113,8 +113,8 @@ See [OpenAI's default permissions documentation](https://learn.chatgpt.com/docs/
 `home/t3-code.nix` declares the provider instances T3 Code shows in its Settings
 UI: the `claudeAgent` and `codex` instances, the isolated `claude_spireworks`,
 `claude_stackbuilders`, and `codex_spireworks` instances built from
-`home/claude/profiles.nix` and `home/codex/profiles.nix`, and one Cursor instance
-per organization, `cursor_spireworks` and `cursor_durst`. Each activation merges them into `~/.t3/userdata/settings.json` with the same
+`home/claude/profiles.nix` and `home/codex/profiles.nix`, and the
+`cursor_spireworks` instance. Each activation merges them into `~/.t3/userdata/settings.json` with the same
 three-way reconciliation as the Claude settings: the file stays writable with
 mode `600`, provider fields chosen in the UI survive while the declared fields
 are unchanged, and T3 Code reloads the file as soon as activation rewrites it.
@@ -127,14 +127,8 @@ account, add its profile to the matching profiles file and describe its instance
 in `home/t3-code.nix`; the instance runs the profile's wrapper command and points
 `homePath` at the same config directory.
 
-The Cursor agent keeps a single browser login per machine in the macOS keychain,
-which `cursor_spireworks` uses. Every other organization authenticates with an
-API key from its Cursor dashboard, supplied as a sensitive `CURSOR_API_KEY`
-variable in the Environment section of its instance in T3 Code; the value goes to
-T3 Code's secret store, never to this repository. `cursor_durst` is declared
-disabled so it cannot fall back to the keychain login, and enabling it in the UI
-after adding the key survives later activations because the declared field is
-unchanged.
+`cursor_spireworks` uses the Cursor agent's browser login, which the agent keeps
+once per machine in the macOS keychain.
 
 ### Shared Codex daemon
 

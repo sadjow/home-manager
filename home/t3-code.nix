@@ -9,10 +9,6 @@ let
       displayName = "Spireworks";
       accentColor = "#7c3aed";
     };
-    durst = {
-      displayName = "Durst";
-      accentColor = "#0f766e";
-    };
     stackbuilders = {
       displayName = "Stack Builders";
       accentColor = "#ea580c";
@@ -36,14 +32,6 @@ let
     driver = "codex";
     profiles = codexProfiles;
   });
-  # The Cursor agent keeps one browser login per machine, so additional
-  # organizations authenticate through a sensitive CURSOR_API_KEY variable
-  # added once in the instance's Environment section of T3 Code.
-  cursorInstance = { organization, enabled }: organization // {
-    driver = "cursor";
-    inherit enabled;
-    config.binaryPath = "cursor-agent";
-  };
   settings = (pkgs.formats.json { }).generate "t3-code-settings.json" {
     providers = {
       cursor.enabled = false;
@@ -73,13 +61,10 @@ let
         profile = "codex-spireworks";
         organization = organizations.spireworks;
       };
-      cursor_spireworks = cursorInstance {
-        organization = organizations.spireworks;
+      cursor_spireworks = organizations.spireworks // {
+        driver = "cursor";
         enabled = true;
-      };
-      cursor_durst = cursorInstance {
-        organization = organizations.durst;
-        enabled = false;
+        config.binaryPath = "cursor-agent";
       };
     };
   };

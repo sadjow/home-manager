@@ -57,7 +57,7 @@ class T3CodeSettingsActivationTest(unittest.TestCase):
             self.assertFalse(settings['providers']['grok']['enabled'])
             self.assertEqual(instances['cursor_spireworks']['displayName'],
                              instances['codex_spireworks']['displayName'])
-            self.assertEqual(instances['cursor_durst']['driver'], 'cursor')
+            self.assertEqual(instances['cursor_spireworks']['driver'], 'cursor')
             self.assertEqual(instances['claude_stackbuilders']['config'],
                              {'binaryPath': 'claude-stackbuilders', 'homePath': '~/.claude-stackbuilders'})
             self.assertEqual(instances['claude_spireworks']['config'],
