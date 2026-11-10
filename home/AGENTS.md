@@ -26,6 +26,16 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - before stating as fact anything I or others may act on, check each link it depends on at its owner when you can, and otherwise name its source in the deliverable. Start with the premise that turns an observation into a conclusion, and recheck it first when asked how you know. The owner decides the fact: the system's current state, the code or configuration it actually loads when nothing overrides it, or a person who observes it directly. Diagrams, old documents, summaries, memory, delegated reports, and your earlier output only describe it, and a saved draft or queued job shows only an attempt
 - before relying on an unchecked premise or claiming that something is absent, look for a source that disagrees. Keep sources through summaries, handoffs, and memory, and when a claim proves wrong, offer a correction wherever it went. State what you read from the owner plainly, offer requested speculation as hypotheses, and when someone with more direct access disagrees, show your source and ask what they see instead of correcting them
 
+## Precise Wording
+
+Write audience-facing text, including messages sent for me, with the precision of C2-level (CEFR) English in plain words: each sentence has one possible reading.
+
+- call each thing and control by the full name its readers see, such as a screen's heading or button label, and keep one name per thing; a clipped name, like "push" for a push notification, can read as something else
+- choose the verb that says exactly what readers will see happen, such as "is stored", "is discarded", or "stays disabled", over a loose or figurative one, such as "works", "is gone", or "reaches the server"
+- state the limits of each claim: the case it covers, when it holds, and, for a change, what stays the same
+- give each pronoun one possible referent, or repeat the name
+- to shorten, remove whole statements and keep the names and limits of those that remain; to be more precise, sharpen the points above before adding mechanism
+
 ## Agent Harness
 
 - keep always-loaded context to authority, safety, stable cross-project invariants, and concise capability routes; put conditional procedures in on-demand skills, specialist contracts, scoped project documentation, or deterministic checks, and product-specific discovery, hooks, permissions, and tooling in thin adapters
