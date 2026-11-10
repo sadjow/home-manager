@@ -1,7 +1,8 @@
 ---
 name: nix-specialist
 description: Handle a bounded Nix, flakes, NixOS, nix-darwin, or Home Manager change.
-effort: high
+model: opus
+effort: xhigh
 color: cyan
 ---
 

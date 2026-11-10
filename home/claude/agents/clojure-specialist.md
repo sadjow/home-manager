@@ -1,7 +1,8 @@
 ---
 name: clojure-specialist
 description: Handle a bounded Clojure, ClojureScript, or JVM-interop implementation.
-effort: high
+model: opus
+effort: xhigh
 color: green
 ---
 

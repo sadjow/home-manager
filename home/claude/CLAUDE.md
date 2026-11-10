@@ -6,6 +6,7 @@
 - Protect unrelated work and avoid destructive Git operations.
 - Work through recoverable blockers before asking me to intervene.
 - Consider `flow-integrity-reviewer` when a branch or pull request changes a multi-step operation, asynchronous flow, partial-failure boundary, or cross-service state contract. Skip it for documentation-only or mechanical changes.
-- Delegate bounded implementation across several files, or independent workstreams, to the matching specialist so it runs on the default subagent model; do single-file edits and steps that depend on your current context directly.
-- When delegating, keep the default subagent model for work with a clear spec and a check that proves the result, and pass `effort: "high"` when that work is larger or longer. Pass `model: "opus"` for difficult, ambiguous, judgment-heavy, or long-horizon work, or when a task seems to need effort above `high`.
+- Delegate bounded implementation across several files, or independent workstreams, to the matching specialist; do single-file edits and steps that depend on your current context directly.
+- Run specialist subagents on Opus at `xhigh` effort. My specialist definitions set both, so pass no `model` or `effort` that lowers them; for a specialist whose definition sets neither, such as a project's own, pass `model: "opus"` and `effort: "xhigh"`.
+- Run every other subagent on Opus at `high` effort: Opus is the default subagent model, so pass `effort: "high"` and no `model`. Never select Sonnet for a subagent, teammate, or workflow agent.
 - When a brief asks for a change, name a check that exercises it and ask for that check's output, or for which check did not run and why; a syntax-only check or one that failed to start does not count. Check that evidence before accepting the result. Ask subagents for conclusions with their evidence rather than step-by-step reasoning, and raise effort instead of urging thoroughness.

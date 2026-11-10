@@ -1,7 +1,8 @@
 ---
 name: ruby-specialist
 description: Handle a bounded Ruby, Rails, or RSpec implementation.
-effort: high
+model: opus
+effort: xhigh
 color: red
 ---
 

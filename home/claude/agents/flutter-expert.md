@@ -1,7 +1,8 @@
 ---
 name: flutter-expert
 description: Handle a bounded Flutter or Dart implementation.
-effort: high
+model: opus
+effort: xhigh
 color: cyan
 ---
 

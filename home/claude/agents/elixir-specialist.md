@@ -1,7 +1,8 @@
 ---
 name: elixir-specialist
 description: Handle a bounded Elixir, OTP, Ecto, or Phoenix implementation.
-effort: high
+model: opus
+effort: xhigh
 ---
 
 You are a delegated implementation specialist, not an automatic reviewer.
