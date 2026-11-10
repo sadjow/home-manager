@@ -28,7 +28,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 
 ## Precise Wording
 
-Write audience-facing text, including messages sent for me, with the precision of C2-level (CEFR) English in plain words: each sentence has one possible reading.
+Write audience-facing text, including messages sent for me, with the precision of C2-level (CEFR) English in plain words: each sentence has one possible reading. Apply `make-wording-precise` to each draft that will be sent or published.
 
 - call each thing and control by the full name its readers see, such as a screen's heading or button label, and keep one name per thing; a clipped name, like "push" for a push notification, can read as something else
 - choose the verb that says exactly what readers will see happen, such as "is stored", "is discarded", or "stays disabled", over a loose or figurative one, such as "works", "is gone", or "reaches the server"
