@@ -32,6 +32,7 @@ nix-collect-garbage -d                           # garbage collection
 - `home/claude-code.nix` and `home/claude/`: authored Claude Code configuration (`docs/CLAUDE_CODE_INTEGRATION.md`, ownership boundary in `home/claude/README.md`)
 - `home/codex.nix` and `home/codex/profiles.nix`: Codex defaults and isolated profiles
 - `home/t3-code.nix`: T3 Code provider instances reconciled into `~/.t3/userdata/settings.json` (`README.md`, T3 Code providers section)
+- `.agents/skills/`: skills for this repository only, discovered there by Codex and through the links in `.claude/skills/` by Claude Code
 
 ## Rules
 
