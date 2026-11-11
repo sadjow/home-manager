@@ -77,11 +77,10 @@ Write audience-facing text, including messages sent for me, with the precision o
 - use one-line conventional commit messages
 - do not add co-authors in commits
 - write commit messages based on the code that changed, not on the request itself
-- do not mention dates in commit messages
+- do not mention dates or clean code work in commit messages
 - write commit messages and PR titles positively
-- when opening PRs, use natural language and follow the repository template
+- open PRs ready for review, as drafts only when I ask; use natural language and follow the repository template
 - attach useful screenshots or videos to authorized GitHub issues, pull requests, or comments with `github-media-attachments`
-- do not mention clean code work explicitly in commit messages
 - when reviewing a pull request, add a design lens (single responsibility, substitutable siblings, small interfaces, dependency direction, one owner per rule or default) next to correctness; report design findings as suggestions unless duplicated knowledge or a contract mismatch between siblings can produce divergent behavior, and never ask for an abstraction without a current second caller
 
 ## Tooling Preferences
