@@ -18,7 +18,7 @@ Managed by Home Manager from `~/.config/home-manager/home/AGENTS.md`. Global ins
 - before committing, verify that the changes work
 - for safely, deterministically reproducible bugs, add the smallest focused regression, confirm it fails for the intended reason, then fix and prove it passes. If red-first reproduction is unsafe or impractical, explain why and add focused coverage immediately after fixing; never manufacture unrelated failures to claim red evidence
 - skip `git -C` when already in the project directory
-- whenever you mention a pull request, issue, or other remote resource, make it a markdown link so it opens directly from the terminal; put the link on a short phrase that says what the work is, such as `[updated the devenv inputs](<url>)`, and add the identifier only when readers need it to search
+- whenever you mention a remote resource, including a pull request, issue, comment, review, CI run, or document, make it a markdown link so it opens directly from the terminal; put the link on a short phrase that says what the work is, such as `[updated the devenv inputs](<url>)`, and add the identifier only when readers need it to search. When a tool returns only an identifier, look up the resource's stable URL or build it from the service's permalink format, never a signed or expiring URL; if no URL can be found, say so next to the identifier
 - avoid `--` in prose so it keeps a natural tone
 
 ## Claims And Evidence

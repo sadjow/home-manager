@@ -3,11 +3,12 @@ set -euo pipefail
 
 # A deliberate review point for always-loaded context, not a client limit:
 # growth must displace existing guidance or raise the budget with its reason
-# in the same commit. 1850 holds the conventions that apply across every
+# in the same commit. 1895 holds the conventions that apply across every
 # route rather than to one skill: deliverable narration, remote-resource
-# links, the review design lens, authoritative practice, audience-facing
-# output, claims and evidence, and precise wording.
-word_budget=1850
+# links with stable URLs for resources a tool returns only by identifier,
+# the review design lens, authoritative practice, audience-facing output,
+# claims and evidence, and precise wording.
+word_budget=1895
 
 words=$(wc -w < home/AGENTS.md | tr -d ' ')
 if (( words > word_budget )); then
