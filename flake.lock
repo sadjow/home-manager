@@ -537,11 +537,11 @@
     "skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794440884,
-        "narHash": "sha256-6U3qjIj2bma+KFkIhwoHYp6QRNvjUfZb4ek5pSh8mXA=",
+        "lastModified": 1794882094,
+        "narHash": "sha256-eGbFKAknM3tiSXF9Gds0jza/jJ/ezb4r8+tPvbfFO6M=",
         "owner": "sadjow",
         "repo": "skills",
-        "rev": "1983ee20985179ee915387c36993f04b917b27ff",
+        "rev": "983f5b46c2df77d7b5f5298207ce05b48b2f3b4b",
         "type": "github"
       },
       "original": {
